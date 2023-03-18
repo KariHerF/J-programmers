@@ -22,7 +22,7 @@ public class ControladorPedido {
 
 	/**
 	 * @param vista
-	 * @param modelo
+	 * @param modeloo
 	 */
 	public ControladorPedido(PedidoVista vista, Pedido modelo) {
 		super();
