@@ -4,7 +4,7 @@
 package grupofp.modelo;
 
 /**
- * @author josem
+ * @author KariHerF
  *
  */
 public class ListaClientes extends Lista<Cliente> {

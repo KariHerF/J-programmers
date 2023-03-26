@@ -1,6 +1,3 @@
-/**
- * 
- */
 package grupofp.controlador;
 
 import java.time.Duration;
@@ -13,148 +10,128 @@ import grupofp.vista.GestionOS;
 import grupofp.vista.OnlineStore;
 
 /**
- * @author josem
+ * @author KariHerF
  *
  */
 public class Controlador {
 
-	private OnlineStore vista;
-	private GestionOS vista;
-	private Cliente modelo;
-	private Articulo modelo;
-	private PedidoVista vista;
-	private Pedido modelo;
+	private OnlineStore vOnlineStore;
+	private GestionOS vGestionOS;
+	private Cliente mCliente;
+	private Articulo mArticulo;
+	private Pedido mPedido;
 
 	/**
 	 * @param vista
 	 * @param modelo
 	 */
-	public ControladorArticulo(OnlineStore vista, Articulo modelo) {
-		this.vista = vista;
-		this.modelo = modelo;
+	public Controlador(OnlineStore vOnlineStore, Cliente mCliente, Articulo mArticulo, Pedido mPedido) {
+		this.vOnlineStore = vOnlineStore;
+		this.mArticulo = mArticulo;
+		this.mCliente = mCliente;
+		this.mPedido = mPedido;
 	}
 
 	// getters y setters para actuar sobre el modelo
-	public void setCodigo(String codigo) {
-		this.modelo.setCodigo(codigo);
+	public void setCodigoArticulo(String codigo) {
+		this.mArticulo.setCodigo(codigo);
 	}
 
-	public String getCodigo() {
-		return this.modelo.getCodigo();
+	public String getCodigoArticulo() {
+		return this.mArticulo.getCodigo();
 	}
 
-	public void setDescripcion(String descripciion) {
-		this.modelo.setDescripcion(descripciion);
+	public void setDescripcionArticulo(String descripciion) {
+		this.mArticulo.setDescripcion(descripciion);
 	}
 
-	public String getDescripcion() {
-		return this.modelo.getDescripcion();
+	public String getDescripcionArticulo() {
+		return this.getDescripcionArticulo();
 	}
 
-	public void setPvp(Float pvp) {
-		this.modelo.setPvp(pvp);
-		;
+	public void setPvpArticulo(Float pvp) {
+		this.mArticulo.setPvp(pvp);
 	}
 
-	public Float getPvp() {
-		return this.modelo.getPvp();
+	public Float getPvpArticulo() {
+		return this.mArticulo.getPvp();
 	}
 
-	public void setGastosEnvio(Float gastosEnvio) {
-		this.modelo.setGastosEnvio(gastosEnvio);
+	public void setGastosEnvioArticulo(Float gastosEnvio) {
+		this.mArticulo.setGastosEnvio(gastosEnvio);
 	}
 
-	public Float getGastosEnvio() {
-		return this.modelo.getGastosEnvio();
+	public Float getGastosEnvioArticulo() {
+		return this.mArticulo.getGastosEnvio();
 	}
 
-	public void setTiempoPrep(Duration tiempoPrep) {
-		this.modelo.setTiempoPrep(null);
+	public void setTiempoPrepArticulo(Duration tiempoPrep) {
+		this.mArticulo.setTiempoPrep(null);
 	}
 
-	public Duration getTiempoPrep() {
-		return this.modelo.getTiempoPrep();
-	}
-	/**
-	 * @param vista
-	 * @param modelo
-	 */
-	public ControladorCliente(GestionOS vista, Cliente modelo) {
-		super();
-		this.vista = vista;
-		this.modelo = modelo;
+	public Duration getTiempoPrepArticulo() {
+		return this.mArticulo.getTiempoPrep();
 	}
 
 	//getters y setters para actuar sobre el modelo
-	public void setNombre(String nombre) {
-		this.modelo.setNombre(nombre);
+	public void setNombreCliente(String nombre) {
+		this.mCliente.setNombre(nombre);
 	}
-	public String getNombre() {
-		return this.modelo.getNombre();
-	}
-	
-	public void setDomicilio(String domicilio) {
-		this.modelo.setDomicilio(domicilio);
-	}
-	public String getDomicilio() {
-		return this.modelo.getDomicilio();
+	public String getNombreCliente() {
+		return this.mCliente.getNombre();
 	}
 	
-	public void setNif(String nif) {
-		this.modelo.setNif(nif);
+	public void setDomicilioCliente(String domicilio) {
+		this.mCliente.setDomicilio(domicilio);
 	}
-	public String getNif() {
-		return this.modelo.getNif();
-	}
-	
-	public void setEmail(String email) {
-		this.modelo.setEmail(email);
-	}
-	public String getEmail() {
-		return this.modelo.getEmail();
+	public String getDomicilioCliente() {
+		return this.mCliente.getDomicilio();
 	}
 	
-
-	/**
-	 * @param vista
-	 * @param modeloo
-	 */
-	public ControladorPedido(PedidoVista vista, Pedido modelo) {
-		super();
-		this.vista = vista;
-		this.modelo = modelo;
+	public void setNifCliente(String nif) {
+		this.mCliente.setNif(nif);
+	}
+	public String getNifCliente() {
+		return this.mCliente.getNif();
+	}
+	
+	public void setEmailCliente(String email) {
+		this.mCliente.setEmail(email);
+	}
+	public String getEmailCliente() {
+		return this.mCliente.getEmail();
 	}
 
 	// getters y setters para actuar sobre el modelo
-	public void setNumPedido(int numPedido) {
-		this.modelo.setNumPedido(numPedido);
+	public void setNumPedidoPedido(int numPedido) {
+		this.mPedido.setNumPedido(numPedido);
+	}
+
+	public int getCodigoPedido() {
+		return this.mPedido.getNumPedido();
+	}
+
+	public void setClientePedido(Cliente cliente) {
+		this.mPedido.setCliente(cliente);
 		;
 	}
 
-	public int getCodigo() {
-		return this.modelo.getNumPedido();
+	public Cliente getClientePedido() {
+		return this.mPedido.getCliente();
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.modelo.setCliente(cliente);
-		;
+	public void setFechaHoraPedido(Date fechaHora) {
+		this.mPedido.setFechaHora(fechaHora);
 	}
 
-	public Cliente getCliente() {
-		return this.modelo.getCliente();
-	}
-
-	public void setFechaHora(Date fechaHora) {
-		this.modelo.setFechaHora(fechaHora);
-	}
-
-	public Date getFechaHora() {
-		return this.modelo.getFechaHora();
+	public Date getFechaHoraPedido() {
+		return this.mPedido.getFechaHora();
 	}
 
 	// pasa el modelo a la vista para presentar los datos
-	public void actualizarVista() {
-		vista.printArticuloDetalles(modelo.getCodigo(), modelo.getDescripcion(), modelo.getPvp(), modelo.getGastosEnvio(), modelo.getTiempoPrep());
+	public void actualizarVistaArticulos() {
+		vGestionOS.printArticuloDetalles(mArticulo.getCodigo(), mArticulo.getDescripcion(), mArticulo.getPvp(), mArticulo.getGastosEnvio(), mArticulo.getTiempoPrep());
 	}
 
+	//TODO: faltan los actualizadores dew la vista para Clientes y Pedidos
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * @author josem
+ * @author KariHerF
  *
  */
 public class Datos {
