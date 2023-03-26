@@ -9,7 +9,7 @@ import java.time.Duration;
  * @author josem
  *
  */
-public class ArticuloVista {
+public class OnlineStore {
 
 	/**
 	 * 

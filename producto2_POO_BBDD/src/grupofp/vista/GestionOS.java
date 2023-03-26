@@ -7,7 +7,7 @@ package grupofp.vista;
  * @author josem
  *
  */
-public class ClienteVista {
+public class GestionOS {
 
 	/**
 	 * 
