@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * @author KariHerF
+ * @author J-Programers
  *
  */
 public class Lista <T> implements Iterable<T> {

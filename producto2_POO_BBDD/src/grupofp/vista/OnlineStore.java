@@ -4,9 +4,8 @@
 package grupofp.vista;
 
 import java.time.Duration;
-
 /**
- * @author KariHerF
+ * @author J-Programers
  *
  */
 public class OnlineStore {

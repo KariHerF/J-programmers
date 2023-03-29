@@ -1,5 +1,8 @@
 package grupofp.modelo;
-
+/**
+ * @author J-Programers
+ *
+ */
 public class ClienteEstandard extends Cliente {
 
     public ClienteEstandard(String email, String nombre, String domicilio, String nif) {
