@@ -1,5 +1,8 @@
 package grupofp.modelo;
-
+/**
+ * @author J-Programers
+ *
+ */
 public class ClientePremium extends Cliente {
 
 	private Float cuotaAnual;

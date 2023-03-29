@@ -2,6 +2,10 @@ package grupofp.modelo;
 
 import java.time.Duration;
 
+/**
+ * @author J-Programers
+ *
+ */
 public class Articulo {
 
     private String codigo;

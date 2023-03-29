@@ -10,7 +10,7 @@ import grupofp.vista.GestionOS;
 import grupofp.vista.OnlineStore;
 
 /**
- * @author KariHerF
+ * @author J-Programers
  *
  */
 public class Controlador {
@@ -133,5 +133,5 @@ public class Controlador {
 		vGestionOS.printArticuloDetalles(mArticulo.getCodigo(), mArticulo.getDescripcion(), mArticulo.getPvp(), mArticulo.getGastosEnvio(), mArticulo.getTiempoPrep());
 	}
 
-	//TODO: faltan los actualizadores dew la vista para Clientes y Pedidos
+	//TODO: faltan los actualizadores de la vista para Clientes y Pedidos
 }

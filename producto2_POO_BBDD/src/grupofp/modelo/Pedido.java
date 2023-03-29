@@ -2,7 +2,10 @@ package grupofp.modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * @author J-Programers
+ *
+ */
 public class Pedido {
 
 	private int numPedido;
@@ -150,12 +153,12 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [Número pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
+		return "Pedido [Nï¿½mero pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
 				", NIF Cliente=" + getCliente().getNif() + ", Nombre Cliente=" + getCliente().getNombre() +
-			    ", Código Artículo=" + getArticulo().getCodigo() + ", Descripción artículo=" + getArticulo().getDescripcion() +
-				", Nº unidades =" + getCantUnidades() + ", Precio Artículo=" + getArticulo().getPvp() +
-				", Coste envío =" + precioEnvio() + ", Coste total =" + getArticulo().getPvp() * this.cantUnidades +
-				", ¿Ha sido enviado?=" + pedidoEnviado() + "]";
+			    ", Cï¿½digo Artï¿½culo=" + getArticulo().getCodigo() + ", Descripciï¿½n artï¿½culo=" + getArticulo().getDescripcion() +
+				", Nï¿½ unidades =" + getCantUnidades() + ", Precio Artï¿½culo=" + getArticulo().getPvp() +
+				", Coste envï¿½o =" + precioEnvio() + ", Coste total =" + getArticulo().getPvp() * this.cantUnidades +
+				", ï¿½Ha sido enviado?=" + pedidoEnviado() + "]";
 	}
 
 	

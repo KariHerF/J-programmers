@@ -6,11 +6,11 @@ package grupofp.modelo;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
-
 /**
- * @author KariHerF
+ * @author J-Programers
  *
  */
+
 public class Datos {
 	
 	private Cliente cliente;

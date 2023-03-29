@@ -3,7 +3,8 @@ package grupofp.modelo;
 public abstract class Cliente {
 
 	/**
-	 * 
+	 * @author J-Programers
+	 *
 	 */
 	private String email;
 	private String nombre;
