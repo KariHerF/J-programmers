@@ -128,7 +128,7 @@ public class Controlador {
 		return this.mPedido.getFechaHora();
 	}
 
-	// pasa el modelo a la vista para presentar los datos
+	// Pasa el modelo a la vista para presentar los datos
 	public void actualizarVistaArticulos() {
 		vGestionOS.printArticuloDetalles(mArticulo.getCodigo(), mArticulo.getDescripcion(), mArticulo.getPvp(), mArticulo.getGastosEnvio(), mArticulo.getTiempoPrep());
 	}
