@@ -20,47 +20,71 @@ public class Datos {
 	private ListaArticulos listaArticulos;
 	private ListaPedidos listaPedidos;
 
+
 	/**
-	 * 
+	 * @param cliente
+	 * @param articulo
+	 * @param pedido
+	 * @param listaClientes
+	 * @param listaArticulos
+	 * @param listaPedidos
 	 */
-	public Datos() {
-		// TODO Auto-generated constructor stub
+	public Datos(Cliente cliente, Articulo articulo, Pedido pedido, ListaClientes listaClientes,
+			ListaArticulos listaArticulos, ListaPedidos listaPedidos) {
+		this.cliente = cliente;
+		this.articulo = articulo;
+		this.pedido = pedido;
+		this.listaClientes = listaClientes;
+		this.listaArticulos = listaArticulos;
+		this.listaPedidos = listaPedidos;
 	}
 
 	// getters y setters para actuar sobre el modelo
-	public void setNombre(String nombre) {
+	public void setNombreCliente(String nombre) {
 		this.cliente.setNombre(nombre);
 	}
 
-	public String getNombre() {
+	public String getNombreCliente() {
 		return this.cliente.getNombre();
 	}
 
-	public void setDomicilio(String domicilio) {
+	public void setDomicilioCliente(String domicilio) {
 		this.cliente.setDomicilio(domicilio);
 	}
 
-	public String getDomicilio() {
+	public String getDomicilioCliente() {
 		return this.cliente.getDomicilio();
 	}
 
-	public void setNif(String nif) {
+	public void setNifCliente(String nif) {
 		this.cliente.setNif(nif);
 	}
 
-	public String getNif() {
+	public String getNifCliente() {
 		return this.cliente.getNif();
 	}
 
-	public void setEmail(String email) {
+	public void setEmailCliente(String email) {
 		this.cliente.setEmail(email);
 	}
 
-	public String getEmail() {
+	public String getEmailCliente() {
 		return this.cliente.getEmail();
 	}
 	
-	public void setCodigoPedido(String codigo) {
+	public Class getTipoCliente() {
+		return this.cliente.getClass();
+	}
+	
+	public float getCalcAnualCliente() {
+		return this.cliente.calcAnual();
+	}
+	
+	public float getDescuentoEnvCliente() {
+		return this.cliente.descuentoEnv();
+	}
+	
+	public void setCodigoArticulo(String codigo) {
 		this.articulo.setCodigo(codigo);
 	}
 
@@ -68,36 +92,36 @@ public class Datos {
 		return this.articulo.getCodigo();
 	}
 
-	public void setDescripcion(String descripciion) {
+	public void setDescripcionArticulo(String descripciion) {
 		this.articulo.setDescripcion(descripciion);
 	}
 
-	public String getDescripcion() {
+	public String getDescripcionArticulo() {
 		return this.articulo.getDescripcion();
 	}
 
-	public void setPvp(Float pvp) {
+	public void setPvpArticulo(Float pvp) {
 		this.articulo.setPvp(pvp);
 		;
 	}
 
-	public Float getPvp() {
+	public Float getPvpArticulo() {
 		return this.articulo.getPvp();
 	}
 
-	public void setGastosEnvio(Float gastosEnvio) {
+	public void setGastosEnvioArticulo(Float gastosEnvio) {
 		this.articulo.setGastosEnvio(gastosEnvio);
 	}
 
-	public Float getGastosEnvio() {
+	public Float getGastosEnvioArticulo() {
 		return this.articulo.getGastosEnvio();
 	}
 
-	public void setTiempoPrep(Duration tiempoPrep) {
-		this.articulo.setTiempoPrep(null);
+	public void setTiempoPrepArticulo(Duration tiempoPrep) {
+		this.articulo.setTiempoPrep(tiempoPrep);
 	}
 
-	public Duration getTiempoPrep() {
+	public Duration getTiempoPrepArticulo() {
 		return this.articulo.getTiempoPrep();
 	}
 	
@@ -118,15 +142,38 @@ public class Datos {
 	public Cliente getClientePedido() {
 		return this.pedido.getCliente();
 	}
+	
+	public void setArticuloPedido(Articulo articulo) {
+		this.pedido.setArticulo(articulo);
+	}
 
-	public void setFechaHora(Date fechaHora) {
+	public Articulo getArticuloPedido() {
+		return this.pedido.getArticulo();
+	}
+
+	public void setFechaHoraPedido(Date fechaHora) {
 		this.pedido.setFechaHora(fechaHora);
 	}
 
-	public Date getFechaHora() {
+	public Date getFechaHoraPedido() {
 		return this.pedido.getFechaHora();
 	}
 	
+	public void setCantUnidadesPedido(int unidades) {
+		this.pedido.setCantUnidades(unidades);
+	}
+
+	public int getCantUnidadesPedido() {
+		return this.pedido.getCantUnidades();
+	}
+	
+	public boolean getPedidoEnviado(){
+		return this.pedido.pedidoEnviado();
+	}
+	
+	public float getPrecioEnvioPedido(){
+		return this.pedido.precioEnvio();
+	}
 	
 
 }

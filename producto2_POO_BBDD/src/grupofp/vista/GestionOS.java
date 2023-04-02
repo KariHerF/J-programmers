@@ -14,7 +14,7 @@ import grupofp.modelo.Cliente;
 public class GestionOS {
 
 
-	public void printClienteDetalles(String nombre, String domicilio, String nif, String email, String tipo, float calcAnual, float descuentoEnv) {
+	public void printClienteDetalles(String nombre, String domicilio, String nif, String email, Class tipo, float calcAnual, float descuentoEnv) {
 		System.out.println("**** DATOS CLIENTE ****");
 		System.out.println("Id: " + nombre);
 		System.out.println("Nombre: " + domicilio);
