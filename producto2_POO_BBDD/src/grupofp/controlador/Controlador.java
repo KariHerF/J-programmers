@@ -137,9 +137,8 @@ public class Controlador {
 		vGestionOS.printClienteDetalles(mCliente.getNombre(), mCliente.getDomicilio(), mCliente.getNif(), mCliente.getEmail(), mCliente.tipoCliente(), mCliente.calcAnual(), mCliente.descuentoEnv());
 	}
 
-	// public void actualizarVistaPedidos() {
-	// 	vGestionOS.printPedidoDetalles();
-	// }
+	public void actualizarVistaPedidos() {
+		vGestionOS.printPedidoDetalles(mPedido.getNumPedido(), mPedido.getCliente(), mPedido.getArticulo(), mPedido.getCantUnidades(), mPedido.getFechaHora(), mPedido.pedidoEnviado(), mPedido.precioEnvio());
+	}
 
-	//TODO: faltan los actualizadores de la vista para Pedidos
 }

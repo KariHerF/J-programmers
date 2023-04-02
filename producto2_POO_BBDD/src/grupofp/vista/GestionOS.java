@@ -4,7 +4,9 @@
 package grupofp.vista;
 
 import java.time.Duration;
-
+import grupofp.modelo.Articulo;
+import java.util.Date;
+import grupofp.modelo.Cliente;
 /**
  * @author J-Programers
  *
@@ -34,8 +36,17 @@ public class GestionOS {
 
 	}
 
-	// public void printPedidoDetalles() {
-	
-	// }
+	public void printPedidoDetalles(int numPedido, Cliente cliente, Articulo articulo, int cantUnidades, Date fechaHora, boolean enviado, float precioEnvio) {
+		System.out.println("**** DATOS PEDIDO ****");
+		System.out.println("Numero de pedido: " + numPedido);
+		System.out.println("Cliente: " + cliente.toString());
+		System.out.println("Articulo: " + articulo.toString());
+		System.out.println("Unidades: " + cantUnidades);
+		System.out.println("Fecha y hora: " + fechaHora);
+		String msgEnviado = enviado ? "si" : "no";
+		System.out.println("Enviado: " + msgEnviado);
+		System.out.println("Precio envio: " + precioEnvio);
+
+	}
 
 }
