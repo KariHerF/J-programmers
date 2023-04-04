@@ -11,13 +11,6 @@ public abstract class Cliente {
 	private String domicilio;
 	private String nif;
 
-	public Cliente(String email, String nombre, String domicilio, String nif) {
-		this.setEmail(email);
-		this.setNombre(nombre);
-		this.setDomicilio(domicilio);
-		this.setNif(nif);
-	}
-
 	public String getNif() {
 		return nif;
 	}

@@ -6,6 +6,9 @@ package grupofp.modelo;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
+
+import grupofp.controlador.Controlador;
 /**
  * @author J-Programers
  *
@@ -13,30 +16,70 @@ import java.util.Date;
 
 public class Datos {
 	
-	private Cliente cliente;
 	private Articulo articulo;
+	private Cliente cliente;
 	private Pedido pedido;
-	private ListaClientes listaClientes;
-	private ListaArticulos listaArticulos;
-	private ListaPedidos listaPedidos;
+	private Controlador miControlador;
+	protected ListaClientes listaClientes = new ListaClientes();
+	protected ListaArticulos listaArticulos = new ListaArticulos();
+	protected ListaPedidos listaPedidos = new ListaPedidos();
+	
+	
+	
+	public void setControlador(Controlador miControlador) {
+		this.miControlador=miControlador;
+	}
+	
+	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo, Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
+		
+		try {
+			//Instanciamos el articulo
+			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);
+			
+	 		if (articulo != null) {
+	 			System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
+	 			System.out.println(articulo.toString());
+	 			this.anadirArticuloAListaArticulos(articulo);
+	 		}	
+			
+		} catch (Exception ex) {
+			// printStackTrace method
+            // prints line numbers + call stack
+            ex.printStackTrace();
+            // Prints what exception has been thrown
+            System.out.println(ex);
+		}
+	}
+	
+	public void anadirArticuloAListaArticulos(Articulo articulo) {
+		
+		try {
+			//Anadimos el articulo a la lista de articulos
+			this.listaArticulos.add(articulo);
+			
+		} catch (Exception ex) {
+			// printStackTrace method
+            // prints line numbers + call stack
+            ex.printStackTrace();
+            // Prints what exception has been thrown
+            System.out.println(ex);
+		}
+	}
+	
+
+	/**
+	 * @return the articulo
+	 */
+	public Articulo getArticulo() {
+		return articulo;
+	}
 
 
 	/**
-	 * @param cliente
-	 * @param articulo
-	 * @param pedido
-	 * @param listaClientes
-	 * @param listaArticulos
-	 * @param listaPedidos
+	 * @param cliente the articulo to set
 	 */
-	public Datos(Cliente cliente, Articulo articulo, Pedido pedido, ListaClientes listaClientes,
-			ListaArticulos listaArticulos, ListaPedidos listaPedidos) {
-		this.cliente = cliente;
+	public void setArticulo(Cliente cliente) {
 		this.articulo = articulo;
-		this.pedido = pedido;
-		this.listaClientes = listaClientes;
-		this.listaArticulos = listaArticulos;
-		this.listaPedidos = listaPedidos;
 	}
 
 	// getters y setters para actuar sobre el modelo
@@ -72,7 +115,7 @@ public class Datos {
 		return this.cliente.getEmail();
 	}
 	
-	public Class getTipoCliente() {
+	public Class<? extends Cliente> getTipoCliente() {
 		return this.cliente.getClass();
 	}
 	

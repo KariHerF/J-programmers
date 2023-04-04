@@ -9,20 +9,6 @@ public class ClientePremium extends Cliente {
 	private Float dtoGtoEnvio;
 
 	/**
-	 * @param email
-	 * @param nombre
-	 * @param domicilio
-	 * @param nif
-	 * @param cuotaAnual
-	 * @param dtoGtoEnvio
-	 */
-	public ClientePremium(String email, String nombre, String domicilio, String nif, Float cuotaAnual, Float dtoGtoEnvio) {
-		super(email, nombre, domicilio, nif);
-		this.cuotaAnual = cuotaAnual;
-		this.dtoGtoEnvio = dtoGtoEnvio;
-	}
-
-	/**
 	 * @return the cuotaAnual
 	 */
 	public Float getCuotaAnual() {

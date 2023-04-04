@@ -3,10 +3,8 @@ package grupofp.controlador;
 import java.time.Duration;
 import java.util.Date;
 
-import grupofp.modelo.Articulo;
 import grupofp.modelo.Cliente;
 import grupofp.modelo.Datos;
-import grupofp.modelo.Pedido;
 import grupofp.vista.GestionOS;
 
 /**
@@ -25,6 +23,16 @@ public class Controlador {
 	public Controlador(GestionOS vGestionOS, Datos datos) {
 		this.vGestionOS = vGestionOS;
 		this.datos = datos;
+	}
+	
+	String codigo_articulo;
+	    String descripcion_articulo;
+	    float pvp_articulo;
+	    String tiempoPrep_articulo;
+	    Duration tiempoPrep_articulo_parsed;
+	    float gastosEnvioArticulo;
+	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo, Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
+		datos.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);
 	}
 
 	//Getters y setters para actuar sobre todas las clases del modelo

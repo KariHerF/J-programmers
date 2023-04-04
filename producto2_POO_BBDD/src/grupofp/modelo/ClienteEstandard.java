@@ -5,11 +5,6 @@ package grupofp.modelo;
  */
 public class ClienteEstandard extends Cliente {
 
-    public ClienteEstandard(String email, String nombre, String domicilio, String nif) {
-        super(email, nombre, domicilio, nif);
-        
-    }
-
     @Override
     public String toString() {
     	return "Cliente Estandar [domicilio=" + super.getDomicilio() + ", email=" + super.getEmail() + ", nif=" + super.getNif() + ", nombre=" + super.getNombre() + "]";

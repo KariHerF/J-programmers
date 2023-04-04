@@ -11,10 +11,18 @@ import java.util.Iterator;
  *
  */
 public class Lista <T> implements Iterable<T> {
-	private ArrayList <T> listaClientes = new ArrayList <>();
+	protected ArrayList <T> lista = new ArrayList <>();
+	
+	public void add(T objeto){ 
+	    lista.add(objeto); 
+	 } 
+	 
+	 public ArrayList<T> getList(){ 
+	    return lista; 
+	 } 
 	
 	public Iterator <T> iterator() {
-		return listaClientes.iterator();
+		return lista.iterator();
 	}
 
 }
