@@ -1,9 +1,12 @@
 package grupofp.controlador;
+
 import java.util.Scanner;
 
+import grupofp.controlador.Controlador;
 import grupofp.modelo.Articulo;
-
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 /**
  * @author J-Programers
@@ -12,6 +15,7 @@ import java.util.InputMismatchException;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+    	
     	Scanner sn= new Scanner(System.in); //introducimos el teclado
     	boolean salir = false;
     	int opcion;
@@ -23,7 +27,7 @@ public class Main {
              System.out.println("3. Gestion de Clientes");
              System.out.println("4. Salir");
              
-          /* try { *///este es un try and catch de intentar una cosa y si no fucniona sale la otra opcion
+           try { //este es un try and catch de intentar una cosa y si no fucniona sale la otra opcion
             
              opcion = sn.nextInt();
              
@@ -38,46 +42,96 @@ public class Main {
             	 Scanner sn_submenu = new Scanner(System.in); //introducimos el teclado
             	 while(!salir) {
             		 opcion = sn_submenu.nextInt();
+            		 Articulo art1 = new Articulo(null, null, opcion, null, opcion);
             		 switch(opcion) {
 	            	 	 case 1:
+	            	 		 
+	            	 		 System.out.println("Introducir nombre del artï¿½culo:\n");
+	            	 		 Scanner sn_codigo_art = new Scanner(System.in);
+	            	 		 art1.setCodigo(sn_codigo_art.nextLine());
+	            	 		 System.out.println("Introducir descripciï¿½n del artï¿½culo:\n");
+	            	 		 Scanner sn_descripcion_art = new Scanner(System.in);
+	            	 		 art1.setDescripcion(sn_descripcion_art.nextLine());
+	            	 		System.out.println("Introducir gastos envï¿½o del artï¿½culo:\n");
+	            	 		 Scanner sn_gastos_art = new Scanner(System.in);
+	            	 		 art1.setGastosEnvio(sn_gastos_art.nextFloat());
+	            	 		 System.out.println("Introducir pvp del artï¿½culo:\n");
+	            	 		 Scanner sn_pvp_art = new Scanner(System.in);
+	            	 		 art1.setPvp(sn_pvp_art.nextFloat());
+	            	 		System.out.println("Introducir el tiempo de preparaciï¿½n del artï¿½culo. IMPORTANTE con este formato: yyyy-MM-dd HH:mm:ss \n");
+	            	 		Scanner sn_tiempo_prep_art = new Scanner(System.in);
+	            	 			            	 	
+	            	 		LocalDateTime ahora = LocalDateTime.now();
+	            	 		String fechaEntregaString = sn_tiempo_prep_art.nextLine();
+	            	 		LocalDateTime fechaEntrega = LocalDateTime.parse(fechaEntregaString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	            	 		art1.setTiempoPrep(Duration.between(ahora, fechaEntrega));
+
+	            	     //Hay que trabajar con la localdate time para eso xd!!!!
+	            	 		System.out.println(art1);
+
+	            	   System.out.println("Propiedades del artÃ­culo:\n");
+	            	   System.out.println("Nombre: "+ art1.getCodigo()+"\n");
+	            	   System.out.println("Descricpcion: "+ art1.getDescripcion()+"\n");
+	            	   System.out.println("Gastos envio: "+ art1.getGastosEnvio()+"\n");
+	            	   System.out.println("Precio Venta: "+ art1.getPvp()+"\n");
+	            	   System.out.println("Fecha estimada de entrega: "+ art1.getTiempoPrep()+"\n");
+	            	   
+	            			   
+	            			   
+	            	   		/*, "\n Descrpcion: %s ", sn_descripcion_art
+	            	   		, "\n Gastos de envio: %f", sn_gastos_art
+	            	   		, "\n Precio Venta: %f", sn_pvp_art
+	            	   		, "\n Fecha estimada de entrega: ", sn_tiempo_prep_art);
+	            	 		 */
+	            	 		 /*
 	            	 		String codigo_articulo;
 	            	 	    String descripcion_articulo;
 	            	 	    float pvp_articulo;
 	            	 	    String tiempoPrep_articulo;
 	            	 	    Duration tiempoPrep_articulo_parsed;
 	            	 	    float gastosEnvioArticulo;
-	            	 		System.out.println("Introducir nombre del artículo:\n");
+	            	 		System.out.println("Introducir nombre del artï¿½culo:\n");
 	            	 		Scanner sn_codigo_articulo = new Scanner(System.in);
 	            	 		codigo_articulo = sn_codigo_articulo.nextLine();
 	            	 		
-	            	 		System.out.println("Introducir descripción del artículo:\n");
+	            	 		System.out.println("Introducir descripciï¿½n del artï¿½culo:\n");
 	            	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
 	            	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
 	            	 		
-	            	 		System.out.println("Introducir pvp del artículo:\n");
+	            	 		System.out.println("Introducir pvp del artï¿½culo:\n");
 	            	 		Scanner sn_pvp_articulo = new Scanner(System.in);
 	            	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
 	            	 		
-	            	 		System.out.println("Introducir el tiempo de preparación del artículo:\n");
-	            	 		System.out.print("(la duración debe introducirse en formato ISO 8601 (PTnHnMnS))\n");
+	            	 		System.out.println("Introducir el tiempo de preparaciï¿½n del artï¿½culo:\n");
+	            	 		System.out.print("(la duraciï¿½n debe introducirse en formato ISO 8601 (PTnHnMnS))\n");
 	            	 		Scanner sn_tiempo_prep_articulo = new Scanner(System.in);
 	            	 		tiempoPrep_articulo = sn_tiempo_prep_articulo.nextLine();
 	            	 		Duration duration = Duration.parse(tiempoPrep_articulo);
 	            	 		tiempoPrep_articulo_parsed = duration;
 	            	 		
-	            	 		System.out.println("Introducir gastos envío del artículo:\n");
+	            	 		System.out.println("Introducir gastos envï¿½o del artï¿½culo:\n");
 	            	 		Scanner sn_gastos_envio_articulo = new Scanner(System.in);
 	            	 		gastosEnvioArticulo = sn_descripcion_articulo.nextFloat();
 	            	 		
 	            	 		Articulo nuevo_articulo = new Articulo(codigo_articulo,descripcion_articulo,pvp_articulo,tiempoPrep_articulo_parsed,gastosEnvioArticulo);
 	            	 		
 	            	 		if (nuevo_articulo != null) {
-	            	 			System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
+	            	 			System.out.println("Se ha creado un nuevo artï¿½culo con las siguientes caracterï¿½sticas:\n");
 	            	 			nuevo_articulo.toString();
 	            	 		}	
-	            	 		
+	            	 		*/
 	            	 		break;
 	            	 	 case 2:
+	            	 		 if(art1 != null) {
+	            	 			art1.setCodigo(null);
+	            	 			art1.setDescripcion(null);
+	            	 			art1.setGastosEnvio(opcion);
+	            	 			art1.setPvp(opcion);
+	            	 			art1.setTiempoPrep(null);
+	            	 		 }
+	            	 		  System.out.println("No puedes aliminar un articulo que no existe");
+	            	 		
+	            	 		 
 	            	 		break;
 	            	 	 case 3:
 	            	 		break;
@@ -104,11 +158,11 @@ public class Main {
              default:
                  System.out.println("Solo nÃºmeros entre 1 y 4");
              }
-            /*}*/
-            /*catch(InputMismatchException error){*/ //en caso de error
+            }
+            catch(InputMismatchException error){ //en caso de error
             	System.out.println("Debes selecionar alguna opcion.");
             	sn.next();
-            /*}*/
+            }
 	}
           
     }
