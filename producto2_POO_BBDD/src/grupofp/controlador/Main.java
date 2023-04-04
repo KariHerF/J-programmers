@@ -78,11 +78,7 @@ public class Main {
 	            	   
 	            			   
 	            			   
-	            	   		/*, "\n Descrpcion: %s ", sn_descripcion_art
-	            	   		, "\n Gastos de envio: %f", sn_gastos_art
-	            	   		, "\n Precio Venta: %f", sn_pvp_art
-	            	   		, "\n Fecha estimada de entrega: ", sn_tiempo_prep_art);
-	            	 		 */
+	            	   	
 	            	 		 /*
 	            	 		String codigo_articulo;
 	            	 	    String descripcion_articulo;
@@ -122,18 +118,22 @@ public class Main {
 	            	 		*/
 	            	 		break;
 	            	 	 case 2:
-	            	 		 if(art1 != null) {
-	            	 			art1.setCodigo(null);
-	            	 			art1.setDescripcion(null);
-	            	 			art1.setGastosEnvio(opcion);
-	            	 			art1.setPvp(opcion);
-	            	 			art1.setTiempoPrep(null);
-	            	 		 }
-	            	 		  System.out.println("No puedes aliminar un articulo que no existe");
-	            	 		
-	            	 		 
+	            	 		    if (art1 != null) { // Comprobar si el Articulo no es null
+	            	 		    	art1.setCodigo(null);
+		            	 			art1.setDescripcion(null);
+		            	 			art1.setGastosEnvio(opcion);
+		            	 			art1.setPvp(opcion);
+		            	 			art1.setTiempoPrep(null);
+		            	 	    	art1 = null; // Establecer el objeto en null después de eliminarlo
+		                            System.out.println("Articulo eliminado");
+		                        } else {
+		                            System.out.println("No se ha creado ningún Articulo todavía");
+		                        }
+		            	 		  
+	            	 		  
 	            	 		break;
 	            	 	 case 3:
+	            	 		 
 	            	 		break;
 	            	 	 case 4:
 	            	 		break;
