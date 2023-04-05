@@ -4,36 +4,18 @@ package grupofp.modelo;
  *
  */
 public class ClientePremium extends Cliente {
-
-	private Float cuotaAnual;
-	private Float dtoGtoEnvio;
-
-	/**
-	 * @return the cuotaAnual
-	 */
-	public Float getCuotaAnual() {
-		return cuotaAnual;
-	}
+	//Constantes para guardar la cuota anual y el descuento de gastos de envío de un cliente premium
+	private final float cuotaAnual = 30f;
+	private final float dtoGtoEnvio = 0.2f;
 
 	/**
-	 * @param cuotaAnual the cuotaAnual to set
+	 * @param email
+	 * @param nombre
+	 * @param domicilio
+	 * @param nif
 	 */
-	public void setCuotaAnual(Float cuotaAnual) {
-		this.cuotaAnual = cuotaAnual;
-	}
-
-	/**
-	 * @return the dtoGtoEnvio
-	 */
-	public Float getDtoGtoEnvio() {
-		return dtoGtoEnvio;
-	}
-
-	/**
-	 * @param dtoGtoEnvio the dtoGtoEnvio to set
-	 */
-	public void setDtoGtoEnvio(Float dtoGtoEnvio) {
-		this.dtoGtoEnvio = dtoGtoEnvio;
+	public ClientePremium(String email, String nombre, String domicilio, String nif) {
+		super(email, nombre, domicilio, nif);
 	}
 
 	/**
@@ -41,9 +23,9 @@ public class ClientePremium extends Cliente {
 	 */
 	@Override
 	public String toString() {
-		return "Cliente Estandar [domicilio=" + super.getDomicilio() + ", email=" + super.getEmail() + ", nif="
-				+ super.getNif() + ", nombre=" + super.getNombre() + ", cuotaAnual=" + this.getCuotaAnual()
-				+ "dtoGtoEnvio=" + this.getDtoGtoEnvio() + "]";
+		return "Cliente Premium [email=" + super.getEmail() + ", nombre=" + super.getNombre() +
+				", domicilio=" + super.getDomicilio() + ", nif=" + super.getNif() + ", cuotaAnual=" + this.cuotaAnual
+				+ ", dtoGtoEnvio=" + this.dtoGtoEnvio + "]";
 	}
 
 	@Override

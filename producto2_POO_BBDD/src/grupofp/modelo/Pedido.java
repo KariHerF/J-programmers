@@ -24,17 +24,13 @@ public class Pedido {
 	 * @param cantUnidades
 	 * @param enviado
 	 */
-	public Pedido(int numPedido, Cliente cliente, Articulo articulo, Date fechaHora, int cantUnidades,
-			boolean enviado) {
+	public Pedido(int numPedido, Cliente cliente, Articulo articulo, Date fechaHora, int cantUnidades) {
 		this.numPedido = numPedido;
 		this.cliente = cliente;
 		this.articulo = articulo;
 		this.fechaHora = fechaHora;
 		this.cantUnidades = cantUnidades;
-		this.enviado = enviado;
 	}
-
-
 
 	/**
 	 * @return the numPedido
@@ -43,16 +39,12 @@ public class Pedido {
 		return numPedido;
 	}
 
-
-
 	/**
 	 * @param numPedido the numPedido to set
 	 */
 	public void setNumPedido(int numPedido) {
 		this.numPedido = numPedido;
 	}
-
-
 
 	/**
 	 * @return the cliente
@@ -61,8 +53,6 @@ public class Pedido {
 		return cliente;
 	}
 
-
-
 	/**
 	 * @param cliente the cliente to set
 	 */
@@ -70,16 +60,12 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-
-
 	/**
 	 * @return the fechaHora
 	 */
 	public Date getFechaHora() {
 		return fechaHora;
 	}
-
-
 
 	/**
 	 * @param fechaHora the fechaHora to set
@@ -89,15 +75,12 @@ public class Pedido {
 	}
 
 
-
 	/**
 	 * @return the cantUnidades
 	 */
 	public int getCantUnidades() {
 		return cantUnidades;
 	}
-
-
 
 	/**
 	 * @param cantUnidades the cantUnidades to set
@@ -106,25 +89,12 @@ public class Pedido {
 		this.cantUnidades = cantUnidades;
 	}
 
-
-
 	/**
 	 * @return the enviado
 	 */
 	public boolean pedidoEnviado() {
 		return enviado;
 	}
-
-
-
-	/**
-	 * @param enviado the enviado to set
-	 */
-	public void setEnviado(boolean enviado) {
-		this.enviado = enviado;
-	}
-
-
 
 	/**
 	 * @return the articulo

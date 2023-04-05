@@ -1,5 +1,7 @@
 package grupofp.modelo;
 
+import java.util.Objects;
+
 public abstract class Cliente {
 
 	/**
@@ -10,6 +12,13 @@ public abstract class Cliente {
 	private String nombre;
 	private String domicilio;
 	private String nif;
+
+	public Cliente(String email, String nombre, String domicilio, String nif) {
+		this.setEmail(email);
+		this.setNombre(nombre);
+		this.setDomicilio(domicilio);
+		this.setNif(nif);
+	}
 
 	public String getNif() {
 		return nif;
@@ -54,4 +63,22 @@ public abstract class Cliente {
 	 */
 	@Override
 	public abstract String toString();
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		return Objects.equals(email, other.email);
+	}
+
 }

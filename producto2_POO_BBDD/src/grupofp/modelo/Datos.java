@@ -9,24 +9,31 @@ import java.util.Date;
 import java.util.Scanner;
 
 import grupofp.controlador.Controlador;
+import grupofp.vista.GestionOS;
+
 /**
  * @author J-Programers
  *
  */
 
 public class Datos {
-	
+
 	private Articulo articulo;
 	private Cliente cliente;
 	private Pedido pedido;
 	private Controlador miControlador;
+	private GestionOS miVistaGestionOS;
 	protected ListaClientes listaClientes = new ListaClientes();
 	protected ListaArticulos listaArticulos = new ListaArticulos();
-	
+	protected ListaPedidos listaPedidos = new ListaPedidos();
+
+	protected String cliente_premium = "PREMIUM";
+	protected String cliente_estandar = "ESTANDAR";
+
 	public void setControlador(Controlador miControlador) {
-		this.miControlador=miControlador;
+		this.miControlador = miControlador;
 	}
-	
+
 	/**
 	 * @return the listaClientes
 	 */
@@ -69,45 +76,165 @@ public class Datos {
 		this.listaPedidos = listaPedidos;
 	}
 
-	protected ListaPedidos listaPedidos = new ListaPedidos();
-	
-	
-	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo, Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
-		
-		try {
-			//Instanciamos el articulo
-			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);
-			
-	 		if (articulo != null) {
-	 			System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
-	 			System.out.println(articulo.toString());
-	 			this.anadirArticuloAListaArticulos(articulo);
-	 		}	
-			
-		} catch (Exception ex) {
-			// printStackTrace method
-            // prints line numbers + call stack
-            ex.printStackTrace();
-            // Prints what exception has been thrown
-            System.out.println(ex);
-		}
-	}
-	
 	public void anadirArticuloAListaArticulos(Articulo articulo) {
-		
+
 		try {
-			//Anadimos el articulo a la lista de articulos
+			// Anadimos el articulo a la lista de articulos
 			this.listaArticulos.add(articulo);
-			
+
 		} catch (Exception ex) {
 			// printStackTrace method
-            // prints line numbers + call stack
-            ex.printStackTrace();
-            // Prints what exception has been thrown
-            System.out.println(ex);
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
 		}
 	}
-	
+
+	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo,
+			Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
+
+		try {
+			// Instanciamos el articulo
+			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo,
+					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
+
+			if (this.articulo != null) {
+				System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
+				System.out.println(this.articulo.toString());
+				this.anadirArticuloAListaArticulos(this.articulo);
+			}
+
+		} catch (Exception ex) {
+			// printStackTrace method
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
+		}
+	}
+
+	public void anadirClienteAListaClientes(Cliente cliente) {
+
+		try {
+			// Anadimos el articulo a la lista de articulos
+			this.listaClientes.add(cliente);
+
+		} catch (Exception ex) {
+			// printStackTrace method
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
+		}
+	}
+
+	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente, String nif_cliente,
+			String sn_tipo_cliente) {
+
+		try {
+			// Instanciamos el cliente según su tipo
+			if (sn_tipo_cliente.toUpperCase().equals(cliente_estandar)) {
+				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
+				System.out.println("Cliente estándar creado.");
+				this.anadirClienteAListaClientes(this.cliente);
+			} else if (sn_tipo_cliente.toUpperCase().equals(cliente_premium)) {
+				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
+				System.out.println("Cliente premium creado.");
+				this.anadirClienteAListaClientes(this.cliente);
+			} else {
+				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCIÓN PERSSONALIZADA (No se ha
+				// respetado el formato para
+				// indicar el tipo de cliente)
+				System.out.println(
+						"Tipo de cliente no reconocido. Debe indicar \"estandar\" o \"premium\" para poder determinar el tipo de cliente a crear");
+			}
+
+			if (this.cliente != null) {
+				System.out.println("Se ha creado un nuevo cliente con las siguientes características:\n");
+				System.out.println(this.cliente.toString());
+				this.anadirArticuloAListaArticulos(articulo);
+			}
+
+		} catch (Exception ex) {
+			// printStackTrace method
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
+		}
+	}
+
+	public Cliente getClienteDeListaClientes(String email_cliente) {
+		for (Cliente cliente : this.listaClientes) {
+			if (cliente.getEmail().equals(email_cliente) == true) {
+				return cliente;
+			}
+		}
+		return null;
+	}
+
+	public Articulo getArticuloDeListaArticulos(String codigo_articulo) {
+		for (Articulo articulo : this.listaArticulos) {
+			if (articulo.getCodigo().equals(codigo_articulo) == true) {
+				return articulo;
+			}
+		}
+		return null;
+	}
+
+	public void anadirPedidoAListaPedidos(Pedido pedido) {
+
+		try {
+			// Anadimos el articulo a la lista de articulos
+			this.listaPedidos.add(pedido);
+
+		} catch (Exception ex) {
+			// printStackTrace method
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
+		}
+	}
+
+	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, Date fechaHora,
+			int cantUnidades) {
+
+		Cliente cliente_pedido;
+		Articulo articulo_pedido;
+
+		if (this.getArticuloDeListaArticulos(codigo_articulo) == null) {
+			// TODO:Lanzar una posible excepción personalizada
+			System.out.println(
+					"Se está intentando generar un pedido con un código de artículo no registrado, "
+					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.");
+		} else if (this.getClienteDeListaClientes(email_cliente) == null) {
+			System.out
+					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor:");
+			miVistaGestionOS.anadirClienteVistaGestionOS();
+			this.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
+		} else {
+
+			try {
+				// Instanciamos el articulo
+				this.pedido = new Pedido(numPedido, this.getClienteDeListaClientes(email_cliente), this.getArticuloDeListaArticulos(codigo_articulo), fechaHora, cantUnidades);
+
+				if (this.pedido != null) {
+					System.out.println("Se ha creado un nuevo pedido con las siguientes características:");
+					System.out.println(this.pedido.toString());
+					this.anadirPedidoAListaPedidos(this.pedido);
+				}
+
+			} catch (Exception ex) {
+				// printStackTrace method
+				// prints line numbers + call stack
+				ex.printStackTrace();
+				// Prints what exception has been thrown
+				System.out.println(ex);
+			}
+		}
+	}
 
 	/**
 	 * @return the articulo
@@ -115,7 +242,6 @@ public class Datos {
 	public Articulo getArticulo() {
 		return articulo;
 	}
-
 
 	/**
 	 * @param cliente the articulo to set
@@ -156,19 +282,19 @@ public class Datos {
 	public String getEmailCliente() {
 		return this.cliente.getEmail();
 	}
-	
+
 	public Class<? extends Cliente> getTipoCliente() {
 		return this.cliente.getClass();
 	}
-	
+
 	public float getCalcAnualCliente() {
 		return this.cliente.calcAnual();
 	}
-	
+
 	public float getDescuentoEnvCliente() {
 		return this.cliente.descuentoEnv();
 	}
-	
+
 	public void setCodigoArticulo(String codigo) {
 		this.articulo.setCodigo(codigo);
 	}
@@ -209,7 +335,7 @@ public class Datos {
 	public Duration getTiempoPrepArticulo() {
 		return this.articulo.getTiempoPrep();
 	}
-	
+
 	public void setNumPedido(int numPedido) {
 		this.pedido.setNumPedido(numPedido);
 		;
@@ -227,7 +353,7 @@ public class Datos {
 	public Cliente getClientePedido() {
 		return this.pedido.getCliente();
 	}
-	
+
 	public void setArticuloPedido(Articulo articulo) {
 		this.pedido.setArticulo(articulo);
 	}
@@ -243,7 +369,7 @@ public class Datos {
 	public Date getFechaHoraPedido() {
 		return this.pedido.getFechaHora();
 	}
-	
+
 	public void setCantUnidadesPedido(int unidades) {
 		this.pedido.setCantUnidades(unidades);
 	}
@@ -251,14 +377,13 @@ public class Datos {
 	public int getCantUnidadesPedido() {
 		return this.pedido.getCantUnidades();
 	}
-	
-	public boolean getPedidoEnviado(){
+
+	public boolean getPedidoEnviado() {
 		return this.pedido.pedidoEnviado();
 	}
-	
-	public float getPrecioEnvioPedido(){
+
+	public float getPrecioEnvioPedido() {
 		return this.pedido.precioEnvio();
 	}
-	
 
 }

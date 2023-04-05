@@ -1,6 +1,7 @@
 package grupofp.modelo;
 
 import java.time.Duration;
+import java.util.Objects;
 
 /**
  * @author J-Programers
@@ -104,6 +105,23 @@ public class Articulo {
 	public String toString() {
 		return "Articulo [codigo=" + codigo + ", descripcion=" + descripcion + ", pvp=" + pvp + ", tiempoPrep="
 				+ tiempoPrep + ", gastosEnvio=" + gastosEnvio + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Articulo other = (Articulo) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
     
 }

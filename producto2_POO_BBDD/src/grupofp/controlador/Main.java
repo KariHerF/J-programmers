@@ -46,8 +46,8 @@ public class Main {
 			System.out.println("============================   MENÚ PRINCIPAL   ============================");
 			System.out.println("Introduce un número entero entre 1 y 4 para seleccionar una de las opciones:");
 			System.out.println("1. Gestion de Articulos");
-			System.out.println("2. Gestion de Pedidos");
-			System.out.println("3. Gestion de Clientes");
+			System.out.println("2. Gestion de Clientes");
+			System.out.println("3. Gestion de Pedidos");
 			System.out.println("4. Cerrar aplicación");
 
 			try { // este es un try and catch de intentar una cosa y si no fucniona sale la otra
@@ -61,9 +61,9 @@ public class Main {
 					System.out.println("1. Añadir Articulo");
 					System.out.println("2. Mostrar Articulos");
 					System.out.println("3. Salir a menú principal");
-					Scanner sn_submenu = new Scanner(System.in); // introducimos el teclado
+					Scanner sn_submenu_articulos = new Scanner(System.in); // introducimos el teclado
 					while (!salir_submenu) {
-						opcion = sn_submenu.nextInt();
+						opcion = sn_submenu_articulos.nextInt();
 						switch (opcion) {
 						case 1:
 							miVistaGestionOS.anadirArticuloVistaGestionOS();
@@ -84,11 +84,75 @@ public class Main {
 					break;
 				case 2:
 					System.out.println("");
-					System.out.println("GESTION DE PEDIDOS");
+					System.out.println("GESTION DE CLIENTES");
+					System.out.println("1. Añadir Cliente");
+					System.out.println("2. Mostrar Clientes");
+					System.out.println("3. Mostrar Clientes Estándar");
+					System.out.println("4. Mostrar Clientes Premium");
+					System.out.println("5. Salir a menú principal");
+					Scanner sn_submenu_clientes = new Scanner(System.in); // introducimos el teclado
+					while (!salir_submenu) {
+						opcion = sn_submenu_clientes.nextInt();
+						switch (opcion) {
+						case 1:
+							miVistaGestionOS.anadirClienteVistaGestionOS();
+							break;
+						case 2:
+							miVistaGestionOS.mostrarClientes();
+							break;
+						case 3:
+							miVistaGestionOS.mostrarClientesEstandar();;
+							break;
+						case 4:
+							miVistaGestionOS.mostrarClientesPremium();
+							break;
+						case 5:
+							salir_submenu = true;
+							break;
+						}
+						System.out.println("");
+						System.out.println("GESTION DE CLIENTES");
+						System.out.println("1. Añadir Cliente");
+						System.out.println("2. Mostrar Clientes");
+						System.out.println("3. Mostrar Clientes Estándar");
+						System.out.println("4. Mostrar Clientes Premium");
+						System.out.println("5. Salir a menú principal");;
+					}
 					break;
 				case 3:
 					System.out.println("");
-					System.out.println("GESTION DE CLIENTES");
+					System.out.println("GESTION DE PEDIDOS");
+					System.out.println("1. Añadir Pedido");
+					System.out.println("2. Eliminar Pedido");
+					System.out.println("3. Mostrar Pedidos pendientes");
+					System.out.println("4. Mostrar Pedidos enviados");
+					System.out.println("5. Salir a menú principal");
+					Scanner sn_submenu_pedidos = new Scanner(System.in); // introducimos el teclado
+					while (!salir_submenu) {
+						opcion = sn_submenu_pedidos.nextInt();
+						switch (opcion) {
+						case 1:
+							miVistaGestionOS.anadirPedidoVistaGestionOS();;
+							break;
+						case 2:
+							
+							break;
+						case 3:
+							break;
+						case 4:
+							break;
+						case 5:
+							salir_submenu = true;
+							break;
+						}
+						System.out.println("");
+						System.out.println("GESTION DE CLIENTES");
+						System.out.println("1. Añadir Pedido");
+						System.out.println("2. Eliminar Pedido");
+						System.out.println("3. Mostrar Pedidos pendientes");
+						System.out.println("4. Mostrar Pedidos enviados");
+						System.out.println("5. Salir a menú principal");;
+					}
 					break;
 				case 4:
 					System.out.println("Saliendo de la aplicación...");

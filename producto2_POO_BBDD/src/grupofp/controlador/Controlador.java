@@ -3,9 +3,14 @@ package grupofp.controlador;
 import java.time.Duration;
 import java.util.Date;
 
+import grupofp.modelo.Articulo;
 import grupofp.modelo.Cliente;
 import grupofp.modelo.Datos;
+import grupofp.modelo.Lista;
 import grupofp.modelo.ListaArticulos;
+import grupofp.modelo.ListaClientes;
+import grupofp.modelo.ClienteEstandar;
+import grupofp.modelo.ClientePremium;
 import grupofp.vista.GestionOS;
 
 /**
@@ -32,6 +37,42 @@ public class Controlador {
 	
 	public ListaArticulos getListaArticulos() {
 		return datos.getListaArticulos();
+	}
+	
+	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente,String nif_cliente, String sn_tipo_cliente) {
+		datos.crearCliente(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, sn_tipo_cliente);
+	}
+	
+	public ListaClientes getListaClientes() {
+		return datos.getListaClientes();
+	}
+	
+	public Lista<ClienteEstandar> getListaClientesEstandar() {
+		
+		Lista<ClienteEstandar> listaClientesEstandar = new Lista<>();
+		
+		for (Cliente cliente : datos.getListaClientes()) {
+			  if (cliente instanceof ClienteEstandar) {
+				  listaClientesEstandar.add((ClienteEstandar) cliente);
+			  }
+		}
+		return listaClientesEstandar;
+	}
+	
+	public Lista<ClientePremium> getListaClientesPremium() {
+		
+		Lista<ClientePremium> listaClientesPremium = new Lista<>();
+		
+		for (Cliente cliente : datos.getListaClientes()) {
+			  if (cliente instanceof ClientePremium) {
+				  listaClientesPremium.add((ClientePremium) cliente);
+			  }
+		}
+		return listaClientesPremium;
+	}
+	
+	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, Date fechaHora, int cantUnidades) {
+		datos.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
 	}
 
 	//Getters y setters para actuar sobre todas las clases del modelo
