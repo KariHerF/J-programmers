@@ -4,6 +4,8 @@
 package grupofp.modelo;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -183,6 +185,15 @@ public class Datos {
 		return null;
 	}
 
+	public Pedido getPedidoDeListaPedidos(int numPedido) {
+		for (Pedido pedido : this.listaPedidos) {
+			if ((this.pedido.getNumPedido() == numPedido) == true) {
+				return pedido;
+			}
+		}
+		return null;
+	}
+	
 	public void anadirPedidoAListaPedidos(Pedido pedido) {
 
 		try {
@@ -198,7 +209,7 @@ public class Datos {
 		}
 	}
 
-	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, Date fechaHora,
+	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, LocalDateTime fechaHora,
 			int cantUnidades) {
 
 		Cliente cliente_pedido;
@@ -233,6 +244,44 @@ public class Datos {
 				// Prints what exception has been thrown
 				System.out.println(ex);
 			}
+		}
+	}
+	
+	public void eliminarPedido(int numPedido) {
+		
+		LocalDateTime fechaHora_pedido;
+		LocalDateTime fechaHora_actual = LocalDateTime.now();
+		LocalDateTime fechaHora_pedido_con_tiempo_prep_articulo_sumado;
+		Duration duracion_prep_articulo_de_pedido;
+		try {
+			// Comprobamos que se está eliminando un pedido que exista
+			if (getPedidoDeListaPedidos(numPedido) == null) {
+				System.out.println("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
+			} else {
+				fechaHora_pedido = getPedidoDeListaPedidos(numPedido).getFechaHora();
+				duracion_prep_articulo_de_pedido = getPedidoDeListaPedidos(numPedido).getArticulo().getTiempoPrep();
+				
+				fechaHora_pedido_con_tiempo_prep_articulo_sumado =  fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
+				
+				// Comparar los dos objetos LocalDateTime
+				int resultado_com_fechas = fechaHora_actual.compareTo(fechaHora_pedido_con_tiempo_prep_articulo_sumado);
+				
+				//TODO: esto quizás podría gestionarse con una excepción personalizada
+				if (resultado_com_fechas < 0) {
+					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
+					this.listaPedidos.remove(getPedidoDeListaPedidos(numPedido));
+				} else {
+				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
+				}
+			}
+			
+
+		} catch (Exception ex) {
+			// printStackTrace method
+			// prints line numbers + call stack
+			ex.printStackTrace();
+			// Prints what exception has been thrown
+			System.out.println(ex);
 		}
 	}
 
@@ -362,11 +411,11 @@ public class Datos {
 		return this.pedido.getArticulo();
 	}
 
-	public void setFechaHoraPedido(Date fechaHora) {
+	public void setFechaHoraPedido(LocalDateTime fechaHora) {
 		this.pedido.setFechaHora(fechaHora);
 	}
 
-	public Date getFechaHoraPedido() {
+	public LocalDateTime getFechaHoraPedido() {
 		return this.pedido.getFechaHora();
 	}
 

@@ -17,7 +17,7 @@ public class Lista <T> implements Iterable<T> {
 	    lista.add(objeto); 
 	 } 
 	 
-	 public ArrayList<T> getList(){ 
+	public ArrayList<T> getList(){ 
 	    return lista; 
 	 } 
 	
@@ -28,5 +28,9 @@ public class Lista <T> implements Iterable<T> {
 	public int size() {
 		return lista.size();
 	}
+	
+	public void remove(T objeto){ 
+	    lista.remove(objeto); 
+	 } 
 
 }

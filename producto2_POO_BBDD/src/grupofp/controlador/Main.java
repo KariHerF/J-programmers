@@ -132,10 +132,10 @@ public class Main {
 						opcion = sn_submenu_pedidos.nextInt();
 						switch (opcion) {
 						case 1:
-							miVistaGestionOS.anadirPedidoVistaGestionOS();;
+							miVistaGestionOS.anadirPedidoVistaGestionOS();
 							break;
 						case 2:
-							
+							miVistaGestionOS.eliminarPedidoVistaGestionOS();
 							break;
 						case 3:
 							break;

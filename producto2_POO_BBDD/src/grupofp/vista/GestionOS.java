@@ -4,6 +4,11 @@
 package grupofp.vista;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 
 import grupofp.controlador.Controlador;
 import grupofp.modelo.Articulo;
@@ -153,37 +158,31 @@ public class GestionOS {
 	public void anadirPedidoVistaGestionOS() {
 		
 		try {
-			String codigo_articulo;
-	 	    String descripcion_articulo;
-	 	    float pvp_articulo;
-	 	    String tiempoPrep_articulo;
-	 	    Duration tiempoPrep_articulo_parsed;
-	 	    float gastosEnvioArticulo;
+			int num_pedido;
+	 	    String email_cliente_pedido;
+	 	    String codigo_articulo_pedido;
+	 	    LocalDateTime fechaHora_pedido;
+	 	    int cantUnidades_pedido;
 	 	    
-	 		System.out.println("Introducir código del artículo:");
-	 		Scanner sn_codigo_articulo = new Scanner(System.in);
-	 		codigo_articulo = sn_codigo_articulo.nextLine();
+	 		System.out.println("Introducir número de pedido:");
+	 		Scanner sn_numero_pedido = new Scanner(System.in);
+	 		num_pedido = sn_numero_pedido.nextInt();
 	 		
-	 		System.out.println("Introducir descripción del artículo:");
-	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
-	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
+	 		System.out.println("Introducir email del cliente del pedido:");
+	 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
+	 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
 	 		
-	 		System.out.println("Introducir pvp del artículo:");
-	 		Scanner sn_pvp_articulo = new Scanner(System.in);
-	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
+	 		System.out.println("Introducir código del artículo del pedido:");
+	 		Scanner sn_codigo_articulo_pedido = new Scanner(System.in);
+	 		codigo_articulo_pedido = sn_codigo_articulo_pedido.nextLine();
+	 			 		
+	 		fechaHora_pedido = LocalDateTime.now();
+	 			 		
+	 		System.out.println("Introducir cantidad e unidades del artículo para el pedido:");
+	 		Scanner sn_cantUnidades_pedido = new Scanner(System.in);
+	 		cantUnidades_pedido = sn_cantUnidades_pedido.nextInt();
 	 		
-	 		System.out.println("Introducir el tiempo de preparación del artículo:");
-	 		System.out.println("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
-	 		Scanner sn_tiempo_prep_articulo = new Scanner(System.in);
-	 		tiempoPrep_articulo = sn_tiempo_prep_articulo.nextLine();
-	 		Duration duration = Duration.parse(tiempoPrep_articulo);
-	 		tiempoPrep_articulo_parsed = duration;
-	 		
-	 		System.out.println("Introducir gastos envío del artículo:");
-	 		Scanner sn_gastos_envio_articulo = new Scanner(System.in);
-	 		gastosEnvioArticulo = sn_descripcion_articulo.nextFloat();
-	 		
-	 		this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);		
+	 		this.miControlador.crearPedido(num_pedido, email_cliente_pedido, codigo_articulo_pedido, fechaHora_pedido, cantUnidades_pedido);	
 		} catch (Exception ex) {
 			// printStackTrace method
             // prints line numbers + call stack
@@ -192,7 +191,21 @@ public class GestionOS {
             System.out.println(ex);
 		}
 	}
-
+	
+	public void eliminarPedidoVistaGestionOS() {
+		int num_pedido_a_eliminar;
+		
+		System.out.println("Introducir código del artículo:");
+ 		Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
+ 		num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
+ 		
+ 		if (num_pedido_a_eliminar >= 0) {
+ 			this.miControlador.eliminarPedido(num_pedido_a_eliminar);
+ 		} else {
+ 			//TODO: excepción personalizada?
+ 			System.out.println("Introducir un código de artículo válido");
+ 		}
+	}
 	
 	public void printClienteDetalles(String nombre, String domicilio, String nif, String email, Class tipo, float calcAnual, float descuentoEnv) {
 		System.out.println("**** DATOS CLIENTE ****");
@@ -216,13 +229,13 @@ public class GestionOS {
 
 	}
 
-	public void printPedidoDetalles(int numPedido, Cliente cliente, Articulo articulo, int cantUnidades, Date fechaHora, boolean enviado, float precioEnvio) {
+	public void printPedidoDetalles(int numPedido, Cliente cliente, Articulo articulo, int cantUnidades, LocalDateTime fechaHora, boolean enviado, float precioEnvio) {
 		System.out.println("**** DATOS PEDIDO ****");
 		System.out.println("Numero de pedido: " + numPedido);
 		System.out.println("Cliente: " + cliente.toString());
 		System.out.println("Articulo: " + articulo.toString());
 		System.out.println("Unidades: " + cantUnidades);
-		System.out.println("Fecha y hora: " + fechaHora);
+		System.out.println("Fecha y hora: " + fechaHora.toString());
 		String msgEnviado = enviado ? "si" : "no";
 		System.out.println("Enviado: " + msgEnviado);
 		System.out.println("Precio envio: " + precioEnvio);

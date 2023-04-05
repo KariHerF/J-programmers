@@ -1,5 +1,6 @@
 package grupofp.modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 /**
@@ -11,7 +12,7 @@ public class Pedido {
 	private int numPedido;
 	private Cliente cliente;
 	private Articulo articulo;
-	private Date fechaHora;
+	private LocalDateTime fechaHora;
 	private int cantUnidades;
 	private boolean enviado = false;
 
@@ -24,7 +25,7 @@ public class Pedido {
 	 * @param cantUnidades
 	 * @param enviado
 	 */
-	public Pedido(int numPedido, Cliente cliente, Articulo articulo, Date fechaHora, int cantUnidades) {
+	public Pedido(int numPedido, Cliente cliente, Articulo articulo, LocalDateTime fechaHora, int cantUnidades) {
 		this.numPedido = numPedido;
 		this.cliente = cliente;
 		this.articulo = articulo;
@@ -63,14 +64,14 @@ public class Pedido {
 	/**
 	 * @return the fechaHora
 	 */
-	public Date getFechaHora() {
+	public LocalDateTime getFechaHora() {
 		return fechaHora;
 	}
 
 	/**
 	 * @param fechaHora the fechaHora to set
 	 */
-	public void setFechaHora(Date fechaHora) {
+	public void setFechaHora(LocalDateTime fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 

@@ -1,6 +1,7 @@
 package grupofp.controlador;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import grupofp.modelo.Articulo;
@@ -71,8 +72,12 @@ public class Controlador {
 		return listaClientesPremium;
 	}
 	
-	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, Date fechaHora, int cantUnidades) {
+	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, LocalDateTime fechaHora, int cantUnidades) {
 		datos.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
+	}
+	
+	public void eliminarPedido(int numPedido) {
+		datos.eliminarPedido(numPedido);
 	}
 
 	//Getters y setters para actuar sobre todas las clases del modelo
@@ -164,11 +169,11 @@ public class Controlador {
 		return this.datos.getClientePedido();
 	}
 
-	public void setFechaHoraPedido(Date fechaHora) {
+	public void setFechaHoraPedido(LocalDateTime fechaHora) {
 		this.datos.setFechaHoraPedido(fechaHora);
 	}
 
-	public Date getFechaHoraPedido() {
+	public LocalDateTime getFechaHoraPedido() {
 		return this.datos.getFechaHoraPedido();
 	}
 
