@@ -24,7 +24,7 @@ public class GestionOS {
 		this.miControlador=miControlador;
 	}
 	
-	public void crearArticuloVistaGestionOS() {
+	public void anadirArticuloVistaGestionOS() {
 		
 		try {
 			String codigo_articulo;
@@ -34,37 +34,30 @@ public class GestionOS {
 	 	    Duration tiempoPrep_articulo_parsed;
 	 	    float gastosEnvioArticulo;
 	 	    
-	 		System.out.println("Introducir nombre del artículo:\n");
+	 		System.out.println("Introducir código del artículo:");
 	 		Scanner sn_codigo_articulo = new Scanner(System.in);
 	 		codigo_articulo = sn_codigo_articulo.nextLine();
 	 		
-	 		System.out.println("Introducir descripción del artículo:\n");
+	 		System.out.println("Introducir descripción del artículo:");
 	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
 	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
 	 		
-	 		System.out.println("Introducir pvp del artículo:\n");
+	 		System.out.println("Introducir pvp del artículo:");
 	 		Scanner sn_pvp_articulo = new Scanner(System.in);
 	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
 	 		
-	 		System.out.println("Introducir el tiempo de preparación del artículo:\n");
-	 		System.out.print("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))\n");
+	 		System.out.println("Introducir el tiempo de preparación del artículo:");
+	 		System.out.println("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
 	 		Scanner sn_tiempo_prep_articulo = new Scanner(System.in);
 	 		tiempoPrep_articulo = sn_tiempo_prep_articulo.nextLine();
 	 		Duration duration = Duration.parse(tiempoPrep_articulo);
 	 		tiempoPrep_articulo_parsed = duration;
 	 		
-	 		System.out.println("Introducir gastos envío del artículo:\n");
+	 		System.out.println("Introducir gastos envío del artículo:");
 	 		Scanner sn_gastos_envio_articulo = new Scanner(System.in);
 	 		gastosEnvioArticulo = sn_descripcion_articulo.nextFloat();
 	 		
-	 		this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);
-	 		
-	 			 		
-//	 		if (articulo != null) {
-//	 			System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
-//	 			articulo.toString();
-//	 		}	
-			
+	 		this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);		
 		} catch (Exception ex) {
 			// printStackTrace method
             // prints line numbers + call stack
@@ -74,7 +67,16 @@ public class GestionOS {
 		}
 	}
 
-
+	public void mostrarArticulos() {
+		if (this.miControlador.getListaArticulos().size() > 0) {
+			for (Articulo articulo : this.miControlador.getListaArticulos()) {
+			    System.out.println(articulo.toString());
+			}
+		} else {
+			System.out.println("No se ha podido mostrar la lista de artículos ya que no se ha registrado ningún artículo hasta el momento.");
+		}
+	}
+	
 	public void printClienteDetalles(String nombre, String domicilio, String nif, String email, Class tipo, float calcAnual, float descuentoEnv) {
 		System.out.println("**** DATOS CLIENTE ****");
 		System.out.println("Id: " + nombre);

@@ -24,5 +24,9 @@ public class Lista <T> implements Iterable<T> {
 	public Iterator <T> iterator() {
 		return lista.iterator();
 	}
+	
+	public int size() {
+		return lista.size();
+	}
 
 }

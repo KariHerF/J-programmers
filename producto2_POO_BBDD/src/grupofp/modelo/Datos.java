@@ -22,13 +22,55 @@ public class Datos {
 	private Controlador miControlador;
 	protected ListaClientes listaClientes = new ListaClientes();
 	protected ListaArticulos listaArticulos = new ListaArticulos();
-	protected ListaPedidos listaPedidos = new ListaPedidos();
-	
-	
 	
 	public void setControlador(Controlador miControlador) {
 		this.miControlador=miControlador;
 	}
+	
+	/**
+	 * @return the listaClientes
+	 */
+	public ListaClientes getListaClientes() {
+		return listaClientes;
+	}
+
+	/**
+	 * @param listaClientes the listaClientes to set
+	 */
+	public void setListaClientes(ListaClientes listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
+	/**
+	 * @return the listaArticulos
+	 */
+	public ListaArticulos getListaArticulos() {
+		return listaArticulos;
+	}
+
+	/**
+	 * @param listaArticulos the listaArticulos to set
+	 */
+	public void setListaArticulos(ListaArticulos listaArticulos) {
+		this.listaArticulos = listaArticulos;
+	}
+
+	/**
+	 * @return the listaPedidos
+	 */
+	public ListaPedidos getListaPedidos() {
+		return listaPedidos;
+	}
+
+	/**
+	 * @param listaPedidos the listaPedidos to set
+	 */
+	public void setListaPedidos(ListaPedidos listaPedidos) {
+		this.listaPedidos = listaPedidos;
+	}
+
+	protected ListaPedidos listaPedidos = new ListaPedidos();
+	
 	
 	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo, Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
 		
