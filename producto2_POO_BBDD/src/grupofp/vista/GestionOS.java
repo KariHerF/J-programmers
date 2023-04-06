@@ -43,6 +43,7 @@ public class GestionOS {
 	 	    
 	 		System.out.println("Introducir código del artículo:");
 	 		Scanner sn_codigo_articulo = new Scanner(System.in);
+<<<<<<< HEAD
 	 		codigo_articulo = sn_codigo_articulo.nextLine().toUpperCase();
 	 		
 	 		//Validamos argumento no vacío
@@ -61,6 +62,17 @@ public class GestionOS {
 	 		
 	 		//Validamos argumento tipo float
 	 		this.miControlador.getDatos().validarArgumentoFloat(pvp_articulo);
+=======
+	 		codigo_articulo = sn_codigo_articulo.nextLine();
+	 		
+	 		System.out.println("Introducir descripción del artículo:");
+	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
+	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
+	 		
+	 		System.out.println("Introducir pvp del artículo:");
+	 		Scanner sn_pvp_articulo = new Scanner(System.in);
+	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
+>>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
 	 		
 	 		System.out.println("Introducir el tiempo de preparación del artículo:");
 	 		System.out.println("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
@@ -77,10 +89,16 @@ public class GestionOS {
 		} catch (Exception ex) {
 			// printStackTrace method
             // prints line numbers + call stack
+<<<<<<< HEAD
 			if (ex instanceof InputMismatchException)
             ex.printStackTrace();
             // Prints what exception has been thrown
             //System.out.println(ex);
+=======
+            ex.printStackTrace();
+            // Prints what exception has been thrown
+            System.out.println(ex);
+>>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
 		}
 	}
 
@@ -121,9 +139,12 @@ public class GestionOS {
 	 		Scanner sn_domicilio_cliente = new Scanner(System.in);
 	 		domicilio_cliente = sn_domicilio_cliente.nextLine();
 	 		
+<<<<<<< HEAD
 	 		//Validamos argumento no vacío
 	 		this.miControlador.getDatos().validarArgumentoNoVacio(domicilio_cliente);
 	 		
+=======
+>>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
 	 		System.out.println("Introducir NIF o NIE del cliente:");
 	 		Scanner sn_nif_cliente = new Scanner(System.in);
 	 		nif_cliente = sn_nif_cliente.nextLine();
