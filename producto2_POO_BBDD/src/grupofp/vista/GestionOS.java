@@ -43,7 +43,6 @@ public class GestionOS {
 	 	    
 	 		System.out.println("Introducir código del artículo:");
 	 		Scanner sn_codigo_articulo = new Scanner(System.in);
-<<<<<<< HEAD
 	 		codigo_articulo = sn_codigo_articulo.nextLine().toUpperCase();
 	 		
 	 		//Validamos argumento no vacío
@@ -58,21 +57,8 @@ public class GestionOS {
 	 		
 	 		System.out.println("Introducir pvp del artículo:");
 	 		Scanner sn_pvp_articulo = new Scanner(System.in);
-	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
-	 		
-	 		//Validamos argumento tipo float
-	 		this.miControlador.getDatos().validarArgumentoFloat(pvp_articulo);
-=======
-	 		codigo_articulo = sn_codigo_articulo.nextLine();
-	 		
-	 		System.out.println("Introducir descripción del artículo:");
-	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
-	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
-	 		
-	 		System.out.println("Introducir pvp del artículo:");
-	 		Scanner sn_pvp_articulo = new Scanner(System.in);
-	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
->>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
+	 		pvp_articulo = sn_pvp_articulo.nextFloat();
+	 	
 	 		
 	 		System.out.println("Introducir el tiempo de preparación del artículo:");
 	 		System.out.println("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
@@ -83,22 +69,19 @@ public class GestionOS {
 	 		
 	 		System.out.println("Introducir gastos envío del artículo:");
 	 		Scanner sn_gastos_envio_articulo = new Scanner(System.in);
-	 		gastosEnvioArticulo = sn_descripcion_articulo.nextFloat();
+	 		gastosEnvioArticulo = sn_gastos_envio_articulo.nextFloat();
 	 		
 	 		this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);		
 		} catch (Exception ex) {
 			// printStackTrace method
             // prints line numbers + call stack
-<<<<<<< HEAD
 			if (ex instanceof InputMismatchException)
             ex.printStackTrace();
             // Prints what exception has been thrown
             //System.out.println(ex);
-=======
             ex.printStackTrace();
             // Prints what exception has been thrown
             System.out.println(ex);
->>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
 		}
 	}
 
@@ -139,12 +122,9 @@ public class GestionOS {
 	 		Scanner sn_domicilio_cliente = new Scanner(System.in);
 	 		domicilio_cliente = sn_domicilio_cliente.nextLine();
 	 		
-<<<<<<< HEAD
 	 		//Validamos argumento no vacío
 	 		this.miControlador.getDatos().validarArgumentoNoVacio(domicilio_cliente);
 	 		
-=======
->>>>>>> branch 'main' of https://github.com/KariHerF/J-programers.git
 	 		System.out.println("Introducir NIF o NIE del cliente:");
 	 		Scanner sn_nif_cliente = new Scanner(System.in);
 	 		nif_cliente = sn_nif_cliente.nextLine();
@@ -156,6 +136,8 @@ public class GestionOS {
 	 		Scanner sn_tipo_cliente = new Scanner(System.in);
 	 		tipo_cliente = sn_tipo_cliente.nextLine();
 	 		
+	 		//Validamos tipo de cliente
+	 		this.miControlador.getDatos().validarTipoCliente(tipo_cliente);
 	 		this.miControlador.crearCliente(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, tipo_cliente);
 	 		
 		
