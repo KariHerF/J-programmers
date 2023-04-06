@@ -4,20 +4,17 @@
 package grupofp.vista;
 
 import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneId;
+
 
 import grupofp.controlador.Controlador;
 import grupofp.modelo.Articulo;
-import java.util.Date;
 import java.util.Scanner;
 
 import grupofp.modelo.Cliente;
 import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
+import grupofp.modelo.Pedido;
 /**
  * @author J-Programers
  *
@@ -109,7 +106,7 @@ public class GestionOS {
 	 		Scanner sn_nif_cliente = new Scanner(System.in);
 	 		nif_cliente = sn_nif_cliente.nextLine();
 	 		
-	 		System.out.println("Introducir tipo de cliente:");
+	 		System.out.println("Introducir tipo de cliente (\"estandar\" o \"premium\") :");
 	 		Scanner sn_tipo_cliente = new Scanner(System.in);
 	 		tipo_cliente = sn_tipo_cliente.nextLine();
 	 		
@@ -207,39 +204,81 @@ public class GestionOS {
  		}
 	}
 	
-	public void printClienteDetalles(String nombre, String domicilio, String nif, String email, Class tipo, float calcAnual, float descuentoEnv) {
-		System.out.println("**** DATOS CLIENTE ****");
-		System.out.println("Id: " + nombre);
-		System.out.println("Nombre: " + domicilio);
-		System.out.println("NIF: " + nif);
-		System.out.println("Email: " + email);
-		System.out.println("tipo: " + tipo);
-		System.out.println("cuota anual: " + calcAnual);
-		System.out.println("descuento: " + descuentoEnv);
+	public void mostrarPedidosPendientesVistaGestionOS() {
+		if (this.miControlador.getListaPedidosPendientes().size() > 0) {
+			for (Pedido pedido : this.miControlador.getListaPedidosPendientes()) {
+			    System.out.println(pedido.toString());
+			}
+		} else {
+			System.out.println("No se ha podido mostrar la lista de pedidos pendientes, ya que no se ha registrado ningún pedido pendiente en este momento.");
+		}
 	}
 	
-	public void printArticuloDetalles(String codigo, String descripcion, Float pvp, Float gastosEnvio,
-			Duration tiempoPrep) {
-		System.out.println("**** DATOS ARTICULO ****");
-		System.out.println("Cï¿½digo: " + codigo);
-		System.out.println("Descripcion: " + descripcion);
-		System.out.println("Pvp: " + pvp);
-		System.out.println("Gastos de envï¿½o: " + gastosEnvio);
-		System.out.println("Tiempo de preparaciï¿½n: " + tiempoPrep);
-
+	public void mostrarPedidosPendientesClienteVistaGestionOS() {
+		
+		String email_cliente_pedido;
+		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos pendientes:");
+ 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
+ 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
+ 		
+ 		boolean existe_cliente = false;
+ 		 		
+		for (Cliente cliente : this.miControlador.getListaClientes()) {
+		    if (cliente.getEmail().equals(email_cliente_pedido)) {
+		    	existe_cliente = true;
+		    }
+		}	
+		
+		if (existe_cliente == false) {
+			System.out.println("No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que el email proporcionado no coincide con el de ningún cliente registrado.");
+		} else {
+			if (this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido).size() > 0) {
+				for (Pedido pedido : this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido)) {
+				    System.out.println(pedido.toString());
+				}
+			} else {
+				System.out.println("No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningún pedido pendiente en este momento para el cliente indicado.");
+			}
+		}
 	}
-
-	public void printPedidoDetalles(int numPedido, Cliente cliente, Articulo articulo, int cantUnidades, LocalDateTime fechaHora, boolean enviado, float precioEnvio) {
-		System.out.println("**** DATOS PEDIDO ****");
-		System.out.println("Numero de pedido: " + numPedido);
-		System.out.println("Cliente: " + cliente.toString());
-		System.out.println("Articulo: " + articulo.toString());
-		System.out.println("Unidades: " + cantUnidades);
-		System.out.println("Fecha y hora: " + fechaHora.toString());
-		String msgEnviado = enviado ? "si" : "no";
-		System.out.println("Enviado: " + msgEnviado);
-		System.out.println("Precio envio: " + precioEnvio);
-
+	
+	public void mostrarPedidosEnviadosVistaGestionOS() {
+		if (this.miControlador.getListaPedidosEnviados().size() > 0) {
+			for (Pedido pedido : this.miControlador.getListaPedidosEnviados()) {
+			    System.out.println(pedido.toString());
+			}
+		} else {
+			System.out.println("No se ha podido mostrar la lista de pedidos enviados, ya que no se ha registrado ningún pedido enviado hasta el momento.");
+		}
 	}
+	
+	public void mostrarPedidosEnviadosClienteVistaGestionOS() {
+		
+		String email_cliente_pedido;
+		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos pendientes:");
+ 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
+ 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
+ 		
+ 		boolean existe_cliente = false;
+ 		 		
+		for (Cliente cliente : this.miControlador.getListaClientes()) {
+		    if (cliente.getEmail().equals(email_cliente_pedido)) {
+		    	existe_cliente = true;
+		    }
+		}	
+		
+		if (existe_cliente == false) {
+			System.out.println("No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que el email proporcionado no coincide con el de ningún cliente registrado.");
+		} else {
+			if (this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido).size() > 0) {
+				for (Pedido pedido : this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido)) {
+				    System.out.println(pedido.toString());
+				}
+			} else {
+				System.out.println("No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningún pedido enviado para el cliente indicado.");
+			}
+		}
+	}
+	
 
 }

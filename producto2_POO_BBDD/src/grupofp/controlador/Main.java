@@ -34,15 +34,18 @@ public class Main {
 		misDatos = new Datos();
 		miControlador = new Controlador(miVistaGestionOS, misDatos);
 		miVistaGestionOS.setControlador(miControlador);
+		misDatos.setControlador(miControlador);
 	}
 
 	private void MenuApp() {
 		//Scanner sn = new Scanner(System.in);
 		boolean salir = false;
 		int opcion;
-		while (!salir) { // hacemos un bucle para que nos salgan las opciones cada vez a ecpecion de que
-							// pongamos la opcion de salir
+		while (!salir) { // hacemos un bucle para que nos salgan las opciones cada vez a excepcion de que
+						 // pongamos la opcion de salir
 			Scanner sn = new Scanner(System.in);
+			System.out.println("");
+			System.out.println("");
 			System.out.println("============================   MENÚ PRINCIPAL   ============================");
 			System.out.println("Introduce un número entero entre 1 y 4 para seleccionar una de las opciones:");
 			System.out.println("1. Gestion de Articulos");
@@ -50,11 +53,10 @@ public class Main {
 			System.out.println("3. Gestion de Pedidos");
 			System.out.println("4. Cerrar aplicación");
 
-			try { // este es un try and catch de intentar una cosa y si no fucniona sale la otra
-					// opcion
+			try { 
 				opcion = sn.nextInt();
 				boolean salir_submenu = false;
-				switch (opcion) { // aqui es donde seleccionamos la opcion
+				switch (opcion) {
 				case 1:
 					System.out.println("");
 					System.out.println("GESTION DE ARTICULOS:");
@@ -138,21 +140,72 @@ public class Main {
 							miVistaGestionOS.eliminarPedidoVistaGestionOS();
 							break;
 						case 3:
+							boolean salir_submenu_pedidos_mostrar_pendientes = false;
+							System.out.println("");
+							System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos pendientes]");
+							System.out.println("1. Motrar pedidos pendientes");
+							System.out.println("2. Mostrar pedidos pendientes por cliente");
+							System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							Scanner sn_submenu_pedidos_mostrar_pendientes = new Scanner(System.in); // introducimos el teclado
+							while (!salir_submenu_pedidos_mostrar_pendientes) {
+								opcion = sn_submenu_pedidos_mostrar_pendientes.nextInt();
+								switch (opcion) {
+								case 1:
+									miVistaGestionOS.mostrarPedidosPendientesVistaGestionOS();
+									break;
+								case 2:
+									miVistaGestionOS.mostrarPedidosPendientesClienteVistaGestionOS();
+									break;
+								case 3:
+									salir_submenu_pedidos_mostrar_pendientes = true;
+									break;
+								}
+								System.out.println("");
+								System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos pendientes]");
+								System.out.println("1. Motrar pedidos pendientes");
+								System.out.println("2. Mostrar pedidos pendientes por cliente");
+								System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							}
 							break;
 						case 4:
+							boolean salir_submenu_pedidos_mostrar_enviados = false;
+							System.out.println("");
+							System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos enviados]");
+							System.out.println("1. Motrar pedidos enviados");
+							System.out.println("2. Mostrar pedidos enviados por cliente");
+							System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							Scanner sn_submenu_pedidos_mostrar_enviados = new Scanner(System.in); // introducimos el teclado
+							while (!salir_submenu_pedidos_mostrar_enviados) {
+								opcion = sn_submenu_pedidos_mostrar_enviados.nextInt();
+								switch (opcion) {
+								case 1:
+									miVistaGestionOS.mostrarPedidosEnviadosVistaGestionOS();
+									break;
+								case 2:
+									miVistaGestionOS.mostrarPedidosEnviadosClienteVistaGestionOS();
+									break;
+								case 3:
+									salir_submenu_pedidos_mostrar_enviados = true;
+									break;
+								}
+								System.out.println("");
+								System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos enviados]");
+								System.out.println("1. Motrar pedidos enviados");
+								System.out.println("2. Mostrar pedidos enviados por cliente");
+								System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							}
 							break;
 						case 5:
 							salir_submenu = true;
 							break;
 						}
 						System.out.println("");
-						System.out.println("GESTION DE CLIENTES");
+						System.out.println("GESTION DE PEDIDOS");
 						System.out.println("1. Añadir Pedido");
 						System.out.println("2. Eliminar Pedido");
 						System.out.println("3. Mostrar Pedidos pendientes");
 						System.out.println("4. Mostrar Pedidos enviados");
-						System.out.println("5. Salir a menú"
-								+ " principal");;
+						System.out.println("5. Salir a menú principal");
 					}
 					break;
 				case 4:

@@ -11,6 +11,7 @@ import grupofp.modelo.Lista;
 import grupofp.modelo.ListaArticulos;
 import grupofp.modelo.ListaClientes;
 import grupofp.modelo.ListaPedidos;
+import grupofp.modelo.Pedido;
 import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
 import grupofp.vista.GestionOS;
@@ -79,6 +80,54 @@ public class Controlador {
 	
 	public ListaPedidos getListaPedidos() {
 		return datos.getListaPedidos();
+	}
+	
+	public ListaPedidos getListaPedidosPendientes() {
+		
+		ListaPedidos listaPedidosPendientes = new ListaPedidos();
+		
+		for (Pedido pedido : this.datos.getListaPedidos()) {
+			  if (pedido.pedidoEnviado() == false) {
+				  listaPedidosPendientes.add(pedido);
+			  }
+		}
+		return listaPedidosPendientes;
+	}
+	
+	public ListaPedidos getListaPedidosPendientesCliente(String email_cliente) {
+		
+		ListaPedidos listaPedidosPendientesCliente = new ListaPedidos();
+		
+		for (Pedido pedido : this.datos.getListaPedidos()) {
+			  if ((pedido.pedidoEnviado() == false) && pedido.getCliente().getEmail().equals(email_cliente)) {
+				  listaPedidosPendientesCliente.add(pedido);
+			  }
+		}
+		return listaPedidosPendientesCliente;
+	}
+	
+	public ListaPedidos getListaPedidosEnviados() {
+		
+		ListaPedidos listaPedidosPendientes = new ListaPedidos();
+		
+		for (Pedido pedido : this.datos.getListaPedidos()) {
+			  if (pedido.pedidoEnviado() == true) {
+				  listaPedidosPendientes.add(pedido);
+			  }
+		}
+		return listaPedidosPendientes;
+	}
+	
+	public ListaPedidos getListaPedidosEnviadosCliente(String email_cliente) {
+		
+		ListaPedidos listaPedidosPendientesCliente = new ListaPedidos();
+		
+		for (Pedido pedido : this.datos.getListaPedidos()) {
+			  if ((pedido.pedidoEnviado() == true) && pedido.getCliente().getEmail().equals(email_cliente)) {
+				  listaPedidosPendientesCliente.add(pedido);
+			  }
+		}
+		return listaPedidosPendientesCliente;
 	}
 	
 	public void eliminarPedido(int numPedido) {
@@ -182,17 +231,34 @@ public class Controlador {
 		return this.datos.getFechaHoraPedido();
 	}
 
+	/**
+	 * @return the vGestionOS
+	 */
+	public GestionOS getvGestionOS() {
+		return vGestionOS;
+	}
+
+	/**
+	 * @param vGestionOS the vGestionOS to set
+	 */
+	public void setvGestionOS(GestionOS vGestionOS) {
+		this.vGestionOS = vGestionOS;
+	}
+	
+	//para la vista
+	
+	
 	// Pasa el modelo a la vista para presentar los datos
-	public void actualizarVistaArticulos() {
-		vGestionOS.printArticuloDetalles(datos.getCodigoArticulo(), datos.getDescripcionArticulo(), datos.getPvpArticulo(), datos.getGastosEnvioArticulo(), datos.getTiempoPrepArticulo());
-	}
-
-	public void actualizarVistaClientes() {
-		vGestionOS.printClienteDetalles(datos.getNombreCliente(), datos.getDomicilioCliente(), datos.getNifCliente(), datos.getEmailCliente(), datos.getTipoCliente(), datos.getCalcAnualCliente(), datos.getDescuentoEnvCliente());
-	}
-
-	public void actualizarVistaPedidos() {
-		vGestionOS.printPedidoDetalles(datos.getNumPedido(), datos.getClientePedido(), datos.getArticuloPedido(), datos.getCantUnidadesPedido(), datos.getFechaHoraPedido(), datos.getPedidoEnviado(), datos.getPrecioEnvioPedido());
-	}
+//	public void actualizarVistaArticulos() {
+//		vGestionOS.printArticuloDetalles(datos.getCodigoArticulo(), datos.getDescripcionArticulo(), datos.getPvpArticulo(), datos.getGastosEnvioArticulo(), datos.getTiempoPrepArticulo());
+//	}
+//
+//	public void actualizarVistaClientes() {
+//		vGestionOS.printClienteDetalles(datos.getNombreCliente(), datos.getDomicilioCliente(), datos.getNifCliente(), datos.getEmailCliente(), datos.getTipoCliente(), datos.getCalcAnualCliente(), datos.getDescuentoEnvCliente());
+//	}
+//
+//	public void actualizarVistaPedidos() {
+//		vGestionOS.printPedidoDetalles(datos.getNumPedido(), datos.getClientePedido(), datos.getArticuloPedido(), datos.getCantUnidadesPedido(), datos.getFechaHoraPedido(), datos.getPedidoEnviado(), datos.getPrecioEnvioPedido());
+//	}
 
 }

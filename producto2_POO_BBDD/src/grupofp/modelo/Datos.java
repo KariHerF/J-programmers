@@ -224,11 +224,11 @@ public class Datos {
 			// TODO:Lanzar una posible excepción personalizada
 			System.out.println(
 					"Se está intentando generar un pedido con un código de artículo no registrado, "
-					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.");
+					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.\n Para registrar un nuevo artículo navege hasta el menú \"GESTION DE ARTICULOS\". ");
 		} else if (this.getClienteDeListaClientes(email_cliente) == null) {
 			System.out
-					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor:");
-			miVistaGestionOS.anadirClienteVistaGestionOS();
+					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
+			this.miControlador.getvGestionOS().anadirClienteVistaGestionOS();
 			this.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
 		} else {
 
