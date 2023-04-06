@@ -151,7 +151,8 @@ public class Main {
 						System.out.println("2. Eliminar Pedido");
 						System.out.println("3. Mostrar Pedidos pendientes");
 						System.out.println("4. Mostrar Pedidos enviados");
-						System.out.println("5. Salir a menú principal");;
+						System.out.println("5. Salir a menú"
+								+ " principal");;
 					}
 					break;
 				case 4:

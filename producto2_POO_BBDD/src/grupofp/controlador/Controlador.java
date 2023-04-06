@@ -10,6 +10,7 @@ import grupofp.modelo.Datos;
 import grupofp.modelo.Lista;
 import grupofp.modelo.ListaArticulos;
 import grupofp.modelo.ListaClientes;
+import grupofp.modelo.ListaPedidos;
 import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
 import grupofp.vista.GestionOS;
@@ -74,6 +75,10 @@ public class Controlador {
 	
 	public void crearPedido(int numPedido, String email_cliente, String codigo_articulo, LocalDateTime fechaHora, int cantUnidades) {
 		datos.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
+	}
+	
+	public ListaPedidos getListaPedidos() {
+		return datos.getListaPedidos();
 	}
 	
 	public void eliminarPedido(int numPedido) {

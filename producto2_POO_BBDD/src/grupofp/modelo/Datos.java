@@ -186,8 +186,13 @@ public class Datos {
 	}
 
 	public Pedido getPedidoDeListaPedidos(int numPedido) {
-		for (Pedido pedido : this.listaPedidos) {
-			if ((this.pedido.getNumPedido() == numPedido) == true) {
+		boolean pedido_encontrado = false;
+
+		for (Pedido pedido : this.getListaPedidos()) {
+			if (pedido.getNumPedido() == numPedido) {
+				pedido_encontrado = true;
+			}
+			if (pedido_encontrado == true) {
 				return pedido;
 			}
 		}
@@ -273,8 +278,7 @@ public class Datos {
 				} else {
 				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
 				}
-			}
-			
+			}		
 
 		} catch (Exception ex) {
 			// printStackTrace method

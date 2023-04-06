@@ -178,7 +178,7 @@ public class GestionOS {
 	 			 		
 	 		fechaHora_pedido = LocalDateTime.now();
 	 			 		
-	 		System.out.println("Introducir cantidad e unidades del artículo para el pedido:");
+	 		System.out.println("Introducir cantidad de unidades del artículo para el pedido:");
 	 		Scanner sn_cantUnidades_pedido = new Scanner(System.in);
 	 		cantUnidades_pedido = sn_cantUnidades_pedido.nextInt();
 	 		
@@ -195,7 +195,7 @@ public class GestionOS {
 	public void eliminarPedidoVistaGestionOS() {
 		int num_pedido_a_eliminar;
 		
-		System.out.println("Introducir código del artículo:");
+		System.out.println("Introducir código del pedido:");
  		Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
  		num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
  		

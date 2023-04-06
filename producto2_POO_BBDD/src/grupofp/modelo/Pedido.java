@@ -124,12 +124,12 @@ public class Pedido {
 
 	@Override
 	public String toString() {
-		return "Pedido [Nï¿½mero pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
+		return "Pedido [Número pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
 				", NIF Cliente=" + getCliente().getNif() + ", Nombre Cliente=" + getCliente().getNombre() +
-			    ", Cï¿½digo Artï¿½culo=" + getArticulo().getCodigo() + ", Descripciï¿½n artï¿½culo=" + getArticulo().getDescripcion() +
-				", Nï¿½ unidades =" + getCantUnidades() + ", Precio Artï¿½culo=" + getArticulo().getPvp() +
-				", Coste envï¿½o =" + precioEnvio() + ", Coste total =" + getArticulo().getPvp() * this.cantUnidades +
-				", ï¿½Ha sido enviado?=" + pedidoEnviado() + "]";
+			    ", Código Artículo=" + getArticulo().getCodigo() + ", Descripción artículo=" + getArticulo().getDescripcion() +
+				", Número de unidades =" + getCantUnidades() + ", Precio artículo=" + getArticulo().getPvp() +
+				", Coste envío =" + precioEnvio()/this.cantUnidades + ", Coste total =" + getArticulo().getPvp() * this.cantUnidades +
+				", ¿Ha sido enviado?=" + pedidoEnviado() + "]";
 	}
 
 	
