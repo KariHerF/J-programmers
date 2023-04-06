@@ -72,15 +72,7 @@ public class GestionOS {
 	 		gastosEnvioArticulo = sn_gastos_envio_articulo.nextFloat();
 	 		
 	 		this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);		
-		} catch (Exception ex) {
-			// printStackTrace method
-            // prints line numbers + call stack
-			if (ex instanceof InputMismatchException)
-            ex.printStackTrace();
-            // Prints what exception has been thrown
-            //System.out.println(ex);
-            ex.printStackTrace();
-            // Prints what exception has been thrown
+		} catch (Exception ex) {     
             System.out.println(ex);
 		}
 	}
