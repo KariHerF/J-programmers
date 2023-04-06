@@ -20,5 +20,17 @@ public class ExcepcionesPersonalizadas {
 	    }
     }
 	
+	public static class InvalidClientTypeException extends Exception {
+		public InvalidClientTypeException(String message) {
+	        super(message);
+	    }
+    }
+	
+	public static class NotFloatException extends Exception {
+		public NotFloatException(String message) {
+	        super(message);
+	    }
+    }
+	
 
 }

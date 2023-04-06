@@ -11,9 +11,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 import grupofp.controlador.Controlador;
+import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidClientTypeException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmailFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.NotFloatException;
 import grupofp.vista.GestionOS;
 
 /**
@@ -67,7 +69,23 @@ public class Datos {
 	    if (argumento.matches(entrada_teclado)) {
 	        throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parámetro");
 	    }
-	    // Email format is correct, continue with other code
+	    // Si el argumento de entrada no es vacío, se continúa con la ejecución
+	}
+	
+	public void validarTipoCliente(String tipo_cliente) throws InvalidClientTypeException {
+	    String tipo_estandar = "estandar";
+	    String tipo_premium = "premium";
+	    if (tipo_cliente.matches(tipo_estandar)|| tipo_cliente.matches(tipo_premium)) {
+	        throw new InvalidClientTypeException("Es necesario introducir valor válido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
+	    }
+	    // Si el tipo de cliente se ha indicado correctamente, se continúa con la ejecución
+	}
+	
+	public void validarArgumentoFloat(float input) throws NotFloatException {
+	    if (Float.floatToIntBits(input) == 0) {
+	        throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
+	    }
+	    // Si el argumento de entrada es un float, se continúa con la ejecución
 	}
 
 	/**

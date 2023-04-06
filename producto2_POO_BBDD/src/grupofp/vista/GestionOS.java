@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import grupofp.controlador.Controlador;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
 import grupofp.modelo.Articulo;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import grupofp.modelo.Cliente;
@@ -41,15 +43,24 @@ public class GestionOS {
 	 	    
 	 		System.out.println("Introducir código del artículo:");
 	 		Scanner sn_codigo_articulo = new Scanner(System.in);
-	 		codigo_articulo = sn_codigo_articulo.nextLine();
+	 		codigo_articulo = sn_codigo_articulo.nextLine().toUpperCase();
+	 		
+	 		//Validamos argumento no vacío
+	 		this.miControlador.getDatos().validarArgumentoNoVacio(codigo_articulo);
 	 		
 	 		System.out.println("Introducir descripción del artículo:");
 	 		Scanner sn_descripcion_articulo = new Scanner(System.in);
 	 		descripcion_articulo = sn_descripcion_articulo.nextLine();
 	 		
+	 		//Validamos argumento no vacío
+	 		this.miControlador.getDatos().validarArgumentoNoVacio(descripcion_articulo);
+	 		
 	 		System.out.println("Introducir pvp del artículo:");
 	 		Scanner sn_pvp_articulo = new Scanner(System.in);
 	 		pvp_articulo = sn_descripcion_articulo.nextFloat();
+	 		
+	 		//Validamos argumento tipo float
+	 		this.miControlador.getDatos().validarArgumentoFloat(pvp_articulo);
 	 		
 	 		System.out.println("Introducir el tiempo de preparación del artículo:");
 	 		System.out.println("(la duración del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
@@ -66,9 +77,10 @@ public class GestionOS {
 		} catch (Exception ex) {
 			// printStackTrace method
             // prints line numbers + call stack
+			if (ex instanceof InputMismatchException)
             ex.printStackTrace();
             // Prints what exception has been thrown
-            System.out.println(ex);
+            //System.out.println(ex);
 		}
 	}
 
@@ -108,6 +120,9 @@ public class GestionOS {
 	 		System.out.println("Introducir domicilio del cliente:");
 	 		Scanner sn_domicilio_cliente = new Scanner(System.in);
 	 		domicilio_cliente = sn_domicilio_cliente.nextLine();
+	 		
+	 		//Validamos argumento no vacío
+	 		this.miControlador.getDatos().validarArgumentoNoVacio(domicilio_cliente);
 	 		
 	 		System.out.println("Introducir NIF o NIE del cliente:");
 	 		Scanner sn_nif_cliente = new Scanner(System.in);
