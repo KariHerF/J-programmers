@@ -254,25 +254,14 @@ public class Datos {
 	
 	public void eliminarPedido(int numPedido) {
 		
-		LocalDateTime fechaHora_pedido;
-		LocalDateTime fechaHora_actual = LocalDateTime.now();
-		LocalDateTime fechaHora_pedido_con_tiempo_prep_articulo_sumado;
-		Duration duracion_prep_articulo_de_pedido;
+	
 		try {
 			// Comprobamos que se está eliminando un pedido que exista
 			if (getPedidoDeListaPedidos(numPedido) == null) {
 				System.out.println("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
 			} else {
-				fechaHora_pedido = getPedidoDeListaPedidos(numPedido).getFechaHora();
-				duracion_prep_articulo_de_pedido = getPedidoDeListaPedidos(numPedido).getArticulo().getTiempoPrep();
-				
-				fechaHora_pedido_con_tiempo_prep_articulo_sumado =  fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
-				
-				// Comparar los dos objetos LocalDateTime
-				int resultado_com_fechas = fechaHora_actual.compareTo(fechaHora_pedido_con_tiempo_prep_articulo_sumado);
-				
 				//TODO: esto quizás podría gestionarse con una excepción personalizada
-				if (resultado_com_fechas < 0) {
+				if (this.getPedidoEnviado() == false) {
 					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
 					this.listaPedidos.remove(getPedidoDeListaPedidos(numPedido));
 				} else {

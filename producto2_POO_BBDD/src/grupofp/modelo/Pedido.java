@@ -1,5 +1,6 @@
 package grupofp.modelo;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,6 +95,24 @@ public class Pedido {
 	 * @return the enviado
 	 */
 	public boolean pedidoEnviado() {
+		LocalDateTime fechaHora_pedido;
+		LocalDateTime fechaHora_actual = LocalDateTime.now();
+		LocalDateTime fechaHora_pedido_con_tiempo_prep_articulo_sumado;
+		Duration duracion_prep_articulo_de_pedido;
+		
+		fechaHora_pedido = this.getFechaHora();
+		duracion_prep_articulo_de_pedido = this.getArticulo().getTiempoPrep();
+		
+		fechaHora_pedido_con_tiempo_prep_articulo_sumado =  fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
+		
+		// Comparar los dos objetos LocalDateTime
+		int resultado_com_fechas = fechaHora_actual.compareTo(fechaHora_pedido_con_tiempo_prep_articulo_sumado);
+		
+		if (resultado_com_fechas < 0) {
+			enviado = false;
+		} else {
+			enviado = true;
+		}
 		return enviado;
 	}
 
