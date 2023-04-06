@@ -11,6 +11,9 @@ import java.util.Date;
 import java.util.Scanner;
 
 import grupofp.controlador.Controlador;
+import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmailFormatException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
 import grupofp.vista.GestionOS;
 
 /**
@@ -34,6 +37,37 @@ public class Datos {
 
 	public void setControlador(Controlador miControlador) {
 		this.miControlador = miControlador;
+	}
+	
+	//Validación de parametros
+	
+	public void validarDNIoNIE(String dniNumber) throws InvalidDNIorNIEFormatException {
+	    String dniRegex = "^\\d{8}[A-Z]$"; // Expresión regular para DNI
+	    String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// Expresión regular para NIE
+	    
+	    if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
+	        throw new InvalidDNIorNIEFormatException("Formato inválido de NIE o DNI");
+	    }
+	    // Si el formato de DNI o NIE es válido, continúa el flujo de ejecución
+	}
+	
+	
+	public void validarEmail(String email) throws InvalidEmailFormatException {
+	    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+	                        "[a-zA-Z0-9_+&*-]+)*@" +
+	                        "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
+	    if (!email.matches(emailRegex)) {
+	        throw new InvalidEmailFormatException("Formato inválido de email");
+	    }
+	    // Si el formato de email es correcto, se continúa la ejecución
+	}
+	
+	public void validarArgumentoNoVacio(String entrada_teclado) throws InvalidEmpyArgumentException {
+	    String argumento = ""; 
+	    if (argumento.matches(entrada_teclado)) {
+	        throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parámetro");
+	    }
+	    // Email format is correct, continue with other code
 	}
 
 	/**
@@ -134,8 +168,8 @@ public class Datos {
 	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente, String nif_cliente,
 			String sn_tipo_cliente) {
 
+		// Instanciamos el cliente según su tipo
 		try {
-			// Instanciamos el cliente según su tipo
 			if (sn_tipo_cliente.toUpperCase().equals(cliente_estandar)) {
 				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
 				System.out.println("Cliente estándar creado.");

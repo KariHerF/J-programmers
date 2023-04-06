@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 
 import grupofp.controlador.Controlador;
+import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
 import grupofp.modelo.Articulo;
 import java.util.Scanner;
 
@@ -94,17 +95,26 @@ public class GestionOS {
 	 		Scanner sn_email_cliente = new Scanner(System.in);
 	 		email_cliente = sn_email_cliente.nextLine();
 	 		
+	 		//Validamos formato de email de cliente
+	 		this.miControlador.getDatos().validarEmail(email_cliente);
+	 		
 	 		System.out.println("Introducir nombre del cliente:");
 	 		Scanner sn_nombre_cliente = new Scanner(System.in);
 	 		nombre_cliente = sn_nombre_cliente.nextLine();
+	 		
+	 		//Validamos argumento no vacío
+	 		this.miControlador.getDatos().validarArgumentoNoVacio(nombre_cliente);
 	 		
 	 		System.out.println("Introducir domicilio del cliente:");
 	 		Scanner sn_domicilio_cliente = new Scanner(System.in);
 	 		domicilio_cliente = sn_domicilio_cliente.nextLine();
 	 		
-	 		System.out.println("Introducir NIF del cliente:");
+	 		System.out.println("Introducir NIF o NIE del cliente:");
 	 		Scanner sn_nif_cliente = new Scanner(System.in);
 	 		nif_cliente = sn_nif_cliente.nextLine();
+	 		
+			//Validamos formato de DNI o NIE
+			this.miControlador.getDatos().validarDNIoNIE(nif_cliente);
 	 		
 	 		System.out.println("Introducir tipo de cliente (\"estandar\" o \"premium\") :");
 	 		Scanner sn_tipo_cliente = new Scanner(System.in);
@@ -114,11 +124,10 @@ public class GestionOS {
 	 		
 		
 		} catch (Exception ex) {
-			// printStackTrace method
-            // prints line numbers + call stack
-            ex.printStackTrace();
-            // Prints what exception has been thrown
-            System.out.println(ex);
+            // Imprime el tipo de excepción capturada
+            System.out.println("Error: " + ex.getMessage());
+            // Imprime números de línea y el stack de llamadas implicadas con la excepción capturada
+            //ex.printStackTrace();
 		}
 	}
 	

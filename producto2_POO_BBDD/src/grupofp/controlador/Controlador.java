@@ -42,7 +42,7 @@ public class Controlador {
 		return datos.getListaArticulos();
 	}
 	
-	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente,String nif_cliente, String sn_tipo_cliente) {
+	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente, String nif_cliente, String sn_tipo_cliente) {
 		datos.crearCliente(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, sn_tipo_cliente);
 	}
 	
@@ -244,6 +244,22 @@ public class Controlador {
 	public void setvGestionOS(GestionOS vGestionOS) {
 		this.vGestionOS = vGestionOS;
 	}
+
+	/**
+	 * @return the datos
+	 */
+	public Datos getDatos() {
+		return datos;
+	}
+
+	/**
+	 * @param datos the datos to set
+	 */
+	public void setDatos(Datos datos) {
+		this.datos = datos;
+	}
+	
+	
 	
 	//para la vista
 	
