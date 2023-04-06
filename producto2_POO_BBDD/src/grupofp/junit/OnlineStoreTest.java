@@ -9,7 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author josem
+ * @author J-Programers
  *
  */
 public class OnlineStoreTest {
