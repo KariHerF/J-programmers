@@ -40,52 +40,53 @@ public class Datos {
 	public void setControlador(Controlador miControlador) {
 		this.miControlador = miControlador;
 	}
-	
-	//Validación de parametros
-	
+
+	// Validaciï¿½n de parametros
+
 	public void validarDNIoNIE(String dniNumber) throws InvalidDNIorNIEFormatException {
-	    String dniRegex = "^\\d{8}[A-Z]$"; // Expresión regular para DNI
-	    String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// Expresión regular para NIE
-	    
-	    if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
-	        throw new InvalidDNIorNIEFormatException("Formato inválido de NIE o DNI");
-	    }
-	    // Si el formato de DNI o NIE es válido, continúa el flujo de ejecución
+		String dniRegex = "^\\d{8}[A-Z]$"; // Expresiï¿½n regular para DNI
+		String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// Expresiï¿½n regular para NIE
+
+		if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
+			throw new InvalidDNIorNIEFormatException("Formato invï¿½lido de NIE o DNI");
+		}
+		// Si el formato de DNI o NIE es vï¿½lido, continï¿½a el flujo de ejecuciï¿½n
 	}
-	
-	
+
 	public void validarEmail(String email) throws InvalidEmailFormatException {
-	    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-	                        "[a-zA-Z0-9_+&*-]+)*@" +
-	                        "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
-	    if (!email.matches(emailRegex)) {
-	        throw new InvalidEmailFormatException("Formato inválido de email");
-	    }
-	    // Si el formato de email es correcto, se continúa la ejecución
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+				"[a-zA-Z0-9_+&*-]+)*@" +
+				"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
+		if (!email.matches(emailRegex)) {
+			throw new InvalidEmailFormatException("Formato invï¿½lido de email");
+		}
+		// Si el formato de email es correcto, se continï¿½a la ejecuciï¿½n
 	}
-	
+
 	public void validarArgumentoNoVacio(String entrada_teclado) throws InvalidEmpyArgumentException {
-	    String argumento = ""; 
-	    if (argumento.matches(entrada_teclado)) {
-	        throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parámetro");
-	    }
-	    // Si el argumento de entrada no es vacío, se continúa con la ejecución
+		String argumento = "";
+		if (argumento.matches(entrada_teclado)) {
+			throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parï¿½metro");
+		}
+		// Si el argumento de entrada no es vacï¿½o, se continï¿½a con la ejecuciï¿½n
 	}
-	
+
 	public void validarTipoCliente(String tipo_cliente) throws InvalidClientTypeException {
-	    String tipo_estandar = "estandar";
-	    String tipo_premium = "premium";
-	    if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
-	        throw new InvalidClientTypeException("Es necesario introducir valor válido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
-	    }
-	    // Si el tipo de cliente se ha indicado correctamente, se continúa con la ejecución
+		String tipo_estandar = "estandar";
+		String tipo_premium = "premium";
+		if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
+			throw new InvalidClientTypeException(
+					"Es necesario introducir valor vï¿½lido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
+		}
+		// Si el tipo de cliente se ha indicado correctamente, se continï¿½a con la
+		// ejecuciï¿½n
 	}
-	
+
 	public void validarArgumentoFloat(float input) throws NotFloatException {
-	    if (Float.floatToIntBits(input) == 0) {
-	        throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
-	    }
-	    // Si el argumento de entrada es un float, se continúa con la ejecución
+		if (Float.floatToIntBits(input) == 0) {
+			throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
+		}
+		// Si el argumento de entrada es un float, se continï¿½a con la ejecuciï¿½n
 	}
 
 	/**
@@ -154,9 +155,10 @@ public class Datos {
 					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
 
 			if (this.articulo != null) {
-				System.out.println("Se ha creado un nuevo artículo con las siguientes características:\n");
+				System.out.println("Se ha creado un nuevo artï¿½culo con las siguientes caracterï¿½sticas:\n");
 				System.out.println(this.articulo.toString());
-				this.anadirArticuloAListaArticulos(this.articulo);
+				this.articulo.insertarArticulo(articulo);
+				// this.anadirArticuloAListaArticulos(this.articulo);
 			}
 
 		} catch (Exception ex) {
@@ -186,18 +188,18 @@ public class Datos {
 	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente, String nif_cliente,
 			String sn_tipo_cliente) {
 
-		// Instanciamos el cliente según su tipo
+		// Instanciamos el cliente segï¿½n su tipo
 		try {
 			if (sn_tipo_cliente.toUpperCase().equals(cliente_estandar)) {
 				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
-				System.out.println("Cliente estándar creado.");
+				System.out.println("Cliente estï¿½ndar creado.");
 				this.anadirClienteAListaClientes(this.cliente);
 			} else if (sn_tipo_cliente.toUpperCase().equals(cliente_premium)) {
 				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
 				System.out.println("Cliente premium creado.");
 				this.anadirClienteAListaClientes(this.cliente);
 			} else {
-				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCIÓN PERSSONALIZADA (No se ha
+				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCIï¿½N PERSSONALIZADA (No se ha
 				// respetado el formato para
 				// indicar el tipo de cliente)
 				System.out.println(
@@ -205,7 +207,7 @@ public class Datos {
 			}
 
 			if (this.cliente != null) {
-				System.out.println("Se ha creado un nuevo cliente con las siguientes características:\n");
+				System.out.println("Se ha creado un nuevo cliente con las siguientes caracterï¿½sticas:\n");
 				System.out.println(this.cliente.toString());
 				this.anadirArticuloAListaArticulos(articulo);
 			}
@@ -250,7 +252,7 @@ public class Datos {
 		}
 		return null;
 	}
-	
+
 	public void anadirPedidoAListaPedidos(Pedido pedido) {
 
 		try {
@@ -273,25 +275,29 @@ public class Datos {
 		Articulo articulo_pedido;
 
 		if (this.getArticuloDeListaArticulos(codigo_articulo) == null) {
-			// TODO:Lanzar una posible excepción personalizada
+			// TODO:Lanzar una posible excepciï¿½n personalizada
 			System.out.println(
-					"Se está intentando generar un pedido con un código de artículo no registrado, "
-					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.\n Para registrar un nuevo artículo navege hasta el menú \"GESTION DE ARTICULOS\". ");
+					"Se estï¿½ intentando generar un pedido con un cï¿½digo de artï¿½culo no registrado, "
+							+ "debe de introducir cï¿½digo de artï¿½culo que se corresponda con un artï¿½culo previamente resgistrado.\n Para registrar un nuevo artï¿½culo navege hasta el menï¿½ \"GESTION DE ARTICULOS\". ");
 		} else if (this.getClienteDeListaClientes(email_cliente) == null) {
 			System.out
-					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
+					.println(
+							"Se estï¿½ intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
 			this.miControlador.getvGestionOS().anadirClienteVistaGestionOS();
 			this.crearPedido(numPedido, email_cliente, codigo_articulo, fechaHora, cantUnidades);
 		} else {
 
 			try {
 				// Instanciamos el articulo
-				this.pedido = new Pedido(numPedido, this.getClienteDeListaClientes(email_cliente), this.getArticuloDeListaArticulos(codigo_articulo), fechaHora, cantUnidades);
+				this.pedido = new Pedido(numPedido, this.getClienteDeListaClientes(email_cliente),
+						this.getArticuloDeListaArticulos(codigo_articulo), fechaHora, cantUnidades);
 
 				if (this.pedido != null) {
-					System.out.println("Se ha creado un nuevo pedido con las siguientes características:");
+					System.out.println("Se ha creado un nuevo pedido con las siguientes caracterï¿½sticas:");
 					System.out.println(this.pedido.toString());
-					this.anadirPedidoAListaPedidos(this.pedido);
+
+					// using db
+					this.pedido.insertarPedido(pedido);
 				}
 
 			} catch (Exception ex) {
@@ -303,23 +309,23 @@ public class Datos {
 			}
 		}
 	}
-	
+
 	public void eliminarPedido(int numPedido) {
-		
-	
+
 		try {
-			// Comprobamos que se está eliminando un pedido que exista
+			// Comprobamos que se estï¿½ eliminando un pedido que exista
 			if (getPedidoDeListaPedidos(numPedido) == null) {
-				System.out.println("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
+				System.out.println(
+						"Se ha indicado un nï¿½mero de pedido para eliminar pedido, que no se corresponde con ningï¿½n pedido existente.");
 			} else {
-				//TODO: esto quizás podría gestionarse con una excepción personalizada
+				// TODO: esto quizï¿½s podrï¿½a gestionarse con una excepciï¿½n personalizada
 				if (this.getPedidoEnviado() == false) {
 					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
 					this.listaPedidos.remove(getPedidoDeListaPedidos(numPedido));
 				} else {
-				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
+					System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparaciï¿½n.");
 				}
-			}		
+			}
 
 		} catch (Exception ex) {
 			// printStackTrace method

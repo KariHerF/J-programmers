@@ -1,9 +1,16 @@
 package grupofp.modelo;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+
+import grupofp.controlador.ConexionDB;
+
 /**
  * @author J-Programers
  *
@@ -16,7 +23,6 @@ public class Pedido {
 	private LocalDateTime fechaHora;
 	private int cantUnidades;
 	private boolean enviado = false;
-
 
 	/**
 	 * @param numPedido
@@ -76,7 +82,6 @@ public class Pedido {
 		this.fechaHora = fechaHora;
 	}
 
-
 	/**
 	 * @return the cantUnidades
 	 */
@@ -99,15 +104,15 @@ public class Pedido {
 		LocalDateTime fechaHora_actual = LocalDateTime.now();
 		LocalDateTime fechaHora_pedido_con_tiempo_prep_articulo_sumado;
 		Duration duracion_prep_articulo_de_pedido;
-		
+
 		fechaHora_pedido = this.getFechaHora();
 		duracion_prep_articulo_de_pedido = this.getArticulo().getTiempoPrep();
-		
-		fechaHora_pedido_con_tiempo_prep_articulo_sumado =  fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
-		
+
+		fechaHora_pedido_con_tiempo_prep_articulo_sumado = fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
+
 		// Comparar los dos objetos LocalDateTime
 		int resultado_com_fechas = fechaHora_actual.compareTo(fechaHora_pedido_con_tiempo_prep_articulo_sumado);
-		
+
 		if (resultado_com_fechas < 0) {
 			enviado = false;
 		} else {
@@ -123,7 +128,6 @@ public class Pedido {
 		return articulo;
 	}
 
-
 	/**
 	 * @param articulo the articulo to set
 	 */
@@ -131,26 +135,41 @@ public class Pedido {
 		this.articulo = articulo;
 	}
 
-
 	public float precioEnvio() {
 		if (this.cliente.tipoCliente() == "Premium") {
-			return this.articulo.getGastosEnvio() * this.cantUnidades * (1- this.cliente.descuentoEnv());
+			return this.articulo.getGastosEnvio() * this.cantUnidades * (1 - this.cliente.descuentoEnv());
 		}
-		return this.articulo.getGastosEnvio()*this.cantUnidades;
+		return this.articulo.getGastosEnvio() * this.cantUnidades;
 	}
 
+	public void insertarPedido(Pedido pedido) throws SQLException {
+		String query = "INSERT INTO pedidos (numPedido, cliente_nif, articulo_codigo, fechaHora, cantUnidades) " +
+				"VALUES (?, ?, ?, ?, ?)";
 
+		Connection connection = ConexionDB.conectar();
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, pedido.getNumPedido());
+		statement.setString(2, pedido.getCliente().getNif());
+		statement.setString(3, pedido.getArticulo().getCodigo());
+		Date fecha = Date.from(pedido.getFechaHora().toInstant(null));
+		java.sql.Date fechaSql = new java.sql.Date(fecha.getTime());
+		statement.setDate(4, fechaSql);
+		statement.setInt(5, pedido.getCantUnidades());
+		statement.setBoolean(6, pedido.pedidoEnviado());
+		statement.executeUpdate();
+		statement.close();
+	}
 
 	@Override
 	public String toString() {
-		return "Pedido [Número pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
+		return "Pedido [Nï¿½mero pedido =" + getNumPedido() + ", Fecha y hora =" + getFechaHora() +
 				", NIF Cliente=" + getCliente().getNif() + ", Nombre Cliente=" + getCliente().getNombre() +
-			    ", Código Artículo=" + getArticulo().getCodigo() + ", Descripción artículo=" + getArticulo().getDescripcion() +
-				", Número de unidades =" + getCantUnidades() + ", Precio artículo=" + getArticulo().getPvp() +
-				", Coste envío =" + precioEnvio()/this.cantUnidades + ", Coste total =" + getArticulo().getPvp() * this.cantUnidades +
-				", ¿Ha sido enviado?=" + pedidoEnviado() + "]";
+				", Cï¿½digo Artï¿½culo=" + getArticulo().getCodigo() + ", Descripciï¿½n artï¿½culo="
+				+ getArticulo().getDescripcion() +
+				", Nï¿½mero de unidades =" + getCantUnidades() + ", Precio artï¿½culo=" + getArticulo().getPvp() +
+				", Coste envï¿½o =" + precioEnvio() / this.cantUnidades + ", Coste total ="
+				+ getArticulo().getPvp() * this.cantUnidades +
+				", ï¿½Ha sido enviado?=" + pedidoEnviado() + "]";
 	}
-
-	
 
 }

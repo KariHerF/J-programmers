@@ -2,29 +2,26 @@ package grupofp.modelo;
 
 import java.time.Duration;
 import java.util.Objects;
+
+import grupofp.controlador.ConexionDB;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Time;
-
-
 
 /**
  * @author J-Programmers
  *
  */
 public class Articulo {
-	private Connection connection;
-	 public Articulo(Connection connection) {
-	        this.connection = connection;
-	    }
 
-    private String codigo;
-    private String descripcion;
-    private float pvp;
-    private Duration tiempoPrep;
-    private float gastosEnvio;
-    
+	private String codigo;
+	private String descripcion;
+	private float pvp;
+	private Duration tiempoPrep;
+	private float gastosEnvio;
+
 	/**
 	 * @param codigo
 	 * @param descripcion
@@ -40,8 +37,6 @@ public class Articulo {
 		this.tiempoPrep = tiempoPrep;
 		this.gastosEnvio = gastosEnvio;
 	}
-	
-	
 
 	/**
 	 * @return the codigo
@@ -112,29 +107,32 @@ public class Articulo {
 	public void setGastosEnvio(float gastosEnvio) {
 		this.gastosEnvio = gastosEnvio;
 	}
-	
+
 	/**
-	 * Insertar articulos en la database NO SE ESTAN INSERTANDO QUIZAS ES EN EL CONTROLLER??
-	 * Cuando terminas de crear el articulo te printa esto quizás desde esto que te hace el print puedes recojer los datos y ponerlos a la database??
-	 * Articulo [codigo=123455, descripcion=olaaaaaaaaaaaaaaaaaaaa, pvp=12.4, tiempoPrep=PT1H30M30S, gastosEnvio=2.4]
+	 * Insertar articulos en la database NO SE ESTAN INSERTANDO QUIZAS ES EN EL
+	 * CONTROLLER??
+	 * Cuando terminas de crear el articulo te printa esto quizás desde esto que te
+	 * hace el print puedes recojer los datos y ponerlos a la database??
+	 * Articulo [codigo=123455, descripcion=olaaaaaaaaaaaaaaaaaaaa, pvp=12.4,
+	 * tiempoPrep=PT1H30M30S, gastosEnvio=2.4]
 	 */
 	public void insertarArticulo(Articulo articulo) throws SQLException {
-        String query = "INSERT INTO articulos (codigo, descripcion, pvp, tiempo_prep, gastos_envio) " +
-                "VALUES (?, ?, ?, ?, ?)";
-        
-        
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, articulo.getCodigo());
-        statement.setString(2, articulo.getDescripcion());
-        statement.setFloat(3, articulo.getPvp());
-        Time tiempoPrep = Time.valueOf(articulo.getTiempoPrep().toHours() + ":00:00");
-        statement.setTime(4, tiempoPrep);
-        statement.setFloat(5, articulo.getGastosEnvio());
-        statement.executeUpdate();
-        statement.close();
-    }
+		String query = "INSERT INTO articulos (codigo, descripcion, pvp, tiempo_prep, gastos_envio) " +
+				"VALUES (?, ?, ?, ?, ?)";
 
-	
+		Connection connection = ConexionDB.conectar();
+
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, articulo.getCodigo());
+		statement.setString(2, articulo.getDescripcion());
+		statement.setFloat(3, articulo.getPvp());
+		Time tiempoPrep = Time.valueOf(articulo.getTiempoPrep().toHours() + ":00:00");
+		statement.setTime(4, tiempoPrep);
+		statement.setFloat(5, articulo.getGastosEnvio());
+		statement.executeUpdate();
+		statement.close();
+	}
+
 	@Override
 	public String toString() {
 		return "Articulo [codigo=" + codigo + ", descripcion=" + descripcion + ", pvp=" + pvp + ", tiempoPrep="
@@ -157,5 +155,5 @@ public class Articulo {
 		Articulo other = (Articulo) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
-    
+
 }
