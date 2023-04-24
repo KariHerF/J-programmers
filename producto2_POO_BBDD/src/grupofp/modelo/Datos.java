@@ -193,11 +193,11 @@ public class Datos {
 			if (sn_tipo_cliente.toUpperCase().equals(cliente_estandar)) {
 				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
 				System.out.println("Cliente est�ndar creado.");
-				this.anadirClienteAListaClientes(this.cliente);
+				cliente.insertarCliente(cliente);
 			} else if (sn_tipo_cliente.toUpperCase().equals(cliente_premium)) {
 				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente);
 				System.out.println("Cliente premium creado.");
-				this.anadirClienteAListaClientes(this.cliente);
+				cliente.insertarCliente(cliente);
 			} else {
 				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCI�N PERSSONALIZADA (No se ha
 				// respetado el formato para
@@ -209,7 +209,7 @@ public class Datos {
 			if (this.cliente != null) {
 				System.out.println("Se ha creado un nuevo cliente con las siguientes caracter�sticas:\n");
 				System.out.println(this.cliente.toString());
-				this.anadirArticuloAListaArticulos(articulo);
+				this.anadirClienteAListaClientes(cliente);
 			}
 
 		} catch (Exception ex) {

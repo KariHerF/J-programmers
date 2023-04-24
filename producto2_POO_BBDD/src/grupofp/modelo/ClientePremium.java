@@ -1,10 +1,12 @@
 package grupofp.modelo;
+
 /**
  * @author J-Programers
  *
  */
 public class ClientePremium extends Cliente {
-	//Constantes para guardar la cuota anual y el descuento de gastos de envío de un cliente premium
+	// Constantes para guardar la cuota anual y el descuento de gastos de envï¿½o de
+	// un cliente premium
 	private final float cuotaAnual = 30f;
 	private final float dtoGtoEnvio = 0.2f;
 

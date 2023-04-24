@@ -30,6 +30,8 @@ public class CreateTables {
 					"domicilio VARCHAR(50) NOT NULL," +
 					"nif VARCHAR(20) NOT NULL," +
 					"tipoCliente ENUM('Estandar', 'Premium') NOT NULL," +
+					"cuotaAnual DOUBLE," +
+					"dtoGtoEnvio DOUBLE," +
 					"PRIMARY KEY (nif)" +
 					")";
 			String sqlPedido = "CREATE TABLE IF NOT EXISTS pedidos (" +
@@ -43,23 +45,11 @@ public class CreateTables {
 					"FOREIGN KEY (articulo_codigo) REFERENCES articulos(codigo)," +
 					"FOREIGN KEY (cliente_nif) REFERENCES clientes(nif)" +
 					")";
-			String sqlClienteEstandar = "CREATE TABLE IF NOT EXISTS clientesEstandar (" +
-					"nif VARCHAR(20) NOT NULL, " +
-					"FOREIGN KEY (nif) REFERENCES clientes(nif)" +
-					")";
-			String sqlClientePremium = "CREATE TABLE IF NOT EXISTS clientesPremium (" +
-					"nif VARCHAR(20) NOT NULL, " +
-					"cuotaAnual DOUBLE NOT NULL," +
-					"dtoGtoEnvio DOUBLE NOT NULL," +
-					"FOREIGN KEY (nif) REFERENCES clientes(nif)" +
-					")";
 			// Ejecutar la sentencia SQL
 			try {
 				sentencia.executeUpdate(sqlArticulo);
 				sentencia.executeUpdate(sqlCliente);
 				sentencia.executeUpdate(sqlPedido);
-				sentencia.executeUpdate(sqlClienteEstandar);
-				sentencia.executeUpdate(sqlClientePremium);
 				System.out.println("Tablas creadas correctamente.");
 			} catch (SQLException e) {
 				System.out.println("Ha ocurrido el siguiente error al crear las tablas: " + e.getMessage());

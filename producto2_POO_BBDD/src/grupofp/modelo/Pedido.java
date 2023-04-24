@@ -143,8 +143,9 @@ public class Pedido {
 	}
 
 	public void insertarPedido(Pedido pedido) throws SQLException {
-		String query = "INSERT INTO pedidos (numPedido, cliente_nif, articulo_codigo, fechaHora, cantUnidades) " +
-				"VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO pedidos (numPedido, cliente_nif, articulo_codigo, fechaHora, cantUnidades, enviado) "
+				+
+				"VALUES (?, ?, ?, ?, ?, ?)";
 
 		Connection connection = ConexionDB.conectar();
 		PreparedStatement statement = connection.prepareStatement(query);
@@ -155,7 +156,11 @@ public class Pedido {
 		java.sql.Date fechaSql = new java.sql.Date(fecha.getTime());
 		statement.setDate(4, fechaSql);
 		statement.setInt(5, pedido.getCantUnidades());
-		statement.setBoolean(6, pedido.pedidoEnviado());
+		int enviado = 0;
+		if (pedido.pedidoEnviado()) {
+			enviado = 1;
+		}
+		statement.setInt(6, enviado);
 		statement.executeUpdate();
 		statement.close();
 	}
