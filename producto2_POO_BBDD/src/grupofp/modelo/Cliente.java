@@ -5,7 +5,7 @@ import java.util.Objects;
 public abstract class Cliente {
 
 	/**
-	 * @author J-Programers
+	 * @author J-Programmers
 	 *
 	 */
 	private String email;

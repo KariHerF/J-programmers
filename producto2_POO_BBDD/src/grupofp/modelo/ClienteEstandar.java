@@ -1,6 +1,6 @@
 package grupofp.modelo;
 /**
- * @author J-Programers
+ * @author J-Programmers
  *
  */
 public class ClienteEstandar extends Cliente {
@@ -12,13 +12,13 @@ public class ClienteEstandar extends Cliente {
 
     @Override
     public String toString() {
-    	return "Cliente Estándar [email=" + super.getEmail() + ", nombre=" + super.getNombre() +
+    	return "Cliente Estï¿½ndar [email=" + super.getEmail() + ", nombre=" + super.getNombre() +
 				", domicilio=" + super.getDomicilio() + ", nif=" + super.getNif() + "]";    
     }
 
 	@Override
 	public String tipoCliente() {
-		return "Estándar";
+		return "Estï¿½ndar";
 	}
 
 	@Override

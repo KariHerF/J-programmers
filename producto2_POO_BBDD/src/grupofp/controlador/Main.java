@@ -2,6 +2,17 @@ package grupofp.controlador;
 
 import java.util.Scanner;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+
+import grupofp.controlador.ConexionDB;
+import grupofp.controlador.CreateDB;
+import grupofp.controlador.CreateTableExample;
+
+
 import grupofp.controlador.Controlador;
 import grupofp.modelo.Articulo;
 import grupofp.modelo.Datos;
@@ -14,6 +25,7 @@ import java.util.InputMismatchException;
  */
 public class Main {
 
+    
 	Datos misDatos;
 	Controlador miControlador;
 	GestionOS miVistaGestionOS;
@@ -22,6 +34,9 @@ public class Main {
 		Main miPrincipal = new Main();
 		miPrincipal.iniciarApp();
 		miPrincipal.MenuApp();
+		
+		/*Aqui falta inicializar la clase createDB y la CreateTable (CREO) poque sino hacerlo separado no tiene sentido*/
+		
 	}
 
 	/**
@@ -46,12 +61,12 @@ public class Main {
 			Scanner sn = new Scanner(System.in);
 			System.out.println("");
 			System.out.println("");
-			System.out.println("============================   MENÚ PRINCIPAL   ============================");
-			System.out.println("Introduce un número entero entre 1 y 4 para seleccionar una de las opciones:");
+			System.out.println("============================   MENï¿½ PRINCIPAL   ============================");
+			System.out.println("Introduce un nï¿½mero entero entre 1 y 4 para seleccionar una de las opciones:");
 			System.out.println("1. Gestion de Articulos");
 			System.out.println("2. Gestion de Clientes");
 			System.out.println("3. Gestion de Pedidos");
-			System.out.println("4. Cerrar aplicación");
+			System.out.println("4. Cerrar aplicaciï¿½n");
 
 			try { 
 				opcion = sn.nextInt();
@@ -60,9 +75,9 @@ public class Main {
 				case 1:
 					System.out.println("");
 					System.out.println("GESTION DE ARTICULOS:");
-					System.out.println("1. Añadir Articulo");
+					System.out.println("1. Aï¿½adir Articulo");
 					System.out.println("2. Mostrar Articulos");
-					System.out.println("3. Salir a menú principal");
+					System.out.println("3. Salir a menï¿½ principal");
 					Scanner sn_submenu_articulos = new Scanner(System.in); // introducimos el teclado
 					while (!salir_submenu) {
 						opcion = sn_submenu_articulos.nextInt();
@@ -79,7 +94,7 @@ public class Main {
 						}
 						System.out.println("");
 						System.out.println("GESTION DE ARTICULOS:");
-						System.out.println("1. Añadir Articulo");
+						System.out.println("1. Aï¿½adir Articulo");
 						System.out.println("2. Mostrar Articulos");
 						System.out.println("3. Salir a menu principal");
 					}
@@ -87,11 +102,11 @@ public class Main {
 				case 2:
 					System.out.println("");
 					System.out.println("GESTION DE CLIENTES");
-					System.out.println("1. Añadir Cliente");
+					System.out.println("1. Aï¿½adir Cliente");
 					System.out.println("2. Mostrar Clientes");
-					System.out.println("3. Mostrar Clientes Estándar");
+					System.out.println("3. Mostrar Clientes Estï¿½ndar");
 					System.out.println("4. Mostrar Clientes Premium");
-					System.out.println("5. Salir a menú principal");
+					System.out.println("5. Salir a menï¿½ principal");
 					Scanner sn_submenu_clientes = new Scanner(System.in); // introducimos el teclado
 					while (!salir_submenu) {
 						opcion = sn_submenu_clientes.nextInt();
@@ -114,21 +129,21 @@ public class Main {
 						}
 						System.out.println("");
 						System.out.println("GESTION DE CLIENTES");
-						System.out.println("1. Añadir Cliente");
+						System.out.println("1. Aï¿½adir Cliente");
 						System.out.println("2. Mostrar Clientes");
-						System.out.println("3. Mostrar Clientes Estándar");
+						System.out.println("3. Mostrar Clientes Estï¿½ndar");
 						System.out.println("4. Mostrar Clientes Premium");
-						System.out.println("5. Salir a menú principal");;
+						System.out.println("5. Salir a menï¿½ principal");;
 					}
 					break;
 				case 3:
 					System.out.println("");
 					System.out.println("GESTION DE PEDIDOS");
-					System.out.println("1. Añadir Pedido");
+					System.out.println("1. Aï¿½adir Pedido");
 					System.out.println("2. Eliminar Pedido");
 					System.out.println("3. Mostrar Pedidos pendientes");
 					System.out.println("4. Mostrar Pedidos enviados");
-					System.out.println("5. Salir a menú principal");
+					System.out.println("5. Salir a menï¿½ principal");
 					Scanner sn_submenu_pedidos = new Scanner(System.in); // introducimos el teclado
 					while (!salir_submenu) {
 						opcion = sn_submenu_pedidos.nextInt();
@@ -145,7 +160,7 @@ public class Main {
 							System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos pendientes]");
 							System.out.println("1. Motrar pedidos pendientes");
 							System.out.println("2. Mostrar pedidos pendientes por cliente");
-							System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							System.out.println("3. Salir a menï¿½ anterior -  [GESTION DE PEDIDOS]");
 							Scanner sn_submenu_pedidos_mostrar_pendientes = new Scanner(System.in); // introducimos el teclado
 							while (!salir_submenu_pedidos_mostrar_pendientes) {
 								opcion = sn_submenu_pedidos_mostrar_pendientes.nextInt();
@@ -164,7 +179,7 @@ public class Main {
 								System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos pendientes]");
 								System.out.println("1. Motrar pedidos pendientes");
 								System.out.println("2. Mostrar pedidos pendientes por cliente");
-								System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+								System.out.println("3. Salir a menï¿½ anterior -  [GESTION DE PEDIDOS]");
 							}
 							break;
 						case 4:
@@ -173,7 +188,7 @@ public class Main {
 							System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos enviados]");
 							System.out.println("1. Motrar pedidos enviados");
 							System.out.println("2. Mostrar pedidos enviados por cliente");
-							System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+							System.out.println("3. Salir a menï¿½ anterior -  [GESTION DE PEDIDOS]");
 							Scanner sn_submenu_pedidos_mostrar_enviados = new Scanner(System.in); // introducimos el teclado
 							while (!salir_submenu_pedidos_mostrar_enviados) {
 								opcion = sn_submenu_pedidos_mostrar_enviados.nextInt();
@@ -192,7 +207,7 @@ public class Main {
 								System.out.println("GESTION DE PEDIDOS - [Submenu Mostrar Pedidos enviados]");
 								System.out.println("1. Motrar pedidos enviados");
 								System.out.println("2. Mostrar pedidos enviados por cliente");
-								System.out.println("3. Salir a menú anterior -  [GESTION DE PEDIDOS]");
+								System.out.println("3. Salir a menï¿½ anterior -  [GESTION DE PEDIDOS]");
 							}
 							break;
 						case 5:
@@ -201,22 +216,22 @@ public class Main {
 						}
 						System.out.println("");
 						System.out.println("GESTION DE PEDIDOS");
-						System.out.println("1. Añadir Pedido");
+						System.out.println("1. Aï¿½adir Pedido");
 						System.out.println("2. Eliminar Pedido");
 						System.out.println("3. Mostrar Pedidos pendientes");
 						System.out.println("4. Mostrar Pedidos enviados");
-						System.out.println("5. Salir a menú principal");
+						System.out.println("5. Salir a menï¿½ principal");
 					}
 					break;
 				case 4:
-					System.out.println("Saliendo de la aplicación...");
+					System.out.println("Saliendo de la aplicaciï¿½n...");
 					salir = true;
 					break;
 				default:
-					System.out.println("Para poder acceder a las opciones del menú solo está permitido introducir números enteros entre 1 y 4");
+					System.out.println("Para poder acceder a las opciones del menï¿½ solo estï¿½ permitido introducir nï¿½meros enteros entre 1 y 4");
 				}
 			} catch (InputMismatchException error) { // en caso de error
-				System.out.println("Debes de indicar alguna opción del menú.");
+				System.out.println("Debes de indicar alguna opciï¿½n del menï¿½.");
 				sn.next();
 			}
 		}
