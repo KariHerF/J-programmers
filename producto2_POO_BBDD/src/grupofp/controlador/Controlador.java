@@ -1,5 +1,9 @@
 package grupofp.controlador;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -17,11 +21,12 @@ import grupofp.modelo.ClientePremium;
 import grupofp.vista.GestionOS;
 
 /**
- * @author J-Programers
+ * @author J-Programmers
  *
  */
 public class Controlador {
-
+	
+	
 	private GestionOS vGestionOS;
 	private Datos datos;
 
@@ -36,7 +41,9 @@ public class Controlador {
 	
 	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo, Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
 		datos.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed, gastosEnvioArticulo);
+		
 	}
+	
 	
 	public ListaArticulos getListaArticulos() {
 		return datos.getListaArticulos();
@@ -44,6 +51,7 @@ public class Controlador {
 	
 	public void crearCliente(String email_cliente, String nombre_cliente, String domicilio_cliente, String nif_cliente, String sn_tipo_cliente) {
 		datos.crearCliente(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, sn_tipo_cliente);
+		
 	}
 	
 	public ListaClientes getListaClientes() {

@@ -8,7 +8,7 @@ public class ConexionDB {
 	 public static Connection conectar() throws SQLException {
 	        
 	        Connection conn = null;
-	        String url = "jdbc:mysql://localhost:3306/jp_rogrammers_db";
+	        String url = "jdbc:mysql://localhost:3306/jp_programmers_db";
 	        String user = "root";
 	        String password = "";
 	        

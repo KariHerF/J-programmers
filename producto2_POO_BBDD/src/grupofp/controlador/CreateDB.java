@@ -12,7 +12,7 @@ public class CreateDB {
         String url = "jdbc:mysql://localhost:3306";
         String user = "root";
         String password = "";
-        String nombreBD = "jp_rogrammers_db";
+        String nombreBD = "jp_programmers_db";
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
