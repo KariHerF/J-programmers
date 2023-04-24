@@ -3,7 +3,6 @@
  */
 package grupofp.vista;
 
-import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -85,9 +84,8 @@ public class GestionOS {
 	}
 
 	public void mostrarArticulos() {
-		Connection connection = ConexionDB.conectar();
 
-		try {
+		try (Connection connection = ConexionDB.conectar()) {
 			String sql = "SELECT * FROM articulos";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
