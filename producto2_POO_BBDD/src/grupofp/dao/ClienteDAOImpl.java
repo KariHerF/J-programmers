@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
 import grupofp.modelo.Articulo;

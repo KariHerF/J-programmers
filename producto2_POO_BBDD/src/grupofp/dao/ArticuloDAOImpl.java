@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
 import grupofp.modelo.Articulo;
@@ -29,7 +30,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
 
     @Override
-    public void insertarArticulo(Articulo articulo) throws DAOException {
+    public void insertarArticulo(Articulo articulo) throws SQLException, DAOException {
     	        
     	 PreparedStatement statement = null;
     	 

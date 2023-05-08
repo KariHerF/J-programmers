@@ -20,7 +20,7 @@ import grupofp.vista.GestionOS;
  *
  */
 public class OnlineStoreTest {
-/*
+
 	Datos misDatos;
 	Controlador miControlador;
 	GestionOS miVistaGestionOS;
@@ -103,5 +103,5 @@ public class OnlineStoreTest {
  	    assertEquals(2, num_articulos_registrados);
 
 	}
-*/
+
 }
