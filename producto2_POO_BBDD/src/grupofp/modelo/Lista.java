@@ -33,5 +33,9 @@ public class Lista <T> implements Iterable<T> {
 	public void remove(T objeto){
 	    lista.remove(objeto);
 	 }
+	
+	public void addAll(Lista<T> listaObjetos){
+	    lista.addAll(lista);
+	 }
 
 }

@@ -12,6 +12,7 @@ import grupofp.controlador.Controlador;
 import grupofp.dao.ArticuloDAO;
 import grupofp.dao.ArticuloDAOImpl;
 import grupofp.dao.ClienteDAO;
+import grupofp.dao.DAOFactory;
 import grupofp.dao.MySQLDAOFactory;
 import grupofp.dao.PedidoDAO;
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
@@ -29,6 +30,8 @@ import grupofp.vista.GestionOS;
 
 public class Datos {
 
+	// Lista de tipos de DAO disponibles en la factoria
+	private static final int TIPO_FACTORIA = 1;
 	private static final  String CLIENTE_ESTANDAR = "estandar";
 	private static final String CLIENTE_PREMIUM = "premium";
 	private Articulo articulo;
@@ -97,9 +100,10 @@ public class Datos {
 	 */
 	public ListaClientes getListaClientes() throws SQLException, DAOException {
 		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
+
 		// Instaciamos un articuloDAO para persistir un nuevo Articulo
-		ClienteDAO clienteDAO = mySQLFactory.obtenerClienteDAO();
+		DAOFactory daoFactory = null;
+		ClienteDAO clienteDAO = daoFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerTodosClientes();
 	}
 
@@ -173,10 +177,10 @@ public class Datos {
 			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo,
 					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
 			
-			// Instanciamos nuestra factoria de DAOS
-			MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-			// Instaciamos un articuloDAO para persistir un nuevo Articulo
-			ArticuloDAO articuloDAO = mySQLFactory.obtenerArticuloDAO();
+			// Referenciamos a nuestra factoria de DAOS
+			DAOFactory miFactoria = null;
+			// Instaciamos un articuloDAO de la factoría indicada para persistir un nuevo Articulo
+			ArticuloDAO articuloDAO = miFactoria.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 
 			if (this.articulo != null) {		
 				System.out.println("");
