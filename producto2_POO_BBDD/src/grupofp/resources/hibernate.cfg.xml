@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- Configuración de la base de datos -->
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://j-programmers-bd-karina.mysql.database.azure.com:3306/j-programmers?useSSL=true</property>
+    <property name="hibernate.connection.username">karina</property>
+    <property name="hibernate.connection.password">k1.k2.k3.</property>
+
+    <!-- Configuración del dialecto de SQL a utilizar -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+
+    <!-- Configuración del proveedor de cache de segundo nivel -->
+    <property name="hibernate.cache.provider_class">org.hibernate.cache.internal.NoCachingRegionFactory</property>
+
+    <!-- Configuración del mapeo de clases de entidad -->
+    <mapping class="grupofp.modelo.Articulo"/>
+  </session-factory>
+</hibernate-configuration>
+

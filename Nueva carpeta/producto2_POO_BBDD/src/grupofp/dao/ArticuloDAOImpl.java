@@ -29,7 +29,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
 
 
     @Override
-    public void insertarArticulo(Articulo articulo) throws DAOException, SQLException {
+    public void insertarArticulo(Articulo articulo) throws DAOException {
     	        
     	 PreparedStatement statement = null;
     	 

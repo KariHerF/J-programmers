@@ -27,10 +27,11 @@ import grupofp.vista.GestionOS;
  * @author J-Programers
  *
  */
+
 public class Datos {
 
 	// Lista de tipos de DAO disponibles en la factoria
-	private static final int TIPO_FACTORIA = 2;
+	private static final int TIPO_FACTORIA = 1;
 	private static final  String CLIENTE_ESTANDAR = "estandar";
 	private static final String CLIENTE_PREMIUM = "premium";
 	private Articulo articulo;

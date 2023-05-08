@@ -5,7 +5,6 @@ package grupofp.modelo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author J-Programers
@@ -35,7 +34,7 @@ public class Lista <T> implements Iterable<T> {
 	    lista.remove(objeto);
 	 }
 	
-	public void addAll(List<T> listaObjetos){
+	public void addAll(Lista<T> listaObjetos){
 	    lista.addAll(lista);
 	 }
 

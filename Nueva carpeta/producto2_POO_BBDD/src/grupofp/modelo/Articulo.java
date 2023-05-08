@@ -3,33 +3,17 @@ package grupofp.modelo;
 import java.time.Duration;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
-
 /**
  * @author J-Programers
  *
  */
-
-@Entity
-@Table(name = "articulosh")
 public class Articulo {
 
-    @Id
-    public String codigo;
-    @Column
-    public String descripcion;
-    @Column
-    public float pvp;
-    @Column(columnDefinition = "BIGINT")
-    public Duration tiempoPrep;
-    @Column(name = "gastos_envio")
-    public float gastosEnvio;
+    private String codigo;
+    private String descripcion;
+    private float pvp;
+    private Duration tiempoPrep;
+    private float gastosEnvio;
 
 	/**
 	 * @param codigo
@@ -38,9 +22,6 @@ public class Articulo {
 	 * @param tiempoPrep
 	 * @param gastosEnvio
 	 */
-    public Articulo() {
-    	   // default constructor implementation
-    }
 	public Articulo(String codigo, String descripcion, float pvp, Duration tiempoPrep, float gastosEnvio) {
 		super();
 		this.codigo = codigo;

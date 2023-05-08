@@ -3,12 +3,12 @@
  */
 package grupofp.junit;
 
-//import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 import java.time.Duration;
 
-//import org.junit.Test;
+import org.junit.Test;
 
 import grupofp.controlador.Controlador;
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;

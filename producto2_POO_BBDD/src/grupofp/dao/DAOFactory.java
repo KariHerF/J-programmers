@@ -6,6 +6,7 @@ public abstract class DAOFactory {
 
 	// Lista de tipos de DAO disponibles en la factoria
 	  public static final int MYSQL = 1;
+	  public static final int HIBERNATE = 2;
 
 	  // Habrá un método para cada DAO que se pueda crear
 	  // Las factorías concretas contendrán la implementación de cada DAO.
@@ -22,6 +23,8 @@ public abstract class DAOFactory {
 	    switch (whichFactory) {
 	      case MYSQL:
 	          return new MySQLDAOFactory();
+	      case HIBERNATE:
+	          return new HibernateDAOFactory();
 	      default:
 	          return null;
 	    }

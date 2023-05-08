@@ -35,7 +35,7 @@ public class ExcepcionesPersonalizadas {
     }
 
 	public static class DAOException extends Exception {
-		public DAOException(String message, SQLException e) {
+		public DAOException(String message, Exception e) {
 	        super(message + e.toString());
 	    }
     }
