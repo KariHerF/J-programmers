@@ -204,10 +204,12 @@ public class GestionOS {
 			System.out.println("Introducir email del cliente del pedido:");
 			Scanner sn_email_cliente_pedido = new Scanner(System.in);
 			email_cliente_pedido = sn_email_cliente_pedido.nextLine();
+			this.miControlador.getDatos().validarArgumentoNoVacio(email_cliente_pedido);
 
 			System.out.println("Introducir c�digo del art�culo del pedido:");
 			Scanner sn_codigo_articulo_pedido = new Scanner(System.in);
 			codigo_articulo_pedido = sn_codigo_articulo_pedido.nextLine();
+			this.miControlador.getDatos().validarArgumentoNoVacio(codigo_articulo_pedido);
 
 			fechaHora_pedido = LocalDateTime.now();
 
