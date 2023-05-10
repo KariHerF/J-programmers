@@ -228,18 +228,19 @@ public class GestionOS {
 	}
 
 	public void eliminarPedidoVistaGestionOS() {
-		int num_pedido_a_eliminar;
+            try {	
+                int num_pedido_a_eliminar;
 
-		System.out.println("Introducir c�digo del pedido:");
-		Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
-		num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
+                System.out.println("Introducir codigo del pedido:");
+                Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
+                num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
+                this.miControlador.getDatos().validarArgumentoIntPositivo(num_pedido_a_eliminar);
+                this.miControlador.eliminarPedido(num_pedido_a_eliminar);
 
-		if (num_pedido_a_eliminar >= 0) {
-			this.miControlador.eliminarPedido(num_pedido_a_eliminar);
-		} else {
-			// TODO: excepci�n personalizada?
-			System.out.println("Introducir un c�digo de art�culo v�lido");
-		}
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println(ex);
+            }
 	}
 
 	public void mostrarPedidosPendientesVistaGestionOS() throws SQLException, DAOException {
@@ -249,7 +250,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos pendientes, ya que no se ha registrado ning�n pedido pendiente en este momento.");
+					"No se ha podido mostrar la lista de pedidos pendientes, ya que no se ha registrado ningun pedido pendiente en este momento.");
 		}
 	}
 
@@ -270,7 +271,7 @@ public class GestionOS {
 
 		if (!existe_cliente) {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que el email proporcionado no coincide con el de ning�n cliente registrado.");
+					"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que el email proporcionado no coincide con el de ningun cliente registrado.");
 		} else {
 			if (this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido).size() > 0) {
 				for (Pedido pedido : this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido)) {
@@ -290,7 +291,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos enviados, ya que no se ha registrado ning�n pedido enviado hasta el momento.");
+					"No se ha podido mostrar la lista de pedidos enviados, ya que no se ha registrado ningun pedido enviado hasta el momento.");
 		}
 	}
 
@@ -311,7 +312,7 @@ public class GestionOS {
 
 		if (!existe_cliente) {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que el email proporcionado no coincide con el de ning�n cliente registrado.");
+					"No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que el email proporcionado no coincide con el de ningun cliente registrado.");
 		} else {
 			if (this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido).size() > 0) {
 				for (Pedido pedido : this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido)) {
@@ -319,7 +320,7 @@ public class GestionOS {
 				}
 			} else {
 				System.out.println(
-						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ning�n pedido enviado para el cliente indicado.");
+						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningun pedido enviado para el cliente indicado.");
 			}
 		}
 	}
