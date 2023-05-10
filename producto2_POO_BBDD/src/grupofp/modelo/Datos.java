@@ -24,7 +24,7 @@ import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentExceptio
 import grupofp.excepciones.ExcepcionesPersonalizadas.NotFloatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.NoArticleException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.NoOrderException;
-
+import grupofp.excepciones.ExcepcionesPersonalizadas.NotPositiveIntException;
 
 
 import grupofp.vista.GestionOS;
@@ -109,6 +109,12 @@ public class Datos {
             if (pedido == null) {
                  throw new NoOrderException("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
             }
+        }
+        
+        public void validarArgumentoIntPositivo(int input) throws NotPositiveIntException {
+           if (input <= 0) {
+               throw new NotPositiveIntException("Se ha indicado un numero inferior o igual a 0");
+           }
         }
 
 	/**

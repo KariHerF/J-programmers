@@ -49,5 +49,11 @@ public class ExcepcionesPersonalizadas {
 	        super(message);
 	    }
     }
+       
+       public static class NotPositiveIntException extends Exception {
+           public NotPositiveIntException(String message) {
+               super(message);
+           }
+       }
 
 }

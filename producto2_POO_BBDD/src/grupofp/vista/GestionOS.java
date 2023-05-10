@@ -216,7 +216,8 @@ public class GestionOS {
 			System.out.println("Introducir cantidad de unidades del art�culo para el pedido:");
 			Scanner sn_cantUnidades_pedido = new Scanner(System.in);
 			cantUnidades_pedido = sn_cantUnidades_pedido.nextInt();
-
+                        this.miControlador.getDatos().validarArgumentoIntPositivo(cantUnidades_pedido);
+                        
 			this.miControlador.crearPedido(email_cliente_pedido, codigo_articulo_pedido, fechaHora_pedido,
 					cantUnidades_pedido);
 		} catch (Exception ex) {
