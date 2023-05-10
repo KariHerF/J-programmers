@@ -42,7 +42,7 @@ public class GestionOS {
 			Duration tiempoPrep_articulo_parsed;
 			float gastosEnvioArticulo = 0.0f;
 
-			System.out.println("Introducir c�digo del art�culo:");
+			System.out.println("Introducir codigo del art�culo:");
 			Scanner sn_codigo_articulo = new Scanner(System.in);
 			codigo_articulo = sn_codigo_articulo.nextLine().toUpperCase();
 
@@ -95,7 +95,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de art�culos, ya que no se ha registrado ning�n art�culo hasta el momento.");
+					"No se ha podido mostrar la lista de art�culos, ya que no se ha registrado ningun art�culo hasta el momento.");
 		}
 	}
 
@@ -160,7 +160,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes, ya que no se ha registrado ning�n cliente hasta el momento.");
+					"No se ha podido mostrar la lista de clientes, ya que no se ha registrado ningun cliente hasta el momento.");
 		}
 	}
 
@@ -171,7 +171,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes est�ndar, ya que no se ha registrado ning�n cliente est�ndar hasta el momento.");
+					"No se ha podido mostrar la lista de clientes est�ndar, ya que no se ha registrado ningun cliente est�ndar hasta el momento.");
 		}
 	}
 
@@ -182,7 +182,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes premium, ya que no se ha registrado ning�n cliente premium hasta el momento.");
+					"No se ha podido mostrar la lista de clientes premium, ya que no se ha registrado ningun cliente premium hasta el momento.");
 		}
 	}
 
@@ -206,7 +206,7 @@ public class GestionOS {
 			email_cliente_pedido = sn_email_cliente_pedido.nextLine();
 			this.miControlador.getDatos().validarArgumentoNoVacio(email_cliente_pedido);
 
-			System.out.println("Introducir c�digo del art�culo del pedido:");
+			System.out.println("Introducir codigo del articulo del pedido:");
 			Scanner sn_codigo_articulo_pedido = new Scanner(System.in);
 			codigo_articulo_pedido = sn_codigo_articulo_pedido.nextLine();
 			this.miControlador.getDatos().validarArgumentoNoVacio(codigo_articulo_pedido);
@@ -279,7 +279,7 @@ public class GestionOS {
 				}
 			} else {
 				System.out.println(
-						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ning�n pedido pendiente en este momento para el cliente indicado.");
+						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningun pedido pendiente en este momento para el cliente indicado.");
 			}
 		}
 	}
