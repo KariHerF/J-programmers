@@ -39,5 +39,15 @@ public class ExcepcionesPersonalizadas {
 	        super(message + e.toString());
 	    }
     }
+       public static class NoArticleException extends Exception {
+		public NoArticleException(String message) {
+	        super(message);
+	    }
+    }
+       public static class NoOrderException extends Exception {
+		public NoOrderException(String message) {
+	        super(message);
+	    }
+    }
 
 }

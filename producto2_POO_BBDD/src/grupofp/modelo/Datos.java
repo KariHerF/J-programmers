@@ -15,12 +15,18 @@ import grupofp.dao.ClienteDAO;
 import grupofp.dao.DAOFactory;
 import grupofp.dao.MySQLDAOFactory;
 import grupofp.dao.PedidoDAO;
+import grupofp.excepciones.ExcepcionesPersonalizadas;
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidClientTypeException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmailFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.NotFloatException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.NoArticleException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.NoOrderException;
+
+
+
 import grupofp.vista.GestionOS;
 
 /**
@@ -91,6 +97,19 @@ public class Datos {
 	    }
 	    // Si el argumento de entrada es un float, se continúa con la ejecución
 	}
+        
+        public void validarArticuloExiste(Articulo articulo) throws NoArticleException {
+            if (articulo == null) {
+                 throw new NoArticleException("Se está intentando generar un pedido con un código de artículo no registrado, "
+					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.\n Para registrar un nuevo artículo navege hasta el menú \"GESTION DE ARTICULOS\". ");
+            }
+        }
+        
+        public void validarPedidoExiste(Pedido pedido) throws NoOrderException {
+            if (pedido == null) {
+                 throw new NoOrderException("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
+            }
+        }
 
 	/**
 	 * @return the listaClientes
@@ -304,13 +323,7 @@ public class Datos {
 
 		Articulo articulo = this.getArticuloDeListaArticulos(codigo_articulo);
 		Cliente cliente = this.getClienteDeListaClientes(email_cliente);
-		
-		if (articulo == null) {
-			// TODO:Lanzar una posible excepción personalizada
-			System.out.println(
-					"Se está intentando generar un pedido con un código de artículo no registrado, "
-					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.\n Para registrar un nuevo artículo navege hasta el menú \"GESTION DE ARTICULOS\". ");
-		} else if (cliente == null) {
+		if (cliente == null) {
 			System.out
 					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
 			this.miControlador.getvGestionOS().anadirClienteVistaGestionOS();
@@ -318,7 +331,8 @@ public class Datos {
 		} else {
 
 			try {
-				// Instanciamos el pedido
+				this.validarArticuloExiste(articulo);
+                        	// Instanciamos el pedido
 				this.pedido = new Pedido(cliente, articulo, fechaHora, cantUnidades);
 
 				// Instanciamos nuestra factoria de DAOS
@@ -344,24 +358,21 @@ public class Datos {
 
 
 		try {
-			// Comprobamos que se está eliminando un pedido que exista
-			Pedido pedido = getPedidoDeListaPedidos(numPedido);
-					
-			if (pedido == null) {
-				System.out.println("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
-			} else {
-				//TODO: esto quizás podría gestionarse con una excepción personalizada
-				if (!pedido.pedidoEnviado()) {
-					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
-					// Instanciamos nuestra factoria de DAOS
-					MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-					// Instaciamos un ClienteDAO para persistir un nuevo cliente
-					PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
-					pedidoDAO.eliminarPedido(numPedido);
-				} else {
-				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
-				}
-			}
+                    // Comprobamos que se está eliminando un pedido que exista
+                    Pedido pedido = getPedidoDeListaPedidos(numPedido);
+                    this.validarPedidoExiste(pedido);
+			
+                    //TODO: esto quizás podría gestionarse con una excepción personalizada
+                    if (!pedido.pedidoEnviado()) {
+			System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
+			// Instanciamos nuestra factoria de DAOS
+			MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();					// Instaciamos un ClienteDAO para persistir un nuevo cliente
+			PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+			pedidoDAO.eliminarPedido(numPedido);
+                    } else {
+                        System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
+                    }
+			
 
 		} catch (Exception ex) {
 			// printStackTrace method
