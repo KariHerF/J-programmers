@@ -58,27 +58,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 		}
 
 	}
-
-	/**
-	 * @throws SQLException
-	 * @Override public void actualizarCliente(Cliente cliente) throws DAOException
-	 *           { String sql = "UPDATE clientes SET nombre = ?, domicilio = ?, nif
-	 *           = ?, tipo_cliente = ? WHERE email = ?"; try (PreparedStatement ps =
-	 *           conn.prepareStatement(sql)) { ps.setString(1, cliente.getNombre());
-	 *           ps.setString(2, cliente.getDomicilio()); ps.setString(3,
-	 *           cliente.getNif()); ps.setString(4, cliente.tipoCliente());
-	 *           ps.setString(5, cliente.getEmail()); ps.executeUpdate(); } catch
-	 *           (SQLException e) { throw new DAOException("Error al actualizar el
-	 *           cliente en la base de datos: ", e); } }
-	 * 
-	 * @Override public void eliminarCliente(String email) throws DAOException {
-	 *           String sql = "DELETE FROM clientes WHERE email = ?"; try
-	 *           (PreparedStatement ps = conn.prepareStatement(sql)) {
-	 *           ps.setString(1, email); ps.executeUpdate(); } catch (SQLException
-	 *           e) { throw new DAOException("Error al eliminar el cliente de la
-	 *           base de datos: ", e); } }
-	 **/
-
 	
 	
 	@Override

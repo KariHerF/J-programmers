@@ -2,16 +2,42 @@ package grupofp.modelo;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Table;
+import jakarta.persistence.InheritanceType;
+
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table (name = "clientes")
 public abstract class Cliente {
 
 	/**
 	 * @author J-Programers
 	 *
 	 */
-	private String email;
-	private String nombre;
-	private String domicilio;
-	private String nif;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    
+    @Column(name = "email")
+    private String email;
+    
+    @Column(name = "nombre")
+    private String nombre;
+    
+    @Column(name = "domicilio")
+    private String domicilio;
+    
+    @Column(name = "nif")
+    private String nif;
 
 	public Cliente(String email, String nombre, String domicilio, String nif) {
 		this.setEmail(email);

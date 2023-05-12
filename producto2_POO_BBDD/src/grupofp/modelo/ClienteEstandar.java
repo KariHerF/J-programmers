@@ -1,12 +1,25 @@
 package grupofp.modelo;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
 /**
  * @author J-Programers
  *
  */
-public class ClienteEstandar extends Cliente {
 
+@Entity
+@Table (name = "tipos_cliente")
+@PrimaryKeyJoinColumn(name = "tipo_cliente")
+public class ClienteEstandar extends Cliente {
+	
+	@Column(name = "cuota_anual")
 	private float cuotaAnual;
+	@Column(name = "descuento_envio")
 	private float dtoGtoEnvio;
+	@Column(name = "tipo_cliente")
 	private String tipoCliente;
 
     public ClienteEstandar(String email, String nombre, String domicilio, String nif, String tipoCliente, float cuotaAnual, float dtoGtoEnvio) {

@@ -216,10 +216,9 @@ public class Datos {
 			String tipo_cliente) {
 
 		try {
-			// Instanciamos nuestra factoria de DAOS
-			MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-			// Instaciamos un ClienteDAO para persistir un nuevo cliente
-			ClienteDAO clienteDAO = mySQLFactory.obtenerClienteDAO();
+			// Referenciamos a nuestra factoria de DAOS
+			// Instaciamos un articuloDAO de la factoría indicada para persistir un nuevo Articulo
+			ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 			if (tipo_cliente.equals(CLIENTE_ESTANDAR)) {
 				float cuotaAnual = clienteDAO.obtenerCuotaPorTipoCliente(tipo_cliente);
 				float gastosEnvio = clienteDAO.obtenerDescuentoEnvioPorTipoCliente(tipo_cliente);

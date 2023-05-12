@@ -1,12 +1,25 @@
 package grupofp.modelo;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
+
 /**
  * @author J-Programers
  *
  */
+
+@Entity
+@Table (name = "tipos_cliente")
+@PrimaryKeyJoinColumn(name = "tipo_cliente")
 public class ClientePremium extends Cliente {
 	//Constantes para guardar la cuota anual y el descuento de gastos de envío de un cliente premium
+	@Column(name = "cuota_anual")
 	private float cuotaAnual;
+	@Column(name = "descuento_envio")
 	private float dtoGtoEnvio;
+	@Column(name = "tipo_cliente")
 	private String tipoCliente;
 
 

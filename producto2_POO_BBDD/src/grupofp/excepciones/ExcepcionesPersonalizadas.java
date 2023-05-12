@@ -38,6 +38,10 @@ public class ExcepcionesPersonalizadas {
 		public DAOException(String message, Exception e) {
 	        super(message + e.toString());
 	    }
+
+		public DAOException(String message) {
+			super(message);
+		}
     }
 
 }
