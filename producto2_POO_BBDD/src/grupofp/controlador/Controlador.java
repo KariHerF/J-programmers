@@ -37,7 +37,7 @@ public class Controlador {
 	// Metodos utiles para manejar articulos
 	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo,
 			Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
-		datos.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed,
+		datos.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo, tiempoPrep_articulo_parsed.getSeconds(),
 				gastosEnvioArticulo);
 	}
 
@@ -176,11 +176,11 @@ public class Controlador {
 		return this.datos.getGastosEnvioArticulo();
 	}
 
-	public void setTiempoPrepArticulo(Duration tiempoPrep) {
+	public void setTiempoPrepArticulo(long tiempoPrep) {
 		this.datos.setTiempoPrepArticulo(tiempoPrep);
 	}
 
-	public Duration getTiempoPrepArticulo() {
+	public long getTiempoPrepArticulo() {
 		return this.datos.getTiempoPrepArticulo();
 	}
 

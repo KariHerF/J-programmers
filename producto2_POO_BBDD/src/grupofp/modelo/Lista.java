@@ -36,7 +36,7 @@ public class Lista <T> implements Iterable<T> {
 	 }
 	
 	public void addAll(List<T> listaObjetos){
-	    lista.addAll(lista);
+	    lista.addAll(listaObjetos);
 	 }
 
 }

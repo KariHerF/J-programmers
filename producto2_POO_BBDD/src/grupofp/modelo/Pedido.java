@@ -98,7 +98,7 @@ public class Pedido {
 		Duration duracion_prep_articulo_de_pedido;
 
 		fechaHora_pedido = this.getFechaHora();
-		duracion_prep_articulo_de_pedido = this.getArticulo().getTiempoPrep();
+		duracion_prep_articulo_de_pedido = Duration.ofSeconds(this.getArticulo().getTiempoPrep());
 
 		fechaHora_pedido_con_tiempo_prep_articulo_sumado =  fechaHora_pedido.plus(duracion_prep_articulo_de_pedido);
 

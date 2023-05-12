@@ -29,7 +29,7 @@ import grupofp.vista.GestionOS;
  */
 public class Datos {
 
-	// Lista de tipos de DAO disponibles en la factoria
+	// Constante para indicar el tipo de Factoría a utilizar (1: mySQL directamente, 2: ORM Hibernate)
 	private static final int TIPO_FACTORIA = 2;
 	private static final  String CLIENTE_ESTANDAR = "estandar";
 	private static final String CLIENTE_PREMIUM = "premium";
@@ -119,10 +119,9 @@ public class Datos {
 	 * @throws DAOException 
 	 */
 	public ListaArticulos getListaArticulos() throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un articuloDAO para persistir un nuevo Articulo
-		ArticuloDAO articuloDAO = mySQLFactory.obtenerArticuloDAO();
+		// Referenciamos a nuestra factoria de DAOS
+		// Instaciamos un articuloDAO de la factoría indicada para persistir un nuevo Articulo
+		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerTodosLosArticulos();
 	}
 
@@ -169,17 +168,20 @@ public class Datos {
 	}
 
 	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo,
-			Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
+			long tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
 
 		try {
 			// Instanciamos el articulo
-			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo,
-					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
+			this.articulo = new Articulo();
+			articulo.setCodigo(codigo_articulo);
+			articulo.setDescripcion(descripcion_articulo);
+			articulo.setPvp(pvp_articulo);
+			articulo.setGastosEnvio(gastosEnvioArticulo);
+			articulo.setTiempoPrep(tiempoPrep_articulo_parsed);
 			
 			// Referenciamos a nuestra factoria de DAOS
-			DAOFactory miFactoria = null;
 			// Instaciamos un articuloDAO de la factoría indicada para persistir un nuevo Articulo
-			ArticuloDAO articuloDAO = miFactoria.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
+			ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 
 			if (this.articulo != null) {		
 				System.out.println("");
@@ -464,11 +466,11 @@ public class Datos {
 		return this.articulo.getGastosEnvio();
 	}
 
-	public void setTiempoPrepArticulo(Duration tiempoPrep) {
+	public void setTiempoPrepArticulo(long tiempoPrep) {
 		this.articulo.setTiempoPrep(tiempoPrep);
 	}
 
-	public Duration getTiempoPrepArticulo() {
+	public long getTiempoPrepArticulo() {
 		return this.articulo.getTiempoPrep();
 	}
 
