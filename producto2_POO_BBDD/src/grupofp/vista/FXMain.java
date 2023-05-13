@@ -60,10 +60,10 @@ public class FXMain extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                FXCliente fxCliente = new FXCliente();
+                FXPedido fxPedido = new FXPedido();
                 
                 mainMenu.hide();
-                fxCliente.start(mainMenu);
+                fxPedido.start(mainMenu);
             }
         });
         

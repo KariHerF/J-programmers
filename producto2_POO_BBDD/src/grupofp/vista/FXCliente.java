@@ -32,7 +32,7 @@ public class FXCliente extends FXMain {
             
             @Override
             public void handle(ActionEvent event) {
-                addClienteStage();
+                pantallaAddCliente();
             }
         });
         
@@ -42,7 +42,7 @@ public class FXCliente extends FXMain {
             
             @Override
             public void handle(ActionEvent event) {
-                showClientesEscena();
+                pantallaShowClientes();
             }
         });
         
@@ -52,7 +52,7 @@ public class FXCliente extends FXMain {
             
             @Override
             public void handle(ActionEvent event) {
-                deleteClienteStage();
+                pantallaDeleteCliente();
             }
         });
         
@@ -80,12 +80,26 @@ public class FXCliente extends FXMain {
         clienteStage.show();
     }
     
-    private void addClienteStage() {
+    private void pantallaAddCliente() {
         Stage addClienteStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Añadir cliente");
         titulo.setStyle("-fx-font: 15 arial;");
-        root.getChildren().add(titulo);
+        
+        Button volver = new Button();
+        volver.setText("Volver");
+        volver.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                addClienteStage.close();
+                clienteStage.show();
+            }
+        });
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(titulo, volver);
+        vbox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vbox);
         
         Scene scene = new Scene(root, 300, 250);
         addClienteStage.setScene(scene);
@@ -93,12 +107,26 @@ public class FXCliente extends FXMain {
         addClienteStage.show();
     }
     
-    private void showClientesEscena() {
+    private void pantallaShowClientes() {
         Stage showClientesStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de clientes");
         titulo.setStyle("-fx-font: 15 arial;");
-        root.getChildren().add(titulo);
+        
+        Button volver = new Button();
+        volver.setText("Volver");
+        volver.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                showClientesStage.close();
+                clienteStage.show();
+            }
+        });
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(titulo, volver);
+        vbox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vbox);
         
         Scene scene = new Scene(root, 300, 250);
         showClientesStage.setScene(scene);
@@ -106,12 +134,26 @@ public class FXCliente extends FXMain {
         showClientesStage.show();
     }
     
-       private void deleteClienteStage() {
+       private void pantallaDeleteCliente() {
         Stage deleteClienteStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Eliminar cliente");
         titulo.setStyle("-fx-font: 15 arial;");
-        root.getChildren().add(titulo);
+        
+        Button volver = new Button();
+        volver.setText("Volver");
+        volver.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                deleteClienteStage.close();
+                clienteStage.show();
+            }
+        });
+        VBox vbox = new VBox(10);
+        vbox.getChildren().addAll(titulo, volver);
+        vbox.setAlignment(Pos.CENTER);
+        root.getChildren().add(vbox);
         
         Scene scene = new Scene(root, 300, 250);
         deleteClienteStage.setScene(scene);
