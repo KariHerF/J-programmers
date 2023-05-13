@@ -101,8 +101,7 @@ public class Datos {
 		// Instanciamos nuestra factoria de DAOS
 
 		// Instaciamos un articuloDAO para persistir un nuevo Articulo
-		DAOFactory daoFactory = null;
-		ClienteDAO clienteDAO = daoFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
+		ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerTodosClientes();
 	}
 
@@ -138,10 +137,8 @@ public class Datos {
 	 * @throws SQLException 
 	 */
 	public ListaPedidos getListaPedidos() throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 		// Instaciamos un pedidoDAO para obtener la lista de pedidos registrados en la bd
-		PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidos();
 }
 
@@ -259,29 +256,23 @@ public class Datos {
 	}
 
 	public Cliente getClienteDeListaClientes(String email_cliente) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 		// Instaciamos un clienteDAO para poder llamar al metodo obtenerCliente de clienteDAO y 
 		// obtener los datos de un cliente buscando por su email sobre la tabla clientes de la bd
-		ClienteDAO clienteDAO = mySQLFactory.obtenerClienteDAO();
+		ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerCliente(email_cliente);
 	}
 
 	public Articulo getArticuloDeListaArticulos(String codigo_articulo) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 		// Instaciamos un articuloDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
 		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
-		ArticuloDAO articuloDAO = mySQLFactory.obtenerArticuloDAO();
+		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerArticulo(codigo_articulo);
 	}
 
 	public Pedido getPedidoDeListaPedidos(int numPedido) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 		// Instaciamos un pedidoDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
 		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
-		PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidoPorId(numPedido);
 	}
 
@@ -322,10 +313,8 @@ public class Datos {
 				// Instanciamos el pedido
 				this.pedido = new Pedido(cliente, articulo, fechaHora, cantUnidades);
 
-				// Instanciamos nuestra factoria de DAOS
-				MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 				// Instaciamos un ClienteDAO para persistir un nuevo pedido
-				PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 				pedidoDAO.insertarPedido(pedido);
 				if (this.pedido != null) {
 					System.out.println("Se ha creado un nuevo pedido con las siguientes características:");
@@ -351,13 +340,14 @@ public class Datos {
 			if (pedido == null) {
 				System.out.println("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
 			} else {
-				//TODO: esto quizás podría gestionarse con una excepción personalizada
+				// Instaciamos un pedidoDAO y un articuloDAO para proceder a poder eliminar un pedido
+				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
+				ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
+				Pedido pedido_encontrado = pedidoDAO.obtenerPedidoPorId(numPedido);
+				Articulo articulo_pedido = articuloDAO.obtenerArticulo(pedido_encontrado.getCocigoAticulo());
+				pedido.setArticulo(articulo_pedido);
 				if (!pedido.pedidoEnviado()) {
 					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
-					// Instanciamos nuestra factoria de DAOS
-					MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-					// Instaciamos un ClienteDAO para persistir un nuevo cliente
-					PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
 					pedidoDAO.eliminarPedido(numPedido);
 				} else {
 				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");

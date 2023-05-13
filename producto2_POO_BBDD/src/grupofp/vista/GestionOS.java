@@ -293,7 +293,7 @@ public class GestionOS {
 	public void mostrarPedidosEnviadosClienteVistaGestionOS() throws SQLException, DAOException {
 
 		String email_cliente_pedido;
-		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos pendientes:");
+		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos enviados:");
 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
 
@@ -315,7 +315,7 @@ public class GestionOS {
 				}
 			} else {
 				System.out.println(
-						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningún pedido enviado para el cliente indicado.");
+						"No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que no se ha registrado ningún pedido enviado para el cliente indicado.");
 			}
 		}
 	}

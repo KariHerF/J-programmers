@@ -39,7 +39,7 @@ public class HibernateDAOFactory extends DAOFactory {
     
     @Override
 	public PedidoDAO obtenerPedidoDAO() throws SQLException {
-        return null;
+    	return new PedidoDAOHibernateImpl(obtenerSesionHibernate());
     }
 
 

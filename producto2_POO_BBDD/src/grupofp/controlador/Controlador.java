@@ -94,6 +94,8 @@ public class Controlador {
 		ListaPedidos listaPedidosPendientes = new ListaPedidos();
 
 		for (Pedido pedido : this.datos.getListaPedidos()) {
+			pedido.setArticulo(this.datos.getArticuloDeListaArticulos(pedido.getCocigoAticulo()));
+			pedido.setCliente(this.datos.getClienteDeListaClientes(pedido.getEmailCliente()));
 			if (!pedido.pedidoEnviado()) {
 				listaPedidosPendientes.add(pedido);
 			}
@@ -106,7 +108,9 @@ public class Controlador {
 		ListaPedidos listaPedidosPendientesCliente = new ListaPedidos();
 
 		for (Pedido pedido : this.datos.getListaPedidos()) {
-			if (!pedido.pedidoEnviado() && pedido.getCliente().getEmail().equals(email_cliente)) {
+			pedido.setArticulo(this.datos.getArticuloDeListaArticulos(pedido.getCocigoAticulo()));
+			pedido.setCliente(this.datos.getClienteDeListaClientes(pedido.getEmailCliente()));
+			if (!pedido.pedidoEnviado() && pedido.getEmailCliente().equals(email_cliente)) {
 				listaPedidosPendientesCliente.add(pedido);
 			}
 		}
@@ -118,6 +122,8 @@ public class Controlador {
 		ListaPedidos listaPedidosPendientes = new ListaPedidos();
 
 		for (Pedido pedido : this.datos.getListaPedidos()) {
+			pedido.setArticulo(this.datos.getArticuloDeListaArticulos(pedido.getCocigoAticulo()));
+			pedido.setCliente(this.datos.getClienteDeListaClientes(pedido.getEmailCliente()));
 			if (pedido.pedidoEnviado()) {
 				listaPedidosPendientes.add(pedido);
 			}
@@ -130,7 +136,9 @@ public class Controlador {
 		ListaPedidos listaPedidosPendientesCliente = new ListaPedidos();
 
 		for (Pedido pedido : this.datos.getListaPedidos()) {
-			if (pedido.pedidoEnviado() && pedido.getCliente().getEmail().equals(email_cliente)) {
+			pedido.setArticulo(this.datos.getArticuloDeListaArticulos(pedido.getCocigoAticulo()));
+			pedido.setCliente(this.datos.getClienteDeListaClientes(pedido.getEmailCliente()));
+			if (pedido.pedidoEnviado() && pedido.getEmailCliente().equals(email_cliente)) {
 				listaPedidosPendientesCliente.add(pedido);
 			}
 		}
