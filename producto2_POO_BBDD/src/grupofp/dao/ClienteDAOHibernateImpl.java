@@ -38,11 +38,29 @@ public class ClienteDAOHibernateImpl implements ClienteDAO {
     @Override
     public void insertarCliente(Cliente cliente) throws DAOException {
         Transaction transaction = null;
-        try (Session session = sessionFactory.openSession()) {
-            transaction = session.getTransaction();
-            session.persist(cliente);
-            transaction.commit();
-            session.close();
+        try (Session session = sessionFactory.openSession()) {        
+            try {
+            	transaction = session.getTransaction();
+                session.persist(cliente);
+                transaction.commit();
+                session.close();
+            } catch (IllegalStateException e) {
+                if (transaction != null && transaction.isActive()) {
+                	transaction.rollback();
+                }
+                // Si la transaccion no estaba ya iniciada, la intentamos iniciar
+                try {
+                	transaction = session.beginTransaction();
+                    session.persist(cliente);
+                    transaction.commit();
+                    session.close();
+                } catch (Exception ex) {
+                    if (transaction != null && transaction.isActive()) {
+                    	transaction.rollback();
+                    }
+                    throw new DAOException("Error al insertar el nuevo pedido en la bd: ", ex);
+                }
+            }
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
