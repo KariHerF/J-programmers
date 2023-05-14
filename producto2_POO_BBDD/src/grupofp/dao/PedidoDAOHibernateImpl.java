@@ -20,17 +20,38 @@ public class PedidoDAOHibernateImpl implements PedidoDAO {
 
 	 @Override
 	    public void insertarPedido(Pedido pedido) throws DAOException {
-		    Transaction tx = null;
+		    Transaction transaccion = null;
 	        try(Session session = sessionFactory.openSession()) {
-	            tx = session.getTransaction();
-	            pedido.setCocigoAticulo(pedido.getArticulo().getCodigo());
-	            pedido.setEmailCliente(pedido.getCliente().getEmail());
-	            session.persist(pedido);
-	            tx.commit();
-	            session.close();
+	            try {
+	            	transaccion = session.getTransaction();
+	            	pedido.setCocigoAticulo(pedido.getArticulo().getCodigo());
+	 	            pedido.setEmailCliente(pedido.getCliente().getEmail());
+	 	            session.persist(pedido);
+	 	            transaccion.commit();
+	 	            session.close();
+	            } catch (IllegalStateException e) {
+	                if (transaccion != null && transaccion.isActive()) {
+	                	transaccion.rollback();
+	                }
+	                // Si la transaccion no estaba ya iniciada, la intentamos iniciar
+	                try {
+	                	transaccion = session.beginTransaction();
+	                	pedido.setCocigoAticulo(pedido.getArticulo().getCodigo());
+	     	            pedido.setEmailCliente(pedido.getCliente().getEmail());
+	     	            session.persist(pedido);
+	     	            transaccion.commit();
+	     	            session.close();
+	                } catch (Exception ex) {
+	                    if (transaccion != null && transaccion.isActive()) {
+	                    	transaccion.rollback();
+	                    }
+	                    throw new DAOException("Error al insertar el nuevo pedido en la bd: ", ex);
+	                }
+	            }
+	            
 	        } catch (Exception e) {
-	            if (tx != null && tx.isActive()) {
-	                tx.rollback();
+	            if (transaccion != null && transaccion.isActive()) {
+	            	transaccion.rollback();
 	            }
 	            throw new DAOException("Error al insertar el nuevo pedido en la bd: ", e);
 	        } 
