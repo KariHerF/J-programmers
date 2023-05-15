@@ -3,13 +3,11 @@ package grupofp.modelo;
 import java.time.Duration;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import org.hibernate.annotations.Type;
 
 /**
  * @author J-Programers
@@ -17,36 +15,39 @@ import org.hibernate.annotations.Type;
  */
 
 @Entity
-@Table(name = "articulosh")
+@Table (name = "articulos")
 public class Articulo {
 
     @Id
+    @Column(name = "codigo_articulo")
     public String codigo;
-    @Column
+    @Column(name = "descripcion")
     public String descripcion;
-    @Column
+    @Column(name = "precio_venta")
     public float pvp;
-    @Column(columnDefinition = "BIGINT")
-    public Duration tiempoPrep;
     @Column(name = "gastos_envio")
     public float gastosEnvio;
+    @Column(name = "tiempo_preparacion")
+    public long tiempo_preparacion;
+    
 
 	/**
 	 * @param codigo
 	 * @param descripcion
 	 * @param pvp
-	 * @param tiempoPrep
+	 * @param tiempo_preparacion
 	 * @param gastosEnvio
 	 */
     public Articulo() {
     	   // default constructor implementation
     }
-	public Articulo(String codigo, String descripcion, float pvp, Duration tiempoPrep, float gastosEnvio) {
+    
+	public Articulo(String codigo, String descripcion, float pvp, long tiempo_preparacion, float gastosEnvio) {
 		super();
 		this.codigo = codigo;
 		this.descripcion = descripcion;
 		this.pvp = pvp;
-		this.tiempoPrep = tiempoPrep;
+		this.tiempo_preparacion = tiempo_preparacion;
 		this.gastosEnvio = gastosEnvio;
 	}
 
@@ -95,15 +96,15 @@ public class Articulo {
 	/**
 	 * @return the tiempoPrep
 	 */
-	public Duration getTiempoPrep() {
-		return tiempoPrep;
+	public long getTiempoPrep() {
+		return tiempo_preparacion;
 	}
 
 	/**
 	 * @param tiempoPrep the tiempoPrep to set
 	 */
-	public void setTiempoPrep(Duration tiempoPrep) {
-		this.tiempoPrep = tiempoPrep;
+	public void setTiempoPrep(long tiempoPrep) {
+		this.tiempo_preparacion = tiempoPrep;
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class Articulo {
 	@Override
 	public String toString() {
 		return "Articulo [codigo=" + codigo + ", descripcion=" + descripcion + ", pvp=" + pvp + ", tiempoPrep="
-				+ tiempoPrep + ", gastosEnvio=" + gastosEnvio + "]";
+				+ tiempo_preparacion + ", gastosEnvio=" + gastosEnvio + "]";
 	}
 
 	@Override

@@ -34,12 +34,12 @@ public class HibernateDAOFactory extends DAOFactory {
     
     @Override
 	public ClienteDAO obtenerClienteDAO() throws SQLException {
-        return null;
+    	return new ClienteDAOHibernateImpl(obtenerSesionHibernate());
     }
     
     @Override
 	public PedidoDAO obtenerPedidoDAO() throws SQLException {
-        return null;
+    	return new PedidoDAOHibernateImpl(obtenerSesionHibernate());
     }
 
 

@@ -41,7 +41,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
             statement.setString(2, articulo.getDescripcion());
             statement.setFloat(3, articulo.getPvp());
             statement.setFloat(4, articulo.getGastosEnvio());
-            statement.setLong(5, articulo.getTiempoPrep().getSeconds());
+            statement.setLong(5, articulo.getTiempoPrep());
             statement.executeUpdate();
         }catch (SQLException e) {
 			throw new DAOException("Error al insertar un nuevo articulo sobre la bd: ", e);
@@ -68,7 +68,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
              try (ResultSet resultSet = statement.executeQuery()) {
                  if (resultSet.next()) {
                      articulo = new Articulo(resultSet.getString("codigo_articulo"), resultSet.getString("descripcion"),
-                             resultSet.getFloat("precio_venta"), Duration.ofSeconds(resultSet.getLong("tiempo_preparacion")),
+                             resultSet.getFloat("precio_venta"), resultSet.getLong("tiempo_preparacion"),
                              resultSet.getFloat("gastos_envio"));
                  }
              }
@@ -96,7 +96,7 @@ public class ArticuloDAOImpl implements ArticuloDAO {
              try (ResultSet resultSet = statement.executeQuery()) {
             	 while (resultSet.next()) {
             		 articulo = new Articulo(resultSet.getString("codigo_articulo"), resultSet.getString("descripcion"),
-                             resultSet.getFloat("precio_venta"), Duration.ofSeconds(resultSet.getLong("tiempo_preparacion")),
+                             resultSet.getFloat("precio_venta"), resultSet.getLong("tiempo_preparacion"),
                              resultSet.getFloat("gastos_envio"));
                      listaArticulos.add(articulo);
                  }

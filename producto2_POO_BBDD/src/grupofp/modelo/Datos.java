@@ -15,18 +15,12 @@ import grupofp.dao.ClienteDAO;
 import grupofp.dao.DAOFactory;
 import grupofp.dao.MySQLDAOFactory;
 import grupofp.dao.PedidoDAO;
-import grupofp.excepciones.ExcepcionesPersonalizadas;
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidClientTypeException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmailFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.NotFloatException;
-import grupofp.excepciones.ExcepcionesPersonalizadas.NoArticleException;
-import grupofp.excepciones.ExcepcionesPersonalizadas.NoOrderException;
-import grupofp.excepciones.ExcepcionesPersonalizadas.NotPositiveIntException;
-
-
 import grupofp.vista.GestionOS;
 
 /**
@@ -35,9 +29,10 @@ import grupofp.vista.GestionOS;
  */
 public class Datos {
 
-	// Lista de tipos de DAO disponibles en la factoria
+	// Constante para indicar el tipo de FactorÃ­a a utilizar (1: mySQL directamente,
+	// 2: ORM Hibernate)
 	private static final int TIPO_FACTORIA = 2;
-	private static final  String CLIENTE_ESTANDAR = "estandar";
+	private static final String CLIENTE_ESTANDAR = "estandar";
 	private static final String CLIENTE_PREMIUM = "premium";
 	private Articulo articulo;
 	private Cliente cliente;
@@ -51,83 +46,64 @@ public class Datos {
 		this.miControlador = miControlador;
 	}
 
-	//Validación de parametros
+	// ValidaciÃ³n de parametros
 
 	public void validarDNIoNIE(String dniNumber) throws InvalidDNIorNIEFormatException {
-	    String dniRegex = "^\\d{8}[A-Z]$"; // Expresión regular para DNI
-	    String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// Expresión regular para NIE
+		String dniRegex = "^\\d{8}[A-Z]$"; // ExpresiÃ³n regular para DNI
+		String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// ExpresiÃ³n regular para NIE
 
-	    if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
-	        throw new InvalidDNIorNIEFormatException("Formato inválido de NIE o DNI");
-	    }
-	    // Si el formato de DNI o NIE es válido, continúa el flujo de ejecución
+		if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
+			throw new InvalidDNIorNIEFormatException("Formato invÃ¡lido de NIE o DNI");
+		}
+		// Si el formato de DNI o NIE es vÃ¡lido, continÃºa el flujo de ejecuciÃ³n
 	}
 
-
 	public void validarEmail(String email) throws InvalidEmailFormatException {
-	    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-	                        "[a-zA-Z0-9_+&*-]+)*@" +
-	                        "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
-	    if (!email.matches(emailRegex)) {
-	        throw new InvalidEmailFormatException("Formato inválido de email");
-	    }
-	    // Si el formato de email es correcto, se continúa la ejecución
+		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+				"[a-zA-Z0-9_+&*-]+)*@" +
+				"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
+		if (!email.matches(emailRegex)) {
+			throw new InvalidEmailFormatException("Formato invÃ¡lido de email");
+		}
+		// Si el formato de email es correcto, se continÃºa la ejecuciÃ³n
 	}
 
 	public void validarArgumentoNoVacio(String entrada_teclado) throws InvalidEmpyArgumentException {
-	    String argumento = "";
-	    if (argumento.matches(entrada_teclado)) {
-	        throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parámetro");
-	    }
-	    // Si el argumento de entrada no es vacío, se continúa con la ejecución
+		String argumento = "";
+		if (argumento.matches(entrada_teclado)) {
+			throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el parÃ¡metro");
+		}
+		// Si el argumento de entrada no es vacÃ­o, se continÃºa con la ejecuciÃ³n
 	}
 
 	public void validarTipoCliente(String tipo_cliente) throws InvalidClientTypeException {
-	    String tipo_estandar = "estandar";
-	    String tipo_premium = "premium";
-	    if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
-	        throw new InvalidClientTypeException("Es necesario introducir valor válido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
-	    }
-	    // Si el tipo de cliente se ha indicado correctamente, se continúa con la ejecución
+		String tipo_estandar = "estandar";
+		String tipo_premium = "premium";
+		if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
+			throw new InvalidClientTypeException(
+					"Es necesario introducir valor vÃ¡lido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
+		}
+		// Si el tipo de cliente se ha indicado correctamente, se continÃºa con la
+		// ejecuciÃ³n
 	}
 
 	public void validarArgumentoFloat(float input) throws NotFloatException {
-	    if (Float.floatToIntBits(input) == 0) {
-	        throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
-	    }
-	    // Si el argumento de entrada es un float, se continúa con la ejecución
+		if (Float.floatToIntBits(input) == 0) {
+			throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
+		}
+		// Si el argumento de entrada es un float, se continÃºa con la ejecuciÃ³n
 	}
-        
-        public void validarArticuloExiste(Articulo articulo) throws NoArticleException {
-            if (articulo == null) {
-                 throw new NoArticleException("Se está intentando generar un pedido con un código de artículo no registrado, "
-					+ "debe de introducir código de artículo que se corresponda con un artículo previamente resgistrado.\n Para registrar un nuevo artículo navege hasta el menú \"GESTION DE ARTICULOS\". ");
-            }
-        }
-        
-        public void validarPedidoExiste(Pedido pedido) throws NoOrderException {
-            if (pedido == null) {
-                 throw new NoOrderException("Se ha indicado un número de pedido para eliminar pedido, que no se corresponde con ningún pedido existente.");
-            }
-        }
-        
-        public void validarArgumentoIntPositivo(int input) throws NotPositiveIntException {
-           if (input <= 0) {
-               throw new NotPositiveIntException("Se ha indicado un numero inferior o igual a 0");
-           }
-        }
 
 	/**
 	 * @return the listaClientes
-	 * @throws SQLException 
-	 * @throws DAOException 
+	 * @throws SQLException
+	 * @throws DAOException
 	 */
 	public ListaClientes getListaClientes() throws SQLException, DAOException {
 		// Instanciamos nuestra factoria de DAOS
 
 		// Instaciamos un articuloDAO para persistir un nuevo Articulo
-		DAOFactory daoFactory = null;
-		ClienteDAO clienteDAO = daoFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
+		ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerTodosClientes();
 	}
 
@@ -140,14 +116,14 @@ public class Datos {
 
 	/**
 	 * @return the listaArticulos
-	 * @throws SQLException 
-	 * @throws DAOException 
+	 * @throws SQLException
+	 * @throws DAOException
 	 */
 	public ListaArticulos getListaArticulos() throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un articuloDAO para persistir un nuevo Articulo
-		ArticuloDAO articuloDAO = mySQLFactory.obtenerArticuloDAO();
+		// Referenciamos a nuestra factoria de DAOS
+		// Instaciamos un articuloDAO de la factorÃ­a indicada para persistir un nuevo
+		// Articulo
+		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerTodosLosArticulos();
 	}
 
@@ -160,16 +136,15 @@ public class Datos {
 
 	/**
 	 * @return the listaPedidos
-	 * @throws DAOException 
-	 * @throws SQLException 
+	 * @throws DAOException
+	 * @throws SQLException
 	 */
 	public ListaPedidos getListaPedidos() throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un pedidoDAO para obtener la lista de pedidos registrados en la bd
-		PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+		// Instaciamos un pedidoDAO para obtener la lista de pedidos registrados en la
+		// bd
+		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidos();
-}
+	}
 
 	/**
 	 * @param listaPedidos the listaPedidos to set
@@ -194,24 +169,29 @@ public class Datos {
 	}
 
 	public void crearArticulo(String codigo_articulo, String descripcion_articulo, float pvp_articulo,
-			Duration tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
+			long tiempoPrep_articulo_parsed, float gastosEnvioArticulo) {
 
 		try {
 			// Instanciamos el articulo
-			this.articulo = new Articulo(codigo_articulo, descripcion_articulo, pvp_articulo,
-					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
-			
-			// Referenciamos a nuestra factoria de DAOS
-			DAOFactory miFactoria = null;
-			// Instaciamos un articuloDAO de la factoría indicada para persistir un nuevo Articulo
-			ArticuloDAO articuloDAO = miFactoria.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
+			this.articulo = new Articulo();
+			articulo.setCodigo(codigo_articulo);
+			articulo.setDescripcion(descripcion_articulo);
+			articulo.setPvp(pvp_articulo);
+			articulo.setGastosEnvio(gastosEnvioArticulo);
+			articulo.setTiempoPrep(tiempoPrep_articulo_parsed);
 
-			if (this.articulo != null) {		
+			// Referenciamos a nuestra factoria de DAOS
+			// Instaciamos un articuloDAO de la factorÃ­a indicada para persistir un nuevo
+			// Articulo
+			ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
+
+			if (this.articulo != null) {
 				System.out.println("");
-				System.out.println("Se está intentando añadir a la bd un artículo, con las siguientes características:");
+				System.out
+						.println("Se estÃ¡ intentando aÃ±adir a la bd un artÃ­culo, con las siguientes caracterÃ­sticas:");
 				System.out.println(this.articulo.toString());
 				articuloDAO.insertarArticulo(articulo);
-				System.out.println("Se ha guardado el nuevo artículo en bd.\n");
+				System.out.println("Se ha guardado el nuevo artÃ­culo en bd.\n");
 			}
 
 		} catch (Exception ex) {
@@ -239,73 +219,75 @@ public class Datos {
 			String tipo_cliente) {
 
 		try {
-			// Instanciamos nuestra factoria de DAOS
-			MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-			// Instaciamos un ClienteDAO para persistir un nuevo cliente
-			ClienteDAO clienteDAO = mySQLFactory.obtenerClienteDAO();
+			// Referenciamos a nuestra factoria de DAOS
+			// Instaciamos un articuloDAO de la factorÃ­a indicada para persistir un nuevo
+			// Articulo
+			ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 			if (tipo_cliente.equals(CLIENTE_ESTANDAR)) {
 				float cuotaAnual = clienteDAO.obtenerCuotaPorTipoCliente(tipo_cliente);
 				float gastosEnvio = clienteDAO.obtenerDescuentoEnvioPorTipoCliente(tipo_cliente);
 				System.out.println("");
-				System.out.println("Se está intentando guardar en bd, el cliente estandar:");
-				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, tipo_cliente, cuotaAnual, gastosEnvio);
+				System.out.println("Se estÃ¡ intentando guardar en bd, el cliente estandar:");
+				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente,
+						tipo_cliente, cuotaAnual, gastosEnvio);
 				cliente.toString();
 				clienteDAO.insertarCliente(cliente);
-				System.out.println("Cliente estándar creado añadido a la bd.");
-				
+				System.out.println("Cliente estÃ¡ndar creado aÃ±adido a la bd.");
+
 			} else if (tipo_cliente.equals(CLIENTE_PREMIUM)) {
 				float cuotaAnual = clienteDAO.obtenerCuotaPorTipoCliente(tipo_cliente);
 				float gastosEnvio = clienteDAO.obtenerDescuentoEnvioPorTipoCliente(tipo_cliente);
 				System.out.println("");
-				System.out.println("Se está intentando guardar en bd, el cliente premium:");
-				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, tipo_cliente, cuotaAnual, gastosEnvio);
+				System.out.println("Se estÃ¡ intentando guardar en bd, el cliente premium:");
+				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente,
+						tipo_cliente, cuotaAnual, gastosEnvio);
 				cliente.toString();
 				clienteDAO.insertarCliente(cliente);
-				System.out.println("Cliente premium añadido a la bd.");
+				System.out.println("Cliente premium aÃ±adido a la bd.");
 			} else {
-				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCIÓN PERSSONALIZADA (No se ha
+				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCIÃ“N PERSSONALIZADA (No se ha
 				// respetado el formato para
 				// indicar el tipo de cliente)
 				System.out.println(
-						"Tipo de cliente no reconocido. Debe ser \"estandar\" o \"premium\", ya que son los únicos tipos de cliente soportados por el momento.");
+						"Tipo de cliente no reconocido. Debe ser \"estandar\" o \"premium\", ya que son los Ãºnicos tipos de cliente soportados por el momento.");
 			}
 
 			if (this.cliente != null) {
-				System.out.println("Se ha creado un nuevo cliente con las siguientes características:\n");
+				System.out.println("Se ha creado un nuevo cliente con las siguientes caracterÃ­sticas:\n");
 				System.out.println(this.cliente.toString());
 			}
 
 		} catch (Exception ex) {
-			// Print para la traza de error de una excepción no esperada
+			// Print para la traza de error de una excepciÃ³n no esperada
 			ex.printStackTrace();
 			System.out.println(ex);
 		}
 	}
 
 	public Cliente getClienteDeListaClientes(String email_cliente) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un clienteDAO para poder llamar al metodo obtenerCliente de clienteDAO y 
-		// obtener los datos de un cliente buscando por su email sobre la tabla clientes de la bd
-		ClienteDAO clienteDAO = mySQLFactory.obtenerClienteDAO();
+		// Instaciamos un clienteDAO para poder llamar al metodo obtenerCliente de
+		// clienteDAO y
+		// obtener los datos de un cliente buscando por su email sobre la tabla clientes
+		// de la bd
+		ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerCliente(email_cliente);
 	}
 
 	public Articulo getArticuloDeListaArticulos(String codigo_articulo) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un articuloDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
-		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
-		ArticuloDAO articuloDAO = mySQLFactory.obtenerArticuloDAO();
+		// Instaciamos un articuloDAO para poder llamar al metodo obtenerArticulo de
+		// articuloDAO y
+		// obtener los datos de un articulo buscando por su codigo sobre la tabla
+		// articulos de la bd
+		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerArticulo(codigo_articulo);
 	}
 
 	public Pedido getPedidoDeListaPedidos(int numPedido) throws SQLException, DAOException {
-		// Instanciamos nuestra factoria de DAOS
-		MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
-		// Instaciamos un pedidoDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
-		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
-		PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+		// Instaciamos un pedidoDAO para poder llamar al metodo obtenerArticulo de
+		// articuloDAO y
+		// obtener los datos de un articulo buscando por su codigo sobre la tabla
+		// articulos de la bd
+		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidoPorId(numPedido);
 	}
 
@@ -329,25 +311,29 @@ public class Datos {
 
 		Articulo articulo = this.getArticuloDeListaArticulos(codigo_articulo);
 		Cliente cliente = this.getClienteDeListaClientes(email_cliente);
-		if (cliente == null) {
+
+		if (articulo == null) {
+			// TODO:Lanzar una posible excepciÃ³n personalizada
+			System.out.println(
+					"Se estÃ¡ intentando generar un pedido con un cÃ³digo de artÃ­culo no registrado, "
+							+ "debe de introducir cÃ³digo de artÃ­culo que se corresponda con un artÃ­culo previamente resgistrado.\n Para registrar un nuevo artÃ­culo navege hasta el menÃº \"GESTION DE ARTICULOS\". ");
+		} else if (cliente == null) {
 			System.out
-					.println("Se está intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
+					.println(
+							"Se estÃ¡ intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
 			this.miControlador.getvGestionOS().anadirClienteVistaGestionOS();
 			this.crearPedido(email_cliente, codigo_articulo, fechaHora, cantUnidades);
 		} else {
 
 			try {
-				this.validarArticuloExiste(articulo);
-                        	// Instanciamos el pedido
+				// Instanciamos el pedido
 				this.pedido = new Pedido(cliente, articulo, fechaHora, cantUnidades);
 
-				// Instanciamos nuestra factoria de DAOS
-				MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();
 				// Instaciamos un ClienteDAO para persistir un nuevo pedido
-				PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
+				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 				pedidoDAO.insertarPedido(pedido);
 				if (this.pedido != null) {
-					System.out.println("Se ha creado un nuevo pedido con las siguientes características:");
+					System.out.println("Se ha creado un nuevo pedido con las siguientes caracterÃ­sticas:");
 					System.out.println(this.pedido.toString());
 					this.anadirPedidoAListaPedidos(this.pedido);
 				}
@@ -362,23 +348,28 @@ public class Datos {
 
 	public void eliminarPedido(int numPedido) {
 
-
 		try {
-                    // Comprobamos que se está eliminando un pedido que exista
-                    Pedido pedido = getPedidoDeListaPedidos(numPedido);
-                    this.validarPedidoExiste(pedido);
-			
-                    //TODO: esto quizás podría gestionarse con una excepción personalizada
-                    if (!pedido.pedidoEnviado()) {
-			System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
-			// Instanciamos nuestra factoria de DAOS
-			MySQLDAOFactory mySQLFactory = new MySQLDAOFactory();					// Instaciamos un ClienteDAO para persistir un nuevo cliente
-			PedidoDAO pedidoDAO = mySQLFactory.obtenerPedidoDAO();
-			pedidoDAO.eliminarPedido(numPedido);
-                    } else {
-                        System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparación.");
-                    }
-			
+			// Comprobamos que se estÃ¡ eliminando un pedido que exista
+			Pedido pedido = getPedidoDeListaPedidos(numPedido);
+
+			if (pedido == null) {
+				System.out.println(
+						"Se ha indicado un nÃºmero de pedido para eliminar pedido, que no se corresponde con ningÃºn pedido existente.");
+			} else {
+				// Instaciamos un pedidoDAO y un articuloDAO para proceder a poder eliminar un
+				// pedido
+				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
+				ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
+				Pedido pedido_encontrado = pedidoDAO.obtenerPedidoPorId(numPedido);
+				Articulo articulo_pedido = articuloDAO.obtenerArticulo(pedido_encontrado.getCocigoAticulo());
+				pedido.setArticulo(articulo_pedido);
+				if (!pedido.pedidoEnviado()) {
+					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
+					pedidoDAO.eliminarPedido(numPedido);
+				} else {
+					System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparaciÃ³n.");
+				}
+			}
 
 		} catch (Exception ex) {
 			// printStackTrace method
@@ -481,11 +472,11 @@ public class Datos {
 		return this.articulo.getGastosEnvio();
 	}
 
-	public void setTiempoPrepArticulo(Duration tiempoPrep) {
+	public void setTiempoPrepArticulo(long tiempoPrep) {
 		this.articulo.setTiempoPrep(tiempoPrep);
 	}
 
-	public Duration getTiempoPrepArticulo() {
+	public long getTiempoPrepArticulo() {
 		return this.articulo.getTiempoPrep();
 	}
 

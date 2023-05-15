@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 import grupofp.controlador.Controlador;
 import grupofp.excepciones.ExcepcionesPersonalizadas.DAOException;
-import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
 import grupofp.modelo.Articulo;
 import grupofp.modelo.Cliente;
 import grupofp.modelo.ClienteEstandar;
@@ -62,7 +61,7 @@ public class GestionOS {
 
 			System.out.println("Introducir el tiempo de preparaci�n del art�culo:");
 			System.out.println(
-					"(la duraci�n del tiempo de preparaci�n debe introducirse en formato ISO 8601 (PTnHnMnS))");
+					"(la duraci�nn del tiempo de preparaci�n debe introducirse en formato ISO 8601 (PTnHnMnS))");
 			Scanner sn_tiempo_prep_articulo = new Scanner(System.in);
 			tiempoPrep_articulo = sn_tiempo_prep_articulo.nextLine();
 			// Validamos argumento no vac�o
@@ -72,14 +71,15 @@ public class GestionOS {
 
 			System.out.println("Introducir gastos env�o del art�culo:");
 			Scanner sn_gastos_envio_articulo = new Scanner(System.in);
-			
+
 			// Validamos argumento float
 			if (sn_gastos_envio_articulo.hasNextFloat()) {
 				gastosEnvioArticulo = sn_gastos_envio_articulo.nextFloat();
-	            System.out.println("Los gastos de env�o reconocidos para el art�culo son: " + gastosEnvioArticulo);
-	        } else {
-	        	throw new IllegalArgumentException("Para este par�metro se espera la introducci�n de un valor decimal, el valor introducido no es un n�mero decimal v�lido.");
-	        }
+				System.out.println("Los gastos de env�o reconocidos para el art�culo son: " + gastosEnvioArticulo);
+			} else {
+				throw new IllegalArgumentException(
+						"Para este par�metro se espera la introducci�n de un valor decimal, el valor introducido no es un n�mero decimal v�lido.");
+			}
 
 			this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo,
 					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
@@ -216,8 +216,8 @@ public class GestionOS {
 			System.out.println("Introducir cantidad de unidades del art�culo para el pedido:");
 			Scanner sn_cantUnidades_pedido = new Scanner(System.in);
 			cantUnidades_pedido = sn_cantUnidades_pedido.nextInt();
-                        this.miControlador.getDatos().validarArgumentoIntPositivo(cantUnidades_pedido);
-                        
+			this.miControlador.getDatos().validarArgumentoIntPositivo(cantUnidades_pedido);
+
 			this.miControlador.crearPedido(email_cliente_pedido, codigo_articulo_pedido, fechaHora_pedido,
 					cantUnidades_pedido);
 		} catch (Exception ex) {
@@ -228,19 +228,19 @@ public class GestionOS {
 	}
 
 	public void eliminarPedidoVistaGestionOS() {
-            try {	
-                int num_pedido_a_eliminar;
+		try {
+			int num_pedido_a_eliminar;
 
-                System.out.println("Introducir codigo del pedido:");
-                Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
-                num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
-                this.miControlador.getDatos().validarArgumentoIntPositivo(num_pedido_a_eliminar);
-                this.miControlador.eliminarPedido(num_pedido_a_eliminar);
+			System.out.println("Introducir codigo del pedido:");
+			Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
+			num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
+			this.miControlador.getDatos().validarArgumentoIntPositivo(num_pedido_a_eliminar);
+			this.miControlador.eliminarPedido(num_pedido_a_eliminar);
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                System.out.println(ex);
-            }
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
+		}
 	}
 
 	public void mostrarPedidosPendientesVistaGestionOS() throws SQLException, DAOException {
@@ -298,7 +298,7 @@ public class GestionOS {
 	public void mostrarPedidosEnviadosClienteVistaGestionOS() throws SQLException, DAOException {
 
 		String email_cliente_pedido;
-		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos pendientes:");
+		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos enviados:");
 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
 

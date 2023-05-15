@@ -2,16 +2,43 @@ package grupofp.modelo;
 
 import java.util.Objects;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Table;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.DiscriminatorType;
+
+
+@Entity
+@Table (name = "clientes")
+//Anotación que nos sirve para indicar que vamos a guardar todas las entidades en una única tabla.
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//Anotación que nos indica la columna que va a actuar de discriminador entre los tipos de clientes.
+@DiscriminatorColumn(name = "tipo_cliente", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Cliente {
 
 	/**
 	 * @author J-Programers
 	 *
 	 */
-	private String email;
-	private String nombre;
-	private String domicilio;
-	private String nif;
+	@Id
+    @Column(name = "email")
+    private String email;
+    
+    @Column(name = "nombre")
+    private String nombre;
+    
+    @Column(name = "domicilio")
+    private String domicilio;
+    
+    @Column(name = "nif")
+    private String nif;
 
 	public Cliente(String email, String nombre, String domicilio, String nif) {
 		this.setEmail(email);
