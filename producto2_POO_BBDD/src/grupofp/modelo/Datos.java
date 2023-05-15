@@ -21,6 +21,8 @@ import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidDNIorNIEFormatExcept
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmailFormatException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.InvalidEmpyArgumentException;
 import grupofp.excepciones.ExcepcionesPersonalizadas.NotFloatException;
+import grupofp.excepciones.ExcepcionesPersonalizadas.NotPositiveIntException;
+
 import grupofp.vista.GestionOS;
 
 /**
@@ -91,6 +93,11 @@ public class Datos {
 	    }
 	    // Si el argumento de entrada es un float, se continúa con la ejecución
 	}
+        public void validarArgumentoIntPositivo(int input) throws NotPositiveIntException {
+           if (input <= 0) {
+               throw new NotPositiveIntException("Se ha indicado un numero inferior o igual a 0");
+           }
+        }
 
 	/**
 	 * @return the listaClientes
