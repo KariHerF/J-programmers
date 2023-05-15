@@ -12,6 +12,10 @@
 
     <!-- Configuración del mapeo de clases de entidad -->
     <mapping class="grupofp.modelo.Articulo"/>
+    <mapping class="grupofp.modelo.Cliente"/>
+    <mapping class="grupofp.modelo.ClienteEstandar"/>
+    <mapping class="grupofp.modelo.ClientePremium"/>
+    <mapping class="grupofp.modelo.Pedido"/>
   </session-factory>
 </hibernate-configuration>
 

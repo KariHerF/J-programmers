@@ -2,20 +2,54 @@ package grupofp.modelo;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 /**
  * @author J-Programers
  *
  */
-public class Pedido {
 
+@Entity
+@Table(name="pedidos")
+public class Pedido {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="num_pedido")
 	private int numPedido;
-	private Cliente cliente;
-	private Articulo articulo;
+	
+	@Column(name="fecha_pedido")
 	private LocalDateTime fechaHora;
+	
+	@Column(name="cantidad")
 	private int cantUnidades;
+	
+	@Column(name="codigo_articulo")
+	private String cocigoAticulo;
+	
+	@Column(name="email")
+	private String emailCliente;
+	
+	@Transient
 	private boolean enviado = false;
+	@Transient
+	private Cliente cliente;
+	@Transient
+	private Articulo articulo;
+
+	
 
 	private static final String CLIENTE_PREMIUM = "premium";
+
+	// Constructor por defecto, necesario para ciertas operativas de Hibernate
+	public Pedido() {
+	}
 
 	/**
 	 * @param cliente
@@ -127,6 +161,35 @@ public class Pedido {
 	public void setArticulo(Articulo articulo) {
 		this.articulo = articulo;
 	}
+	
+	/**
+	 * @return the cocigoAticulo
+	 */
+	public String getCocigoAticulo() {
+		return cocigoAticulo;
+	}
+
+	/**
+	 * @param cocigoAticulo the cocigoAticulo to set
+	 */
+	public void setCocigoAticulo(String cocigoAticulo) {
+		this.cocigoAticulo = cocigoAticulo;
+	}
+
+	/**
+	 * @return the emailCliente
+	 */
+	public String getEmailCliente() {
+		return emailCliente;
+	}
+
+	/**
+	 * @param emailCliente the emailCliente to set
+	 */
+	public void setEmailCliente(String emailCliente) {
+		this.emailCliente = emailCliente;
+	}
+
 
 
 	public float precioEnvio() {

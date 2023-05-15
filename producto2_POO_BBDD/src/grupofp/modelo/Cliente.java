@@ -3,6 +3,7 @@ package grupofp.modelo;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,22 +12,22 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.DiscriminatorType;
 
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Table (name = "clientes")
+//Anotación que nos sirve para indicar que vamos a guardar todas las entidades en una única tabla.
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//Anotación que nos indica la columna que va a actuar de discriminador entre los tipos de clientes.
+@DiscriminatorColumn(name = "tipo_cliente", discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Cliente {
 
 	/**
 	 * @author J-Programers
 	 *
 	 */
-	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    
     @Column(name = "email")
     private String email;
     

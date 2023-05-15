@@ -30,7 +30,7 @@ public class GestionOS {
 		this.miControlador = miControlador;
 	}
 
-	// Utilidades para el apartado del menú: Gestion de Articulos
+	// Utilidades para el apartado del menï¿½: Gestion de Articulos
 	public void anadirArticuloVistaGestionOS() {
 
 		try {
@@ -41,44 +41,45 @@ public class GestionOS {
 			Duration tiempoPrep_articulo_parsed;
 			float gastosEnvioArticulo = 0.0f;
 
-			System.out.println("Introducir código del artículo:");
+			System.out.println("Introducir codigo del artï¿½culo:");
 			Scanner sn_codigo_articulo = new Scanner(System.in);
 			codigo_articulo = sn_codigo_articulo.nextLine().toUpperCase();
 
-			// Validamos argumento no vacío
+			// Validamos argumento no vacï¿½o
 			this.miControlador.getDatos().validarArgumentoNoVacio(codigo_articulo);
 
-			System.out.println("Introducir descripción del artículo:");
+			System.out.println("Introducir descripciï¿½n del artï¿½culo:");
 			Scanner sn_descripcion_articulo = new Scanner(System.in);
 			descripcion_articulo = sn_descripcion_articulo.nextLine();
 
-			// Validamos argumento no vacío
+			// Validamos argumento no vacï¿½o
 			this.miControlador.getDatos().validarArgumentoNoVacio(descripcion_articulo);
 
-			System.out.println("Introducir pvp del artículo:");
+			System.out.println("Introducir pvp del artï¿½culo:");
 			Scanner sn_pvp_articulo = new Scanner(System.in);
 			pvp_articulo = sn_pvp_articulo.nextFloat();
 
-			System.out.println("Introducir el tiempo de preparación del artículo:");
+			System.out.println("Introducir el tiempo de preparaciï¿½n del artï¿½culo:");
 			System.out.println(
-					"(la duraciónn del tiempo de preparación debe introducirse en formato ISO 8601 (PTnHnMnS))");
+					"(la duraciï¿½nn del tiempo de preparaciï¿½n debe introducirse en formato ISO 8601 (PTnHnMnS))");
 			Scanner sn_tiempo_prep_articulo = new Scanner(System.in);
 			tiempoPrep_articulo = sn_tiempo_prep_articulo.nextLine();
-			// Validamos argumento no vacío
+			// Validamos argumento no vacï¿½o
 			this.miControlador.getDatos().validarArgumentoNoVacio(tiempoPrep_articulo);
 			Duration duration = Duration.parse(tiempoPrep_articulo);
 			tiempoPrep_articulo_parsed = duration;
 
-			System.out.println("Introducir gastos envío del artículo:");
+			System.out.println("Introducir gastos envï¿½o del artï¿½culo:");
 			Scanner sn_gastos_envio_articulo = new Scanner(System.in);
-			
+
 			// Validamos argumento float
 			if (sn_gastos_envio_articulo.hasNextFloat()) {
 				gastosEnvioArticulo = sn_gastos_envio_articulo.nextFloat();
-	            System.out.println("Los gastos de envío reconocidos para el artículo son: " + gastosEnvioArticulo);
-	        } else {
-	        	throw new IllegalArgumentException("Para este parámetro se espera la introducción de un valor decimal, el valor introducido no es un número decimal válido.");
-	        }
+				System.out.println("Los gastos de envï¿½o reconocidos para el artï¿½culo son: " + gastosEnvioArticulo);
+			} else {
+				throw new IllegalArgumentException(
+						"Para este parï¿½metro se espera la introducciï¿½n de un valor decimal, el valor introducido no es un nï¿½mero decimal vï¿½lido.");
+			}
 
 			this.miControlador.crearArticulo(codigo_articulo, descripcion_articulo, pvp_articulo,
 					tiempoPrep_articulo_parsed, gastosEnvioArticulo);
@@ -94,11 +95,11 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de artículos, ya que no se ha registrado ningún artículo hasta el momento.");
+					"No se ha podido mostrar la lista de artï¿½culos, ya que no se ha registrado ningun artï¿½culo hasta el momento.");
 		}
 	}
 
-	// Utilidades para el apartado del menú: Gestion de Clientes
+	// Utilidades para el apartado del menï¿½: Gestion de Clientes
 	public void anadirClienteVistaGestionOS() {
 
 		try {
@@ -119,14 +120,14 @@ public class GestionOS {
 			Scanner sn_nombre_cliente = new Scanner(System.in);
 			nombre_cliente = sn_nombre_cliente.nextLine();
 
-			// Validamos argumento no vacío
+			// Validamos argumento no vacï¿½o
 			this.miControlador.getDatos().validarArgumentoNoVacio(nombre_cliente);
 
 			System.out.println("Introducir domicilio del cliente:");
 			Scanner sn_domicilio_cliente = new Scanner(System.in);
 			domicilio_cliente = sn_domicilio_cliente.nextLine();
 
-			// Validamos argumento no vacío
+			// Validamos argumento no vacï¿½o
 			this.miControlador.getDatos().validarArgumentoNoVacio(domicilio_cliente);
 
 			System.out.println("Introducir NIF o NIE del cliente:");
@@ -146,7 +147,7 @@ public class GestionOS {
 					tipo_cliente);
 
 		} catch (Exception ex) {
-			// Imprime el tipo de excepción capturada y su stack trace
+			// Imprime el tipo de excepciï¿½n capturada y su stack trace
 			System.out.println("Error: " + ex.getMessage());
 			ex.printStackTrace();
 		}
@@ -159,7 +160,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes, ya que no se ha registrado ningún cliente hasta el momento.");
+					"No se ha podido mostrar la lista de clientes, ya que no se ha registrado ningun cliente hasta el momento.");
 		}
 	}
 
@@ -170,7 +171,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes estándar, ya que no se ha registrado ningún cliente estándar hasta el momento.");
+					"No se ha podido mostrar la lista de clientes estï¿½ndar, ya que no se ha registrado ningun cliente estï¿½ndar hasta el momento.");
 		}
 	}
 
@@ -181,11 +182,11 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de clientes premium, ya que no se ha registrado ningún cliente premium hasta el momento.");
+					"No se ha podido mostrar la lista de clientes premium, ya que no se ha registrado ningun cliente premium hasta el momento.");
 		}
 	}
 
-	// Utilidades para el apartado del menú: Gestion de Pedidos
+	// Utilidades para el apartado del menï¿½: Gestion de Pedidos
 	public void anadirPedidoVistaGestionOS() {
 
 		try {
@@ -196,23 +197,26 @@ public class GestionOS {
 			int cantUnidades_pedido;
 
 			/*
-			 * System.out.println("Introducir número de pedido:"); Scanner sn_numero_pedido
+			 * System.out.println("Introducir nï¿½mero de pedido:"); Scanner sn_numero_pedido
 			 * = new Scanner(System.in); num_pedido = sn_numero_pedido.nextInt();
 			 */
 
 			System.out.println("Introducir email del cliente del pedido:");
 			Scanner sn_email_cliente_pedido = new Scanner(System.in);
 			email_cliente_pedido = sn_email_cliente_pedido.nextLine();
+			this.miControlador.getDatos().validarArgumentoNoVacio(email_cliente_pedido);
 
-			System.out.println("Introducir código del artículo del pedido:");
+			System.out.println("Introducir codigo del articulo del pedido:");
 			Scanner sn_codigo_articulo_pedido = new Scanner(System.in);
 			codigo_articulo_pedido = sn_codigo_articulo_pedido.nextLine();
+			this.miControlador.getDatos().validarArgumentoNoVacio(codigo_articulo_pedido);
 
 			fechaHora_pedido = LocalDateTime.now();
 
-			System.out.println("Introducir cantidad de unidades del artículo para el pedido:");
+			System.out.println("Introducir cantidad de unidades del artï¿½culo para el pedido:");
 			Scanner sn_cantUnidades_pedido = new Scanner(System.in);
 			cantUnidades_pedido = sn_cantUnidades_pedido.nextInt();
+			this.miControlador.getDatos().validarArgumentoIntPositivo(cantUnidades_pedido);
 
 			this.miControlador.crearPedido(email_cliente_pedido, codigo_articulo_pedido, fechaHora_pedido,
 					cantUnidades_pedido);
@@ -224,17 +228,18 @@ public class GestionOS {
 	}
 
 	public void eliminarPedidoVistaGestionOS() {
-		int num_pedido_a_eliminar;
+		try {
+			int num_pedido_a_eliminar;
 
-		System.out.println("Introducir código del pedido:");
-		Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
-		num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
-
-		if (num_pedido_a_eliminar >= 0) {
+			System.out.println("Introducir codigo del pedido:");
+			Scanner sn_num_pedido_a_eliminar = new Scanner(System.in);
+			num_pedido_a_eliminar = sn_num_pedido_a_eliminar.nextInt();
+			this.miControlador.getDatos().validarArgumentoIntPositivo(num_pedido_a_eliminar);
 			this.miControlador.eliminarPedido(num_pedido_a_eliminar);
-		} else {
-			// TODO: excepción personalizada?
-			System.out.println("Introducir un código de artículo válido");
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println(ex);
 		}
 	}
 
@@ -245,7 +250,7 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos pendientes, ya que no se ha registrado ningún pedido pendiente en este momento.");
+					"No se ha podido mostrar la lista de pedidos pendientes, ya que no se ha registrado ningun pedido pendiente en este momento.");
 		}
 	}
 
@@ -266,7 +271,7 @@ public class GestionOS {
 
 		if (!existe_cliente) {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que el email proporcionado no coincide con el de ningún cliente registrado.");
+					"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que el email proporcionado no coincide con el de ningun cliente registrado.");
 		} else {
 			if (this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido).size() > 0) {
 				for (Pedido pedido : this.miControlador.getListaPedidosPendientesCliente(email_cliente_pedido)) {
@@ -274,7 +279,7 @@ public class GestionOS {
 				}
 			} else {
 				System.out.println(
-						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningúnn pedido pendiente en este momento para el cliente indicado.");
+						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningun pedido pendiente en este momento para el cliente indicado.");
 			}
 		}
 	}
@@ -286,14 +291,14 @@ public class GestionOS {
 			}
 		} else {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos enviados, ya que no se ha registrado ningún pedido enviado hasta el momento.");
+					"No se ha podido mostrar la lista de pedidos enviados, ya que no se ha registrado ningun pedido enviado hasta el momento.");
 		}
 	}
 
 	public void mostrarPedidosEnviadosClienteVistaGestionOS() throws SQLException, DAOException {
 
 		String email_cliente_pedido;
-		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos pendientes:");
+		System.out.println("Introducir email del cliente del que se desea obtener la lista de pedidos enviados:");
 		Scanner sn_email_cliente_pedido = new Scanner(System.in);
 		email_cliente_pedido = sn_email_cliente_pedido.nextLine();
 
@@ -307,7 +312,7 @@ public class GestionOS {
 
 		if (!existe_cliente) {
 			System.out.println(
-					"No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que el email proporcionado no coincide con el de ningún cliente registrado.");
+					"No se ha podido mostrar la lista de pedidos enviados para este cliente, ya que el email proporcionado no coincide con el de ningun cliente registrado.");
 		} else {
 			if (this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido).size() > 0) {
 				for (Pedido pedido : this.miControlador.getListaPedidosEnviadosCliente(email_cliente_pedido)) {
@@ -315,7 +320,7 @@ public class GestionOS {
 				}
 			} else {
 				System.out.println(
-						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningún pedido enviado para el cliente indicado.");
+						"No se ha podido mostrar la lista de pedidos pendientes para este cliente, ya que no se ha registrado ningun pedido enviado para el cliente indicado.");
 			}
 		}
 	}

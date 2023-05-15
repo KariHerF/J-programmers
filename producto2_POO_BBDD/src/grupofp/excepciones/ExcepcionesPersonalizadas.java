@@ -43,5 +43,21 @@ public class ExcepcionesPersonalizadas {
 			super(message);
 		}
     }
+       public static class NoArticleException extends Exception {
+		public NoArticleException(String message) {
+	        super(message);
+	    }
+    }
+       public static class NoOrderException extends Exception {
+		public NoOrderException(String message) {
+	        super(message);
+	    }
+    }
+       
+       public static class NotPositiveIntException extends Exception {
+           public NotPositiveIntException(String message) {
+               super(message);
+           }
+       }
 
 }
