@@ -29,10 +29,9 @@ import grupofp.vista.GestionOS;
  */
 public class Datos {
 
-	// Constante para indicar el tipo de Factor√≠a a utilizar (1: mySQL directamente,
-	// 2: ORM Hibernate)
+	// Constante para indicar el tipo de FactorÌa a utilizar (1: mySQL directamente, 2: ORM Hibernate)
 	private static final int TIPO_FACTORIA = 2;
-	private static final String CLIENTE_ESTANDAR = "estandar";
+	private static final  String CLIENTE_ESTANDAR = "estandar";
 	private static final String CLIENTE_PREMIUM = "premium";
 	private Articulo articulo;
 	private Cliente cliente;
@@ -46,58 +45,57 @@ public class Datos {
 		this.miControlador = miControlador;
 	}
 
-	// Validaci√≥n de parametros
+	//ValidaciÛn de parametros
 
 	public void validarDNIoNIE(String dniNumber) throws InvalidDNIorNIEFormatException {
-		String dniRegex = "^\\d{8}[A-Z]$"; // Expresi√≥n regular para DNI
-		String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// Expresi√≥n regular para NIE
+	    String dniRegex = "^\\d{8}[A-Z]$"; // ExpresiÛn regular para DNI
+	    String nieRegex = "^[XYZ]\\d{7}[A-Z]$";// ExpresiÛn regular para NIE
 
-		if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
-			throw new InvalidDNIorNIEFormatException("Formato inv√°lido de NIE o DNI");
-		}
-		// Si el formato de DNI o NIE es v√°lido, contin√∫a el flujo de ejecuci√≥n
+	    if (!dniNumber.matches(dniRegex) && !dniNumber.matches(nieRegex)) {
+	        throw new InvalidDNIorNIEFormatException("Formato inv·lido de NIE o DNI");
+	    }
+	    // Si el formato de DNI o NIE es v·lido, contin˙a el flujo de ejecuciÛn
 	}
 
+
 	public void validarEmail(String email) throws InvalidEmailFormatException {
-		String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-				"[a-zA-Z0-9_+&*-]+)*@" +
-				"(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
-		if (!email.matches(emailRegex)) {
-			throw new InvalidEmailFormatException("Formato inv√°lido de email");
-		}
-		// Si el formato de email es correcto, se contin√∫a la ejecuci√≥n
+	    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+	                        "[a-zA-Z0-9_+&*-]+)*@" +
+	                        "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$"; // Expresion regular para detectar formato de email
+	    if (!email.matches(emailRegex)) {
+	        throw new InvalidEmailFormatException("Formato inv·lido de email");
+	    }
+	    // Si el formato de email es correcto, se contin˙a la ejecuciÛn
 	}
 
 	public void validarArgumentoNoVacio(String entrada_teclado) throws InvalidEmpyArgumentException {
-		String argumento = "";
-		if (argumento.matches(entrada_teclado)) {
-			throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el par√°metro");
-		}
-		// Si el argumento de entrada no es vac√≠o, se contin√∫a con la ejecuci√≥n
+	    String argumento = "";
+	    if (argumento.matches(entrada_teclado)) {
+	        throw new InvalidEmpyArgumentException("Es necesario introducir un valor para el para el par·metro");
+	    }
+	    // Si el argumento de entrada no es vacÌo, se contin˙a con la ejecuciÛn
 	}
 
 	public void validarTipoCliente(String tipo_cliente) throws InvalidClientTypeException {
-		String tipo_estandar = "estandar";
-		String tipo_premium = "premium";
-		if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
-			throw new InvalidClientTypeException(
-					"Es necesario introducir valor v√°lido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
-		}
-		// Si el tipo de cliente se ha indicado correctamente, se contin√∫a con la
-		// ejecuci√≥n
+	    String tipo_estandar = "estandar";
+	    String tipo_premium = "premium";
+	    if (!tipo_cliente.matches(tipo_estandar) && !tipo_cliente.matches(tipo_premium)) {
+	        throw new InvalidClientTypeException("Es necesario introducir valor v·lido para indicar el tipo de cliente. El valor puede indicarse escribiendo por teclado: \"estandar\" o \"premium\".");
+	    }
+	    // Si el tipo de cliente se ha indicado correctamente, se contin˙a con la ejecuciÛn
 	}
 
 	public void validarArgumentoFloat(float input) throws NotFloatException {
-		if (Float.floatToIntBits(input) == 0) {
-			throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
-		}
-		// Si el argumento de entrada es un float, se contin√∫a con la ejecuci√≥n
+	    if (Float.floatToIntBits(input) == 0) {
+	        throw new NotFloatException("El argumento de entrada debe de ser compatible con un tipo float");
+	    }
+	    // Si el argumento de entrada es un float, se contin˙a con la ejecuciÛn
 	}
 
 	/**
 	 * @return the listaClientes
-	 * @throws SQLException
-	 * @throws DAOException
+	 * @throws SQLException 
+	 * @throws DAOException 
 	 */
 	public ListaClientes getListaClientes() throws SQLException, DAOException {
 		// Instanciamos nuestra factoria de DAOS
@@ -116,13 +114,12 @@ public class Datos {
 
 	/**
 	 * @return the listaArticulos
-	 * @throws SQLException
-	 * @throws DAOException
+	 * @throws SQLException 
+	 * @throws DAOException 
 	 */
 	public ListaArticulos getListaArticulos() throws SQLException, DAOException {
 		// Referenciamos a nuestra factoria de DAOS
-		// Instaciamos un articuloDAO de la factor√≠a indicada para persistir un nuevo
-		// Articulo
+		// Instaciamos un articuloDAO de la factorÌa indicada para persistir un nuevo Articulo
 		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerTodosLosArticulos();
 	}
@@ -136,15 +133,14 @@ public class Datos {
 
 	/**
 	 * @return the listaPedidos
-	 * @throws DAOException
-	 * @throws SQLException
+	 * @throws DAOException 
+	 * @throws SQLException 
 	 */
 	public ListaPedidos getListaPedidos() throws SQLException, DAOException {
-		// Instaciamos un pedidoDAO para obtener la lista de pedidos registrados en la
-		// bd
+		// Instaciamos un pedidoDAO para obtener la lista de pedidos registrados en la bd
 		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidos();
-	}
+}
 
 	/**
 	 * @param listaPedidos the listaPedidos to set
@@ -179,19 +175,17 @@ public class Datos {
 			articulo.setPvp(pvp_articulo);
 			articulo.setGastosEnvio(gastosEnvioArticulo);
 			articulo.setTiempoPrep(tiempoPrep_articulo_parsed);
-
+			
 			// Referenciamos a nuestra factoria de DAOS
-			// Instaciamos un articuloDAO de la factor√≠a indicada para persistir un nuevo
-			// Articulo
+			// Instaciamos un articuloDAO de la factorÌa indicada para persistir un nuevo Articulo
 			ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 
-			if (this.articulo != null) {
+			if (this.articulo != null) {		
 				System.out.println("");
-				System.out
-						.println("Se est√° intentando a√±adir a la bd un art√≠culo, con las siguientes caracter√≠sticas:");
+				System.out.println("Se est· intentando aÒadir a la bd un artÌculo, con las siguientes caracterÌsticas:");
 				System.out.println(this.articulo.toString());
 				articuloDAO.insertarArticulo(articulo);
-				System.out.println("Se ha guardado el nuevo art√≠culo en bd.\n");
+				System.out.println("Se ha guardado el nuevo artÌculo en bd.\n");
 			}
 
 		} catch (Exception ex) {
@@ -220,73 +214,64 @@ public class Datos {
 
 		try {
 			// Referenciamos a nuestra factoria de DAOS
-			// Instaciamos un articuloDAO de la factor√≠a indicada para persistir un nuevo
-			// Articulo
+			// Instaciamos un articuloDAO de la factorÌa indicada para persistir un nuevo Articulo
 			ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 			if (tipo_cliente.equals(CLIENTE_ESTANDAR)) {
 				float cuotaAnual = clienteDAO.obtenerCuotaPorTipoCliente(tipo_cliente);
 				float gastosEnvio = clienteDAO.obtenerDescuentoEnvioPorTipoCliente(tipo_cliente);
 				System.out.println("");
-				System.out.println("Se est√° intentando guardar en bd, el cliente estandar:");
-				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente,
-						tipo_cliente, cuotaAnual, gastosEnvio);
+				System.out.println("Se est· intentando guardar en bd, el cliente estandar:");
+				this.cliente = new ClienteEstandar(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, tipo_cliente, cuotaAnual, gastosEnvio);
 				cliente.toString();
 				clienteDAO.insertarCliente(cliente);
-				System.out.println("Cliente est√°ndar creado a√±adido a la bd.");
-
+				System.out.println("Cliente est·ndar creado aÒadido a la bd.");
+				
 			} else if (tipo_cliente.equals(CLIENTE_PREMIUM)) {
 				float cuotaAnual = clienteDAO.obtenerCuotaPorTipoCliente(tipo_cliente);
 				float gastosEnvio = clienteDAO.obtenerDescuentoEnvioPorTipoCliente(tipo_cliente);
 				System.out.println("");
-				System.out.println("Se est√° intentando guardar en bd, el cliente premium:");
-				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente,
-						tipo_cliente, cuotaAnual, gastosEnvio);
+				System.out.println("Se est· intentando guardar en bd, el cliente premium:");
+				this.cliente = new ClientePremium(email_cliente, nombre_cliente, domicilio_cliente, nif_cliente, tipo_cliente, cuotaAnual, gastosEnvio);
 				cliente.toString();
 				clienteDAO.insertarCliente(cliente);
-				System.out.println("Cliente premium a√±adido a la bd.");
+				System.out.println("Cliente premium aÒadido a la bd.");
 			} else {
-				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCI√ìN PERSSONALIZADA (No se ha
+				// TODO: POSIBLE CASO PARA LANZAR UNA EXCEPCI”N PERSSONALIZADA (No se ha
 				// respetado el formato para
 				// indicar el tipo de cliente)
 				System.out.println(
-						"Tipo de cliente no reconocido. Debe ser \"estandar\" o \"premium\", ya que son los √∫nicos tipos de cliente soportados por el momento.");
+						"Tipo de cliente no reconocido. Debe ser \"estandar\" o \"premium\", ya que son los ˙nicos tipos de cliente soportados por el momento.");
 			}
 
 			if (this.cliente != null) {
-				System.out.println("Se ha creado un nuevo cliente con las siguientes caracter√≠sticas:\n");
+				System.out.println("Se ha creado un nuevo cliente con las siguientes caracterÌsticas:\n");
 				System.out.println(this.cliente.toString());
 			}
 
 		} catch (Exception ex) {
-			// Print para la traza de error de una excepci√≥n no esperada
+			// Print para la traza de error de una excepciÛn no esperada
 			ex.printStackTrace();
 			System.out.println(ex);
 		}
 	}
 
 	public Cliente getClienteDeListaClientes(String email_cliente) throws SQLException, DAOException {
-		// Instaciamos un clienteDAO para poder llamar al metodo obtenerCliente de
-		// clienteDAO y
-		// obtener los datos de un cliente buscando por su email sobre la tabla clientes
-		// de la bd
+		// Instaciamos un clienteDAO para poder llamar al metodo obtenerCliente de clienteDAO y 
+		// obtener los datos de un cliente buscando por su email sobre la tabla clientes de la bd
 		ClienteDAO clienteDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerClienteDAO();
 		return clienteDAO.obtenerCliente(email_cliente);
 	}
 
 	public Articulo getArticuloDeListaArticulos(String codigo_articulo) throws SQLException, DAOException {
-		// Instaciamos un articuloDAO para poder llamar al metodo obtenerArticulo de
-		// articuloDAO y
-		// obtener los datos de un articulo buscando por su codigo sobre la tabla
-		// articulos de la bd
+		// Instaciamos un articuloDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
+		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
 		ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 		return articuloDAO.obtenerArticulo(codigo_articulo);
 	}
 
 	public Pedido getPedidoDeListaPedidos(int numPedido) throws SQLException, DAOException {
-		// Instaciamos un pedidoDAO para poder llamar al metodo obtenerArticulo de
-		// articuloDAO y
-		// obtener los datos de un articulo buscando por su codigo sobre la tabla
-		// articulos de la bd
+		// Instaciamos un pedidoDAO para poder llamar al metodo obtenerArticulo de articuloDAO y
+		// obtener los datos de un articulo buscando por su codigo sobre la tabla articulos de la bd
 		PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 		return pedidoDAO.obtenerPedidoPorId(numPedido);
 	}
@@ -311,16 +296,15 @@ public class Datos {
 
 		Articulo articulo = this.getArticuloDeListaArticulos(codigo_articulo);
 		Cliente cliente = this.getClienteDeListaClientes(email_cliente);
-
+		
 		if (articulo == null) {
-			// TODO:Lanzar una posible excepci√≥n personalizada
+			// TODO:Lanzar una posible excepciÛn personalizada
 			System.out.println(
-					"Se est√° intentando generar un pedido con un c√≥digo de art√≠culo no registrado, "
-							+ "debe de introducir c√≥digo de art√≠culo que se corresponda con un art√≠culo previamente resgistrado.\n Para registrar un nuevo art√≠culo navege hasta el men√∫ \"GESTION DE ARTICULOS\". ");
+					"Se est· intentando generar un pedido con un cÛdigo de artÌculo no registrado, "
+					+ "debe de introducir cÛdigo de artÌculo que se corresponda con un artÌculo previamente resgistrado.\n Para registrar un nuevo artÌculo navege hasta el men˙ \"GESTION DE ARTICULOS\". ");
 		} else if (cliente == null) {
 			System.out
-					.println(
-							"Se est√° intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
+					.println("Se est· intentando generar un pedido con un email de cliente no registrado, por favor, para proceder al registro introduzca:");
 			this.miControlador.getvGestionOS().anadirClienteVistaGestionOS();
 			this.crearPedido(email_cliente, codigo_articulo, fechaHora, cantUnidades);
 		} else {
@@ -333,7 +317,7 @@ public class Datos {
 				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 				pedidoDAO.insertarPedido(pedido);
 				if (this.pedido != null) {
-					System.out.println("Se ha creado un nuevo pedido con las siguientes caracter√≠sticas:");
+					System.out.println("Se ha creado un nuevo pedido con las siguientes caracterÌsticas:");
 					System.out.println(this.pedido.toString());
 					this.anadirPedidoAListaPedidos(this.pedido);
 				}
@@ -348,16 +332,15 @@ public class Datos {
 
 	public void eliminarPedido(int numPedido) {
 
-		try {
-			// Comprobamos que se est√° eliminando un pedido que exista
-			Pedido pedido = getPedidoDeListaPedidos(numPedido);
 
+		try {
+			// Comprobamos que se est· eliminando un pedido que exista
+			Pedido pedido = getPedidoDeListaPedidos(numPedido);
+					
 			if (pedido == null) {
-				System.out.println(
-						"Se ha indicado un n√∫mero de pedido para eliminar pedido, que no se corresponde con ning√∫n pedido existente.");
+				System.out.println("Se ha indicado un n˙mero de pedido para eliminar pedido, que no se corresponde con ning˙n pedido existente.");
 			} else {
-				// Instaciamos un pedidoDAO y un articuloDAO para proceder a poder eliminar un
-				// pedido
+				// Instaciamos un pedidoDAO y un articuloDAO para proceder a poder eliminar un pedido
 				PedidoDAO pedidoDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerPedidoDAO();
 				ArticuloDAO articuloDAO = DAOFactory.getDAOFactory(TIPO_FACTORIA).obtenerArticuloDAO();
 				Pedido pedido_encontrado = pedidoDAO.obtenerPedidoPorId(numPedido);
@@ -367,7 +350,7 @@ public class Datos {
 					System.out.println("Se procede a cancelar y eliminar el pedido del sistema.");
 					pedidoDAO.eliminarPedido(numPedido);
 				} else {
-					System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparaci√≥n.");
+				    System.out.println("El pedido no se puede cancelar, ya se ha superado el tiempo de preparaciÛn.");
 				}
 			}
 
