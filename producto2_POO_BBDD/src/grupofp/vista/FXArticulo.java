@@ -221,7 +221,7 @@ public class FXArticulo extends FXMain {
 
         // Obtén la lista de artículos desde la base de datos
         var listaObjetos = this.miControlador.getListaArticulos();
-        
+      //NOSE COMO HACER ESTO
 
 
         if (listaObjetos instanceof List) {
