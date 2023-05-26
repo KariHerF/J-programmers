@@ -221,6 +221,7 @@ public class FXPedido extends FXMain {
         // Obtén la lista de artículos desde la base de datos
         var listaObjetos = this.miControlador.getListaPedidos();
      
+        //NOSE COMO HACER ESTO
         
 
 

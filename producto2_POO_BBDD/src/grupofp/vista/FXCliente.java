@@ -229,7 +229,7 @@ public class FXCliente extends FXMain {
         // Obtén la lista de artículos desde la base de datos
         var listaObjetos1 = this.miControlador.getListaClientesEstandar();
         var listaObjetos2 = this.miControlador.getListaClientesPremium();
-        
+      //NOSE COMO HACER ESTO
 
 
         if (listaObjetos1 instanceof List) {
