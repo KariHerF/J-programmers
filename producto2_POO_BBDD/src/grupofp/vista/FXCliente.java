@@ -4,6 +4,14 @@
  */
 package grupofp.vista;
 
+import java.util.List;
+
+import grupofp.modelo.Articulo;
+import grupofp.modelo.Cliente;
+import grupofp.modelo.ClienteEstandar;
+import grupofp.modelo.ClientePremium;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,6 +19,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -54,11 +64,11 @@ public class FXCliente extends FXMain {
 
     public void start(Stage mainMenu) {
 
-        Text titulo = new Text(30, 30, "¿Que deseas hacer?");
+        Text titulo = new Text(30, 30, "ï¿½Que deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
         
         Button addCliente = new Button();
-        addCliente.setText("Añadir cliente");
+        addCliente.setText("Aï¿½adir cliente");
         addCliente.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -105,7 +115,7 @@ public class FXCliente extends FXMain {
     private void pantallaAddCliente() {
         Stage addClienteStage = new Stage();
         StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "Añadir cliente");
+        Text titulo = new Text(30, 30, "Aï¿½adir cliente");
         titulo.setStyle("-fx-font: 15 arial;");
         
         TextField emailCliente = new TextField();
@@ -144,7 +154,7 @@ public class FXCliente extends FXMain {
         boxTipoCliente.setAlignment(Pos.BASELINE_LEFT);
 
         Button add = new Button();
-        add.setText("Añadir");
+        add.setText("Aï¿½adir");
         add.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -181,7 +191,7 @@ public class FXCliente extends FXMain {
         
         Scene scene = new Scene(root, 400, 300);
         addClienteStage.setScene(scene);
-        addClienteStage.setTitle("Añadir cliente");
+        addClienteStage.setTitle("Aï¿½adir cliente");
         addClienteStage.show();
     }
     
@@ -190,6 +200,55 @@ public class FXCliente extends FXMain {
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de clientes");
         titulo.setStyle("-fx-font: 15 arial;");
+        
+        TableView<ClienteEstandar> tableView = new TableView<>();
+        TableColumn<ClienteEstandar, String> emailColumn = new TableColumn<>("Email");
+        TableColumn<ClienteEstandar, String> nombreColumn = new TableColumn<>("Nombre");
+        TableColumn<ClienteEstandar, String> domicilioColumn = new TableColumn<>("Domicilio");
+        TableColumn<ClienteEstandar, String> nifColumn = new TableColumn<>("Nif");
+        TableColumn<ClienteEstandar, String> cuotaColumn = new TableColumn<>("CuotaAnual");
+        TableColumn<ClienteEstandar, String> descuentoColumn = new TableColumn<>("dtoGtoEnvio");
+        TableColumn<ClienteEstandar, String> tipoCliCloumn = new TableColumn<>("tipoCliente");
+        
+        TableView<ClientePremium> tableView2 = new TableView<>();
+        TableColumn<ClientePremium, String> emailColumn2 = new TableColumn<>("Email");
+        TableColumn<ClientePremium, String> nombreColumn2 = new TableColumn<>("Nombre");
+        TableColumn<ClientePremium, String> domicilioColumn2 = new TableColumn<>("Domicilio");
+        TableColumn<ClientePremium, String> nifColumn2 = new TableColumn<>("Nif");
+        TableColumn<ClientePremium, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
+        TableColumn<ClientePremium, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
+        TableColumn<ClientePremium, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
+        
+      
+        // Agrega mÃ¡s columnas segÃºn los atributos de tu clase Articulo
+
+        tableView.getColumns().addAll(emailColumn, nombreColumn, domicilioColumn, nifColumn,cuotaColumn, descuentoColumn, tipoCliCloumn);
+        tableView2.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2,cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
+
+        
+        // ObtÃ©n la lista de artÃ­culos desde la base de datos
+        var listaObjetos1 = this.miControlador.getListaClientesEstandar();
+        var listaObjetos2 = this.miControlador.getListaClientesPremium();
+        
+
+
+        if (listaObjetos1 instanceof List) {
+            List<ClienteEstandar> listaClientes1 = (List<ClienteEstandar>) listaObjetos1;
+            ObservableList<ClienteEstandar> clientes1 = FXCollections.observableArrayList(listaClientes1);
+            tableView.setItems(clientes1);
+        } else {
+            mostrarAlerta("error", "La lista1 de clientes no es compatible");
+        }
+        if (listaObjetos2 instanceof List) {
+            List<ClientePremium> listaClientes2 = (List<ClientePremium>) listaObjetos2;
+            ObservableList<ClientePremium> clientes2 = FXCollections.observableArrayList(listaClientes2);
+            tableView2.setItems(clientes2);
+        } else {
+            mostrarAlerta("error", "La lista2 de clientes no es compatible");
+        }
+
+
+
         
         Button volver = new Button();
         volver.setText("Volver");

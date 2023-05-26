@@ -2,6 +2,10 @@ package grupofp.vista;
 
 import grupofp.controlador.Controlador;
 import grupofp.controlador.Main;
+import grupofp.modelo.Articulo;
+import grupofp.modelo.Datos;
+
+import java.lang.ModuleLayer.Controller;
 import java.time.Duration;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +21,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import java.util.List;
 
 /**
  *
@@ -58,11 +67,11 @@ public class FXArticulo extends FXMain {
         if (this.miControlador == null) {
             System.out.println("null inside");
         }
-        Text titulo = new Text(30, 30, "¿Que deseas hacer?");
+        Text titulo = new Text(30, 30, "ï¿½Que deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
 
         Button addArticulo = new Button();
-        addArticulo.setText("Añadir articulo");
+        addArticulo.setText("Aï¿½adir articulo");
         addArticulo.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -114,7 +123,7 @@ public class FXArticulo extends FXMain {
     private void pantallaAddArticulo() {
         Stage addArticuloStage = new Stage();
         StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "Añadir articulo");
+        Text titulo = new Text(30, 30, "Aï¿½adir articulo");
         titulo.setStyle("-fx-font: 15 arial;");
 
         TextField codigoArticulo = new TextField();
@@ -153,7 +162,7 @@ public class FXArticulo extends FXMain {
         boxGastosEnvio.setAlignment(Pos.BASELINE_LEFT);
 
         Button add = new Button();
-        add.setText("Añadir");
+        add.setText("Aï¿½adir");
         add.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -189,20 +198,45 @@ public class FXArticulo extends FXMain {
 
         Scene scene = new Scene(root, 400, 300);
         addArticuloStage.setScene(scene);
-        addArticuloStage.setTitle("Añadir articulo");
+        addArticuloStage.setTitle("Aï¿½adir articulo");
         addArticuloStage.show();
     }
 
     private void pantallaShowArticulos() {
         Stage showArticuloStage = new Stage();
         StackPane root = new StackPane();
+
         Text titulo = new Text(30, 30, "Lista de articulos");
         titulo.setStyle("-fx-font: 15 arial;");
+
+        TableView<Articulo> tableView = new TableView<>();
+        TableColumn<Articulo, String> codigoColumn = new TableColumn<>("Codigo");
+        TableColumn<Articulo, String> descripcionColumn = new TableColumn<>("Descripcion");
+        TableColumn<Articulo, String> pvpColumn = new TableColumn<>("Pvp");
+        TableColumn<Articulo, String> tiempoPrepColumn = new TableColumn<>("TiempoPrep");
+        TableColumn<Articulo, String> gEnvioColumn = new TableColumn<>("GastosEnvio");
+        // Agrega mÃ¡s columnas segÃºn los atributos de tu clase Articulo
+
+        tableView.getColumns().addAll(codigoColumn, descripcionColumn, pvpColumn, tiempoPrepColumn,gEnvioColumn);
+
+        // ObtÃ©n la lista de artÃ­culos desde la base de datos
+        var listaObjetos = this.miControlador.getListaArticulos();
+        
+
+
+        if (listaObjetos instanceof List) {
+            List<Articulo> listaArticulos = (List<Articulo>) listaObjetos;
+            ObservableList<Articulo> articulos = FXCollections.observableArrayList(listaArticulos);
+            tableView.setItems(articulos);
+        } else {
+            mostrarAlerta("error", "La lista de artÃ­culos no es compatible");
+        }
+
+
 
         Button volver = new Button();
         volver.setText("Volver");
         volver.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
                 showArticuloStage.close();
@@ -211,7 +245,7 @@ public class FXArticulo extends FXMain {
         });
 
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
+        vbox.getChildren().addAll(titulo, tableView, volver);  // Agrega la tabla al VBox
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
 
@@ -220,5 +254,9 @@ public class FXArticulo extends FXMain {
         showArticuloStage.setTitle("Mostrar articulos");
         showArticuloStage.show();
     }
+
+
+        
+    	
 
 }
