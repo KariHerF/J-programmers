@@ -1,6 +1,13 @@
 package grupofp.vista;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import grupofp.modelo.ClienteEstandar;
+import grupofp.modelo.ClientePremium;
+import grupofp.modelo.Pedido;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -8,6 +15,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -68,11 +77,11 @@ public class FXPedido extends FXMain {
 
     public void start(Stage mainMenu) {
 
-        Text titulo = new Text(30, 30, "¿Que deseas hacer?");
+        Text titulo = new Text(30, 30, "ï¿½Que deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
 
         Button addPedido = new Button();
-        addPedido.setText("Añadir pedido");
+        addPedido.setText("Aï¿½adir pedido");
         addPedido.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -129,7 +138,7 @@ public class FXPedido extends FXMain {
 
         Stage addPedidoStage = new Stage();
         StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "Añadir pedido");
+        Text titulo = new Text(30, 30, "Aï¿½adir pedido");
         titulo.setStyle("-fx-font: 15 arial;");
 
         TextField emailCliente = new TextField();
@@ -154,7 +163,7 @@ public class FXPedido extends FXMain {
         boxCantidadPedido.setAlignment(Pos.BASELINE_LEFT);
 
         Button add = new Button();
-        add.setText("Añadir");
+        add.setText("Aï¿½adir");
         add.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -190,7 +199,7 @@ public class FXPedido extends FXMain {
 
         Scene scene = new Scene(root, 400, 300);
         addPedidoStage.setScene(scene);
-        addPedidoStage.setTitle("Añadir pedido");
+        addPedidoStage.setTitle("Aï¿½adir pedido");
         addPedidoStage.show();
     }
 
@@ -199,6 +208,35 @@ public class FXPedido extends FXMain {
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de pedidos");
         titulo.setStyle("-fx-font: 15 arial;");
+        
+        TableView<Pedido> tableView = new TableView<>();
+        TableColumn<Pedido, String> numPedidoColumn = new TableColumn<>("Numero");
+        TableColumn<Pedido, String> fechaPedidoColumn = new TableColumn<>("Fecha");
+        TableColumn<Pedido, String> cantidadColumn = new TableColumn<>("Cantidad");
+        TableColumn<Pedido, String> codigoArtColumn = new TableColumn<>("CodigoArticulo");
+        TableColumn<Pedido, String> articuloColumn = new TableColumn<>("Articulo");
+        TableColumn<Pedido, String> clienteColumn = new TableColumn<>("Cliente");
+        TableColumn<Pedido, String> emailColumn = new TableColumn<>("Email");
+        
+        // Agrega mÃ¡s columnas segÃºn los atributos de tu clase Articulo
+
+        tableView.getColumns().addAll(numPedidoColumn,fechaPedidoColumn, cantidadColumn,codigoArtColumn,articuloColumn, clienteColumn,emailColumn);
+
+        // ObtÃ©n la lista de artÃ­culos desde la base de datos
+        var listaObjetos = this.miControlador.getListaPedidos();
+     
+        
+
+
+        if (listaObjetos instanceof List) {
+            List<Pedido> listaPedidos = (List<Pedido>) listaObjetos;
+            ObservableList<Pedido> pedidos = FXCollections.observableArrayList(listaPedidos);
+            tableView.setItems(pedidos);
+        } else {
+            mostrarAlerta("error", "La lista1 de clientes no es compatible");
+        }
+
+
 
         Button volver = new Button();
         volver.setText("Volver");
