@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  */
 public class FXArticulo extends FXMain {
 
-    Stage articuloStage = new Stage();    
+    Stage articuloStage = new Stage();
 
     private void addArticulo(String codigo, String descripcion, String pvp, String tiempoPrep,
             String gastosEnvio, Stage stage) {
@@ -41,7 +41,6 @@ public class FXArticulo extends FXMain {
 
                 this.miControlador.crearArticulo(codigo, descripcion, pvpFloat,
                         duracion, gastosEnvioFloat);
-                System.out.println("after");
                 stage.close();
                 mostrarAlerta("success", "Se ha creado el articulo correctamente");
                 articuloStage.show();
@@ -52,6 +51,8 @@ public class FXArticulo extends FXMain {
             mostrarAlerta("error", ex.getMessage());
         }
     }
+
+
 
     public void start(Stage mainMenu) {
         if (this.miControlador == null) {
@@ -84,16 +85,7 @@ public class FXArticulo extends FXMain {
             }
         });
 
-        Button deleteArticulo = new Button();
-        deleteArticulo.setText("Eliminar articulo");
-        deleteArticulo.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                pantallaDeleteArticulo();
-                articuloStage.hide();
-            }
-        });
+ 
 
         Button volver = new Button();
         volver.setText("Volver");
@@ -108,7 +100,7 @@ public class FXArticulo extends FXMain {
 
         StackPane root = new StackPane();
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, addArticulo, showArticulos, deleteArticulo, volver);
+        vbox.getChildren().addAll(titulo, addArticulo, showArticulos, volver);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
 
@@ -167,7 +159,8 @@ public class FXArticulo extends FXMain {
             @Override
             public void handle(ActionEvent event) {
                 addArticulo(codigoArticulo.getText(), descripcionArticulo.getText(),
-                        pvpArticulo.getText(), tiempoPrepArticulo.getText(), gastosEnvioArticulo.getText(), addArticuloStage);
+                        pvpArticulo.getText(), tiempoPrepArticulo.getText(), gastosEnvioArticulo.getText(),
+                        addArticuloStage);
 
             }
         });
@@ -226,34 +219,6 @@ public class FXArticulo extends FXMain {
         showArticuloStage.setScene(scene);
         showArticuloStage.setTitle("Mostrar articulos");
         showArticuloStage.show();
-    }
-
-    private void pantallaDeleteArticulo() {
-        Stage deleteArticuloStage = new Stage();
-        StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "Eliminar articulo");
-        titulo.setStyle("-fx-font: 15 arial;");
-
-        Button volver = new Button();
-        volver.setText("Volver");
-        volver.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                deleteArticuloStage.close();
-                articuloStage.show();
-            }
-        });
-
-        VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
-        vbox.setAlignment(Pos.CENTER);
-        root.getChildren().add(vbox);
-
-        Scene scene = new Scene(root, 300, 250);
-        deleteArticuloStage.setScene(scene);
-        deleteArticuloStage.setTitle("Eliminar articulo");
-        deleteArticuloStage.show();
     }
 
 }
