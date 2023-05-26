@@ -43,7 +43,7 @@ public class FXPedido extends FXMain {
                 fechaHoraPedido = LocalDateTime.now();
                 int cantidadInt = Integer.parseInt(cantidadPedido);
                 this.miControlador.getDatos().validarEmail(emailCliente);
-		this.miControlador.getDatos().validarArgumentoIntPositivo(cantidadInt);
+                this.miControlador.getDatos().validarArgumentoIntPositivo(cantidadInt);
 
                 this.miControlador.crearPedido(emailCliente, codigoArticulo, fechaHoraPedido, cantidadInt);
                 stage.close();
@@ -57,13 +57,17 @@ public class FXPedido extends FXMain {
         }
     }
 
-    private void deletePedido(String codigo) {
+    private void deletePedido(String numeroPedido, Stage stage) {
         try {
             String vacio = "";
-            if (vacio.matches(codigo)) {
+            if (vacio.matches(numeroPedido)) {
                 mostrarAlerta("error", "Debes llenar todos los campos");
             } else {
-                //delete pedido
+                int cantidadInt = Integer.parseInt(numeroPedido);
+                this.miControlador.eliminarPedido(cantidadInt);
+                mostrarAlerta("success", "Se ha eliminado el pedido correctamente");
+                stage.close();
+                pedidoStage.show();
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -262,6 +266,24 @@ public class FXPedido extends FXMain {
         Text titulo = new Text(30, 30, "Eliminar pedido");
         titulo.setStyle("-fx-font: 15 arial;");
 
+        TextField numeroPedido = new TextField();
+        numeroPedido.setPromptText("Introduce el numero de pedido");
+        Label labelNumeroPedido = new Label("Pedido:");
+        HBox boxNumeroPedido = new HBox(10);
+        boxNumeroPedido.getChildren().addAll(labelNumeroPedido, numeroPedido);
+        boxNumeroPedido.setAlignment(Pos.BASELINE_LEFT);
+
+        Button deletePedido = new Button();
+        deletePedido.setText("Eliminar");
+        deletePedido.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                deletePedido(numeroPedido.getText(), deletePedidoStage);
+
+            }
+        });
+
         Button volver = new Button();
         volver.setText("Volver");
         volver.setOnAction(new EventHandler<ActionEvent>() {
@@ -272,12 +294,19 @@ public class FXPedido extends FXMain {
                 pedidoStage.show();
             }
         });
+
+        HBox boxBotones = new HBox(20);
+        boxBotones.getChildren().addAll(deletePedido, volver);
+        boxBotones.setAlignment(Pos.CENTER);
+        boxBotones.setPadding(new Insets(20, 20, 0, 0));
+
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
+        vbox.getChildren().addAll(titulo, boxNumeroPedido, boxBotones);
+        vbox.setPadding(new Insets(20, 20, 20, 20));
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
 
-        Scene scene = new Scene(root, 300, 250);
+        Scene scene = new Scene(root, 400, 300);
         deletePedidoStage.setScene(scene);
         deletePedidoStage.setTitle("Eliminar pedido");
         deletePedidoStage.show();
