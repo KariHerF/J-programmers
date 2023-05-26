@@ -1,10 +1,15 @@
 package grupofp.vista;
 
+import java.time.LocalDateTime;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -16,7 +21,32 @@ import javafx.stage.Stage;
  */
 public class FXPedido extends FXMain {
 
-    Stage pedidosStage = new Stage();
+    Stage pedidoStage = new Stage();
+
+    private void addPedido(String emailCliente, String codigoArticulo, String cantidadPedido, Stage stage) {
+        try {
+            LocalDateTime fechaHoraPedido;
+            String vacio = "";
+            if (vacio.matches(emailCliente) || vacio.matches(codigoArticulo)
+                    || vacio.matches(cantidadPedido)) {
+                mostrarAlerta("error", "Debes llenar todos los campos");
+            } else {
+                fechaHoraPedido = LocalDateTime.now();
+                int cantidadInt = Integer.parseInt(cantidadPedido);
+                this.miControlador.getDatos().validarEmail(emailCliente);
+		this.miControlador.getDatos().validarArgumentoIntPositivo(cantidadInt);
+
+                this.miControlador.crearPedido(emailCliente, codigoArticulo, fechaHoraPedido, cantidadInt);
+                stage.close();
+                mostrarAlerta("success", "Se ha creado el pedido correctamente");
+                pedidoStage.show();
+            }
+
+        } catch (Exception ex) {
+            System.out.println(ex);
+            mostrarAlerta("error", ex.getMessage());
+        }
+    }
 
     private void deletePedido(String codigo) {
         try {
@@ -73,7 +103,7 @@ public class FXPedido extends FXMain {
 
             @Override
             public void handle(ActionEvent event) {
-                pedidosStage.close();
+                pedidoStage.close();
                 mainMenu.show();
             }
         });
@@ -86,16 +116,50 @@ public class FXPedido extends FXMain {
 
         Scene scene = new Scene(root, 300, 250);
 
-        pedidosStage.setTitle("Pedidos");
-        pedidosStage.setScene(scene);
-        pedidosStage.show();
+        pedidoStage.setTitle("Pedidos");
+        pedidoStage.setScene(scene);
+        pedidoStage.show();
     }
 
     private void pantallaAddPedido() {
-        Stage addPedidosStage = new Stage();
+
+        Stage addPedidoStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Añadir pedido");
         titulo.setStyle("-fx-font: 15 arial;");
+
+        TextField emailCliente = new TextField();
+        emailCliente.setPromptText("Email del cliente");
+        Label labelEmailCliente = new Label("Cliente:");
+        HBox boxEmailCliente = new HBox(10);
+        boxEmailCliente.getChildren().addAll(labelEmailCliente, emailCliente);
+        boxEmailCliente.setAlignment(Pos.BASELINE_LEFT);
+
+        TextField codigoArticulo = new TextField();
+        codigoArticulo.setPromptText("Codigo del articulo");
+        Label labelCodigoArticulo = new Label("Articulo:");
+        HBox boxCodigoArticulo = new HBox(10);
+        boxCodigoArticulo.getChildren().addAll(labelCodigoArticulo, codigoArticulo);
+        boxCodigoArticulo.setAlignment(Pos.BASELINE_LEFT);
+
+        TextField cantidadPedido = new TextField();
+        cantidadPedido.setPromptText("Ex: 10");
+        Label labelCantidadPedido = new Label("Cantidad:");
+        HBox boxCantidadPedido = new HBox(10);
+        boxCantidadPedido.getChildren().addAll(labelCantidadPedido, cantidadPedido);
+        boxCantidadPedido.setAlignment(Pos.BASELINE_LEFT);
+
+        Button add = new Button();
+        add.setText("Añadir");
+        add.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                addPedido(emailCliente.getText(), codigoArticulo.getText(),
+                        cantidadPedido.getText(), addPedidoStage);
+
+            }
+        });
 
         Button volver = new Button();
         volver.setText("Volver");
@@ -103,23 +167,31 @@ public class FXPedido extends FXMain {
 
             @Override
             public void handle(ActionEvent event) {
-                addPedidosStage.close();
-                pedidosStage.show();
+
+                addPedidoStage.close();
+                pedidoStage.show();
             }
         });
+
+        HBox boxBotones = new HBox(20);
+        boxBotones.getChildren().addAll(add, volver);
+        boxBotones.setAlignment(Pos.CENTER);
+        boxBotones.setPadding(new Insets(20, 20, 0, 0));
+
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
+        vbox.getChildren().addAll(titulo, boxEmailCliente, boxCodigoArticulo, boxCantidadPedido, boxBotones);
         vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(20, 20, 20, 20));
         root.getChildren().add(vbox);
 
-        Scene scene = new Scene(root, 300, 250);
-        addPedidosStage.setScene(scene);
-        addPedidosStage.setTitle("Añadir pedido");
-        addPedidosStage.show();
+        Scene scene = new Scene(root, 400, 300);
+        addPedidoStage.setScene(scene);
+        addPedidoStage.setTitle("Añadir pedido");
+        addPedidoStage.show();
     }
 
     private void pantallaShowPedidos() {
-        Stage showPedidosStage = new Stage();
+        Stage showPedidoStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de pedidos");
         titulo.setStyle("-fx-font: 15 arial;");
@@ -130,8 +202,8 @@ public class FXPedido extends FXMain {
 
             @Override
             public void handle(ActionEvent event) {
-                showPedidosStage.close();
-                pedidosStage.show();
+                showPedidoStage.close();
+                pedidoStage.show();
             }
         });
         VBox vbox = new VBox(10);
@@ -140,9 +212,9 @@ public class FXPedido extends FXMain {
         root.getChildren().add(vbox);
 
         Scene scene = new Scene(root, 300, 250);
-        showPedidosStage.setScene(scene);
-        showPedidosStage.setTitle("Mostrar pedidos");
-        showPedidosStage.show();
+        showPedidoStage.setScene(scene);
+        showPedidoStage.setTitle("Mostrar pedidos");
+        showPedidoStage.show();
     }
 
     private void pantallaDeletePedido() {
@@ -158,7 +230,7 @@ public class FXPedido extends FXMain {
             @Override
             public void handle(ActionEvent event) {
                 deletePedidoStage.close();
-                pedidosStage.show();
+                pedidoStage.show();
             }
         });
         VBox vbox = new VBox(10);
