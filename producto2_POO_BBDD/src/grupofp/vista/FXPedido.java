@@ -1,5 +1,6 @@
 package grupofp.vista;
 
+import grupofp.modelo.Articulo;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
 import grupofp.modelo.ListaPedidos;
 import grupofp.modelo.Pedido;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -78,7 +81,7 @@ public class FXPedido extends FXMain {
 
     public void start(Stage mainMenu) {
 
-        Text titulo = new Text(30, 30, "ï¿½Que deseas hacer?");
+        Text titulo = new Text(30, 30, "¿Que deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
 
         Button addPedido = new Button();
@@ -149,7 +152,7 @@ public class FXPedido extends FXMain {
 
         Stage addPedidoStage = new Stage();
         StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "Aï¿½adir pedido");
+        Text titulo = new Text(30, 30, "Añadir pedido");
         titulo.setStyle("-fx-font: 15 arial;");
 
         TextField emailCliente = new TextField();
@@ -210,7 +213,7 @@ public class FXPedido extends FXMain {
 
         Scene scene = new Scene(root, 400, 300);
         addPedidoStage.setScene(scene);
-        addPedidoStage.setTitle("Aï¿½adir pedido");
+        addPedidoStage.setTitle("Añadir pedido");
         addPedidoStage.show();
     }
 
@@ -225,24 +228,29 @@ public class FXPedido extends FXMain {
         try {
             if (tipo == "pendientes") {
                 listaObjetos = this.miControlador.getListaPedidosPendientes();
+
             } else {
-                listaObjetos = this.miControlador.getListaPedidosEnviados();
+                 listaObjetos = this.miControlador.getListaPedidosEnviados();
             }
         } catch (Exception e) {
             mostrarAlerta("error", e.getMessage());
         }
 
         TableView<Pedido> tableView = new TableView<>();
-        TableColumn<Pedido, String> numPedidoColumn = new TableColumn<>("Numero");
-        TableColumn<Pedido, String> fechaPedidoColumn = new TableColumn<>("Fecha");
+        TableColumn<Pedido, LocalDateTime> fechaPedidoColumn = new TableColumn<>("Fecha");
+        fechaPedidoColumn.setCellValueFactory(new PropertyValueFactory<>("fechaHora"));
+
         TableColumn<Pedido, String> cantidadColumn = new TableColumn<>("Cantidad");
-        TableColumn<Pedido, String> codigoArtColumn = new TableColumn<>("CodigoArticulo");
+        cantidadColumn.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+
         TableColumn<Pedido, String> articuloColumn = new TableColumn<>("Articulo");
+        articuloColumn.setCellValueFactory(new PropertyValueFactory<>("articulo"));
+
         TableColumn<Pedido, String> clienteColumn = new TableColumn<>("Cliente");
-        TableColumn<Pedido, String> emailColumn = new TableColumn<>("Email");
+        clienteColumn.setCellValueFactory(new PropertyValueFactory<>("cliente"));
 
         // Agrega mÃ¡s columnas segÃºn los atributos de tu clase Articulo
-        tableView.getColumns().addAll(numPedidoColumn, fechaPedidoColumn, cantidadColumn, codigoArtColumn, articuloColumn, clienteColumn, emailColumn);
+        tableView.getColumns().addAll(clienteColumn, articuloColumn, fechaPedidoColumn, cantidadColumn);
 
         if (listaObjetos instanceof List) {
             List<Pedido> listaPedidos = (List<Pedido>) listaObjetos;
