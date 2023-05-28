@@ -12,6 +12,7 @@ import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
 import grupofp.modelo.Lista;
 import grupofp.modelo.ListaClientes;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -229,34 +231,44 @@ public class FXCliente extends FXMain {
                 clienteStage.show();
             }
         });
-        
+
         VBox vbox = new VBox(10);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
-        
+
         if (tipo == "estandar") {
             try {
                 Lista<ClienteEstandar> listaEstandar = this.miControlador.getListaClientesEstandar();
+
                 TableView<ClienteEstandar> tableView = new TableView<>();
                 TableColumn<ClienteEstandar, String> emailColumn = new TableColumn<>("Email");
+                emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+
                 TableColumn<ClienteEstandar, String> nombreColumn = new TableColumn<>("Nombre");
+                nombreColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+
                 TableColumn<ClienteEstandar, String> domicilioColumn = new TableColumn<>("Domicilio");
+                domicilioColumn.setCellValueFactory(new PropertyValueFactory<>("domicilio"));
+
                 TableColumn<ClienteEstandar, String> nifColumn = new TableColumn<>("Nif");
-                TableColumn<ClienteEstandar, String> cuotaColumn = new TableColumn<>("CuotaAnual");
-                TableColumn<ClienteEstandar, String> descuentoColumn = new TableColumn<>("dtoGtoEnvio");
+                nifColumn.setCellValueFactory(new PropertyValueFactory<>("nif"));
+
+                TableColumn<ClienteEstandar, Float> cuotaColumn = new TableColumn<>("CuotaAnual");
+                cuotaColumn.setCellValueFactory(new PropertyValueFactory<>("cuotaAnual"));
+
+                TableColumn<ClienteEstandar, Float> descuentoColumn = new TableColumn<>("dtoGtoEnvio");
+                descuentoColumn.setCellValueFactory(new PropertyValueFactory<>("dtoGtoEnvio"));
+
                 TableColumn<ClienteEstandar, String> tipoCliCloumn = new TableColumn<>("tipoCliente");
+                tipoCliCloumn.setCellValueFactory(new PropertyValueFactory<>("tipoCliente"));
+
                 tableView.getColumns().addAll(emailColumn, nombreColumn, domicilioColumn, nifColumn, cuotaColumn, descuentoColumn, tipoCliCloumn);
 
-                if (listaEstandar instanceof List) {
-                    List<ClienteEstandar> listaClientes1 = (List<ClienteEstandar>) listaEstandar;
-                    ObservableList<ClienteEstandar> clientes1 = FXCollections.observableArrayList(listaClientes1);
-                    tableView.setItems(clientes1);
-                    vbox.getChildren().addAll(titulo, tableView, volver);
+                List<ClienteEstandar> listaClientes1 = (List<ClienteEstandar>) listaEstandar;
+                ObservableList<ClienteEstandar> clientes1 = FXCollections.observableArrayList(listaClientes1);
+                tableView.setItems(clientes1);
+                vbox.getChildren().addAll(titulo, tableView, volver);
 
-                } else {
-                    mostrarAlerta("error", "La lista1 de clientes no es compatible");
-                    vbox.getChildren().addAll(titulo, volver);
-                }
             } catch (Exception e) {
                 mostrarAlerta("error", e.getMessage());
                 vbox.getChildren().addAll(titulo, volver);
@@ -264,56 +276,74 @@ public class FXCliente extends FXMain {
         } else if (tipo == "premium") {
             try {
                 Lista<ClientePremium> listaPremium = this.miControlador.getListaClientesPremium();
+                
                 TableView<ClientePremium> tableView = new TableView<>();
 
                 TableColumn<ClientePremium, String> emailColumn2 = new TableColumn<>("Email");
+                emailColumn2.setCellValueFactory(new PropertyValueFactory<>("email"));
+
                 TableColumn<ClientePremium, String> nombreColumn2 = new TableColumn<>("Nombre");
+                nombreColumn2.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+
                 TableColumn<ClientePremium, String> domicilioColumn2 = new TableColumn<>("Domicilio");
+                domicilioColumn2.setCellValueFactory(new PropertyValueFactory<>("domicilio"));
+
                 TableColumn<ClientePremium, String> nifColumn2 = new TableColumn<>("Nif");
+                nifColumn2.setCellValueFactory(new PropertyValueFactory<>("nif"));
+
                 TableColumn<ClientePremium, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
+
                 TableColumn<ClientePremium, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
+
                 TableColumn<ClientePremium, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
 
                 tableView.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2, cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
 
-                if (listaPremium instanceof List) {
-                    List<ClientePremium> listaClientes2 = (List<ClientePremium>) listaPremium;
-                    ObservableList<ClientePremium> clientes2 = FXCollections.observableArrayList(listaClientes2);
-                    tableView.setItems(clientes2);
-                    vbox.getChildren().addAll(titulo, tableView, volver);
-                } else {
-                    mostrarAlerta("error", "La lista de clientes no es compatible");
-                    vbox.getChildren().addAll(titulo, volver);
-                }
+                 List<ClientePremium> listaClientes1 = (List<ClientePremium>) listaPremium;
+                ObservableList<ClientePremium> clientes2 = FXCollections.observableArrayList(listaClientes1);
+                tableView.setItems(clientes2);
+                vbox.getChildren().addAll(titulo, tableView, volver);
+
             } catch (Exception e) {
                 mostrarAlerta("error", e.getMessage());
                 vbox.getChildren().addAll(titulo, volver);
             }
         } else {
             try {
-                ListaClientes listaClientes = this.miControlador.getListaClientes();
+                 ListaClientes listaClientes = this.miControlador.getListaClientes();
+
+
                 TableView<Cliente> tableView = new TableView<>();
 
                 TableColumn<Cliente, String> emailColumn2 = new TableColumn<>("Email");
+                emailColumn2.setCellValueFactory(new PropertyValueFactory<>("email"));
+
                 TableColumn<Cliente, String> nombreColumn2 = new TableColumn<>("Nombre");
+                nombreColumn2.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+
                 TableColumn<Cliente, String> domicilioColumn2 = new TableColumn<>("Domicilio");
+                domicilioColumn2.setCellValueFactory(new PropertyValueFactory<>("domicilio"));
+
                 TableColumn<Cliente, String> nifColumn2 = new TableColumn<>("Nif");
+                nifColumn2.setCellValueFactory(new PropertyValueFactory<>("nif"));
+
                 TableColumn<Cliente, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
+                cuotaColumn2.setCellValueFactory(new PropertyValueFactory<>("cuotaAnual"));
+
                 TableColumn<Cliente, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
-                TableColumn<Cliente, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
-                // Agrega más columnas según los atributos de tu clase Articulo
+                descuentoColumn2.setCellValueFactory(new PropertyValueFactory<>("dtoGtoEnvio"));
+
+                TableColumn<Cliente, String> tipoCliCloumn2 = new TableColumn<>("tipo_cliente");
+                tipoCliCloumn2.setCellValueFactory(new PropertyValueFactory<>("tipo_cliente"));
+// Agrega más columnas según los atributos de tu clase Articulo
                 tableView.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2, cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
 
-                if (listaClientes instanceof List) {
-                    List<Cliente> lista = (List<Cliente>) listaClientes;
-                    ObservableList<Cliente> clientes1 = FXCollections.observableArrayList(lista);
-                    tableView.setItems(clientes1);
+                List<Cliente> listaClientes1 = (List<Cliente>) listaClientes;
+                ObservableList<Cliente> clientes1 = FXCollections.observableArrayList(listaClientes1);
+                tableView.setItems(clientes1);
 
-                    vbox.getChildren().addAll(titulo, tableView, volver);
-                } else {
-                    mostrarAlerta("error", "La lista de clientes no es compatible");
-                    vbox.getChildren().addAll(titulo, volver);
-                }
+                vbox.getChildren().addAll(titulo, tableView, volver);
+
             } catch (Exception e) {
                 mostrarAlerta("error", e.getMessage());
                 vbox.getChildren().addAll(titulo, volver);
