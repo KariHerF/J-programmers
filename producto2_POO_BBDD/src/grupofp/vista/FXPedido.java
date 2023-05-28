@@ -5,6 +5,7 @@ import java.util.List;
 
 import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
+import grupofp.modelo.ListaPedidos;
 import grupofp.modelo.Pedido;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,13 +91,23 @@ public class FXPedido extends FXMain {
             }
         });
 
-        Button showPedidos = new Button();
-        showPedidos.setText("Mostrar pedidos");
-        showPedidos.setOnAction(new EventHandler<ActionEvent>() {
+        Button showPedidosPendientes = new Button();
+        showPedidosPendientes.setText("Mostrar pedidos pendientes");
+        showPedidosPendientes.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
-                pantallaShowPedidos();
+                pantallaShowPedidos("pendientes");
+            }
+        });
+
+        Button showPedidosEnviados = new Button();
+        showPedidosEnviados.setText("Mostrar pedidos enviados");
+        showPedidosEnviados.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                pantallaShowPedidos("enviados");
             }
         });
 
@@ -123,7 +134,7 @@ public class FXPedido extends FXMain {
 
         StackPane root = new StackPane();
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, addPedido, showPedidos, deletePedidos, volver);
+        vbox.getChildren().addAll(titulo, addPedido, showPedidosPendientes, showPedidosEnviados, deletePedidos, volver);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
 
@@ -203,12 +214,24 @@ public class FXPedido extends FXMain {
         addPedidoStage.show();
     }
 
-    private void pantallaShowPedidos() {
+    private void pantallaShowPedidos(String tipo) {
         Stage showPedidoStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de pedidos");
         titulo.setStyle("-fx-font: 15 arial;");
-        
+
+        ListaPedidos listaObjetos = new ListaPedidos();
+
+        try {
+            if (tipo == "pendientes") {
+                listaObjetos = this.miControlador.getListaPedidosPendientes();
+            } else {
+                listaObjetos = this.miControlador.getListaPedidosEnviados();
+            }
+        } catch (Exception e) {
+            mostrarAlerta("error", e.getMessage());
+        }
+
         TableView<Pedido> tableView = new TableView<>();
         TableColumn<Pedido, String> numPedidoColumn = new TableColumn<>("Numero");
         TableColumn<Pedido, String> fechaPedidoColumn = new TableColumn<>("Fecha");
@@ -217,27 +240,17 @@ public class FXPedido extends FXMain {
         TableColumn<Pedido, String> articuloColumn = new TableColumn<>("Articulo");
         TableColumn<Pedido, String> clienteColumn = new TableColumn<>("Cliente");
         TableColumn<Pedido, String> emailColumn = new TableColumn<>("Email");
-        
+
         // Agrega más columnas según los atributos de tu clase Articulo
-
-        tableView.getColumns().addAll(numPedidoColumn,fechaPedidoColumn, cantidadColumn,codigoArtColumn,articuloColumn, clienteColumn,emailColumn);
-
-        // Obtén la lista de artículos desde la base de datos
-        var listaObjetos = this.miControlador.getListaPedidos();
-     
-        //NOSE COMO HACER ESTO
-        
-
+        tableView.getColumns().addAll(numPedidoColumn, fechaPedidoColumn, cantidadColumn, codigoArtColumn, articuloColumn, clienteColumn, emailColumn);
 
         if (listaObjetos instanceof List) {
             List<Pedido> listaPedidos = (List<Pedido>) listaObjetos;
             ObservableList<Pedido> pedidos = FXCollections.observableArrayList(listaPedidos);
             tableView.setItems(pedidos);
         } else {
-            mostrarAlerta("error", "La lista1 de clientes no es compatible");
+            mostrarAlerta("error", "La lista1 de pedidos no es compatible");
         }
-
-
 
         Button volver = new Button();
         volver.setText("Volver");
@@ -250,7 +263,7 @@ public class FXPedido extends FXMain {
             }
         });
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
+        vbox.getChildren().addAll(titulo, tableView, volver);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
 

@@ -10,6 +10,8 @@ import grupofp.modelo.Articulo;
 import grupofp.modelo.Cliente;
 import grupofp.modelo.ClienteEstandar;
 import grupofp.modelo.ClientePremium;
+import grupofp.modelo.Lista;
+import grupofp.modelo.ListaClientes;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,9 +35,10 @@ import javafx.stage.Stage;
  * @author joanb
  */
 public class FXCliente extends FXMain {
-  Stage clienteStage = new Stage();
-  
-   private void addCliente(String email, String nombre, String direccion, String nif,
+
+    Stage clienteStage = new Stage();
+
+    private void addCliente(String email, String nombre, String direccion, String nif,
             String tipoCliente, Stage stage) {
         try {
             String vacio = "";
@@ -48,7 +51,7 @@ public class FXCliente extends FXMain {
                 this.miControlador.getDatos().validarTipoCliente(tipoCliente);
 
                 this.miControlador.crearCliente(email, nombre, direccion, nif,
-			tipoCliente);
+                        tipoCliente);
                 stage.close();
                 mostrarAlerta("success", "Se ha creado el cliente correctamente");
                 clienteStage.show();
@@ -60,64 +63,80 @@ public class FXCliente extends FXMain {
         }
     }
 
-
-
     public void start(Stage mainMenu) {
 
-        Text titulo = new Text(30, 30, "�Que deseas hacer?");
+        Text titulo = new Text(30, 30, "�Que deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
-        
+
         Button addCliente = new Button();
-        addCliente.setText("A�adir cliente");
+        addCliente.setText("A�adir cliente");
         addCliente.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 pantallaAddCliente();
             }
         });
-        
-        Button showClientes = new Button();
-        showClientes.setText("Mostrar clientes");
-        showClientes.setOnAction(new EventHandler<ActionEvent>() {
-            
+
+        Button showAllClientes = new Button();
+        showAllClientes.setText("Mostrar clientes");
+        showAllClientes.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent event) {
-                pantallaShowClientes();
+                pantallaShowClientes("todos");
             }
         });
-        
-        
+        Button showStandardClientes = new Button();
+        showStandardClientes.setText("Mostrar clientes estandar");
+        showStandardClientes.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                pantallaShowClientes("estandar");
+            }
+        });
+
+        Button showPremiumClientes = new Button();
+        showPremiumClientes.setText("Mostrar clientes premium");
+        showPremiumClientes.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                pantallaShowClientes("premium");
+            }
+        });
+
         Button volver = new Button();
         volver.setText("Volver");
         volver.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 clienteStage.close();
                 mainMenu.show();
             }
         });
-        
+
         StackPane root = new StackPane();
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, addCliente, showClientes, volver);
+        vbox.getChildren().addAll(titulo, addCliente, showAllClientes, showStandardClientes, showPremiumClientes, volver);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
-        
+
         Scene scene = new Scene(root, 300, 250);
-        
+
         clienteStage.setTitle("Clientes");
         clienteStage.setScene(scene);
         clienteStage.show();
     }
-    
+
     private void pantallaAddCliente() {
         Stage addClienteStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "A�adir cliente");
         titulo.setStyle("-fx-font: 15 arial;");
-        
+
         TextField emailCliente = new TextField();
         emailCliente.setPromptText("Introduce el email");
         Label labelEmail = new Label("Email:");
@@ -188,86 +207,122 @@ public class FXCliente extends FXMain {
         vbox.setPadding(new Insets(20, 20, 20, 20));
         root.getChildren().add(vbox);
 
-        
         Scene scene = new Scene(root, 400, 300);
         addClienteStage.setScene(scene);
-        addClienteStage.setTitle("A�adir cliente");
+        addClienteStage.setTitle("A�adir cliente");
         addClienteStage.show();
     }
-    
-    private void pantallaShowClientes() {
+
+    private void pantallaShowClientes(String tipo) {
         Stage showClientesStage = new Stage();
         StackPane root = new StackPane();
         Text titulo = new Text(30, 30, "Lista de clientes");
         titulo.setStyle("-fx-font: 15 arial;");
-        
-        TableView<ClienteEstandar> tableView = new TableView<>();
-        TableColumn<ClienteEstandar, String> emailColumn = new TableColumn<>("Email");
-        TableColumn<ClienteEstandar, String> nombreColumn = new TableColumn<>("Nombre");
-        TableColumn<ClienteEstandar, String> domicilioColumn = new TableColumn<>("Domicilio");
-        TableColumn<ClienteEstandar, String> nifColumn = new TableColumn<>("Nif");
-        TableColumn<ClienteEstandar, String> cuotaColumn = new TableColumn<>("CuotaAnual");
-        TableColumn<ClienteEstandar, String> descuentoColumn = new TableColumn<>("dtoGtoEnvio");
-        TableColumn<ClienteEstandar, String> tipoCliCloumn = new TableColumn<>("tipoCliente");
-        
-        TableView<ClientePremium> tableView2 = new TableView<>();
-        TableColumn<ClientePremium, String> emailColumn2 = new TableColumn<>("Email");
-        TableColumn<ClientePremium, String> nombreColumn2 = new TableColumn<>("Nombre");
-        TableColumn<ClientePremium, String> domicilioColumn2 = new TableColumn<>("Domicilio");
-        TableColumn<ClientePremium, String> nifColumn2 = new TableColumn<>("Nif");
-        TableColumn<ClientePremium, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
-        TableColumn<ClientePremium, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
-        TableColumn<ClientePremium, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
-        
-      
-        // Agrega más columnas según los atributos de tu clase Articulo
 
-        tableView.getColumns().addAll(emailColumn, nombreColumn, domicilioColumn, nifColumn,cuotaColumn, descuentoColumn, tipoCliCloumn);
-        tableView2.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2,cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
-
-        
-        // Obtén la lista de artículos desde la base de datos
-        var listaObjetos1 = this.miControlador.getListaClientesEstandar();
-        var listaObjetos2 = this.miControlador.getListaClientesPremium();
-      //NOSE COMO HACER ESTO
-
-
-        if (listaObjetos1 instanceof List) {
-            List<ClienteEstandar> listaClientes1 = (List<ClienteEstandar>) listaObjetos1;
-            ObservableList<ClienteEstandar> clientes1 = FXCollections.observableArrayList(listaClientes1);
-            tableView.setItems(clientes1);
-        } else {
-            mostrarAlerta("error", "La lista1 de clientes no es compatible");
-        }
-        if (listaObjetos2 instanceof List) {
-            List<ClientePremium> listaClientes2 = (List<ClientePremium>) listaObjetos2;
-            ObservableList<ClientePremium> clientes2 = FXCollections.observableArrayList(listaClientes2);
-            tableView2.setItems(clientes2);
-        } else {
-            mostrarAlerta("error", "La lista2 de clientes no es compatible");
-        }
-
-
-
-        
         Button volver = new Button();
         volver.setText("Volver");
         volver.setOnAction(new EventHandler<ActionEvent>() {
-            
+
             @Override
             public void handle(ActionEvent event) {
                 showClientesStage.close();
                 clienteStage.show();
             }
         });
+        
         VBox vbox = new VBox(10);
-        vbox.getChildren().addAll(titulo, volver);
         vbox.setAlignment(Pos.CENTER);
         root.getChildren().add(vbox);
         
+        if (tipo == "estandar") {
+            try {
+                Lista<ClienteEstandar> listaEstandar = this.miControlador.getListaClientesEstandar();
+                TableView<ClienteEstandar> tableView = new TableView<>();
+                TableColumn<ClienteEstandar, String> emailColumn = new TableColumn<>("Email");
+                TableColumn<ClienteEstandar, String> nombreColumn = new TableColumn<>("Nombre");
+                TableColumn<ClienteEstandar, String> domicilioColumn = new TableColumn<>("Domicilio");
+                TableColumn<ClienteEstandar, String> nifColumn = new TableColumn<>("Nif");
+                TableColumn<ClienteEstandar, String> cuotaColumn = new TableColumn<>("CuotaAnual");
+                TableColumn<ClienteEstandar, String> descuentoColumn = new TableColumn<>("dtoGtoEnvio");
+                TableColumn<ClienteEstandar, String> tipoCliCloumn = new TableColumn<>("tipoCliente");
+                tableView.getColumns().addAll(emailColumn, nombreColumn, domicilioColumn, nifColumn, cuotaColumn, descuentoColumn, tipoCliCloumn);
+
+                if (listaEstandar instanceof List) {
+                    List<ClienteEstandar> listaClientes1 = (List<ClienteEstandar>) listaEstandar;
+                    ObservableList<ClienteEstandar> clientes1 = FXCollections.observableArrayList(listaClientes1);
+                    tableView.setItems(clientes1);
+                    vbox.getChildren().addAll(titulo, tableView, volver);
+
+                } else {
+                    mostrarAlerta("error", "La lista1 de clientes no es compatible");
+                    vbox.getChildren().addAll(titulo, volver);
+                }
+            } catch (Exception e) {
+                mostrarAlerta("error", e.getMessage());
+                vbox.getChildren().addAll(titulo, volver);
+            }
+        } else if (tipo == "premium") {
+            try {
+                Lista<ClientePremium> listaPremium = this.miControlador.getListaClientesPremium();
+                TableView<ClientePremium> tableView = new TableView<>();
+
+                TableColumn<ClientePremium, String> emailColumn2 = new TableColumn<>("Email");
+                TableColumn<ClientePremium, String> nombreColumn2 = new TableColumn<>("Nombre");
+                TableColumn<ClientePremium, String> domicilioColumn2 = new TableColumn<>("Domicilio");
+                TableColumn<ClientePremium, String> nifColumn2 = new TableColumn<>("Nif");
+                TableColumn<ClientePremium, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
+                TableColumn<ClientePremium, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
+                TableColumn<ClientePremium, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
+
+                tableView.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2, cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
+
+                if (listaPremium instanceof List) {
+                    List<ClientePremium> listaClientes2 = (List<ClientePremium>) listaPremium;
+                    ObservableList<ClientePremium> clientes2 = FXCollections.observableArrayList(listaClientes2);
+                    tableView.setItems(clientes2);
+                    vbox.getChildren().addAll(titulo, tableView, volver);
+                } else {
+                    mostrarAlerta("error", "La lista de clientes no es compatible");
+                    vbox.getChildren().addAll(titulo, volver);
+                }
+            } catch (Exception e) {
+                mostrarAlerta("error", e.getMessage());
+                vbox.getChildren().addAll(titulo, volver);
+            }
+        } else {
+            try {
+                ListaClientes listaClientes = this.miControlador.getListaClientes();
+                TableView<Cliente> tableView = new TableView<>();
+
+                TableColumn<Cliente, String> emailColumn2 = new TableColumn<>("Email");
+                TableColumn<Cliente, String> nombreColumn2 = new TableColumn<>("Nombre");
+                TableColumn<Cliente, String> domicilioColumn2 = new TableColumn<>("Domicilio");
+                TableColumn<Cliente, String> nifColumn2 = new TableColumn<>("Nif");
+                TableColumn<Cliente, String> cuotaColumn2 = new TableColumn<>("CuotaAnual");
+                TableColumn<Cliente, String> descuentoColumn2 = new TableColumn<>("dtoGtoEnvio");
+                TableColumn<Cliente, String> tipoCliCloumn2 = new TableColumn<>("tipoCliente");
+                // Agrega más columnas según los atributos de tu clase Articulo
+                tableView.getColumns().addAll(emailColumn2, nombreColumn2, domicilioColumn2, nifColumn2, cuotaColumn2, descuentoColumn2, tipoCliCloumn2);
+
+                if (listaClientes instanceof List) {
+                    List<Cliente> lista = (List<Cliente>) listaClientes;
+                    ObservableList<Cliente> clientes1 = FXCollections.observableArrayList(lista);
+                    tableView.setItems(clientes1);
+
+                    vbox.getChildren().addAll(titulo, tableView, volver);
+                } else {
+                    mostrarAlerta("error", "La lista de clientes no es compatible");
+                    vbox.getChildren().addAll(titulo, volver);
+                }
+            } catch (Exception e) {
+                mostrarAlerta("error", e.getMessage());
+                vbox.getChildren().addAll(titulo, volver);
+            }
+        }
+
         Scene scene = new Scene(root, 300, 250);
         showClientesStage.setScene(scene);
         showClientesStage.setTitle("Mostrar clientes");
         showClientesStage.show();
-    }    
+    }
 }

@@ -1,18 +1,14 @@
 package grupofp.vista;
 
-import grupofp.controlador.Controlador;
-import grupofp.controlador.Main;
 import grupofp.modelo.Articulo;
-import grupofp.modelo.Datos;
+import grupofp.modelo.ListaArticulos;
 
-import java.lang.ModuleLayer.Controller;
 import java.time.Duration;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -61,17 +57,15 @@ public class FXArticulo extends FXMain {
         }
     }
 
-
-
     public void start(Stage mainMenu) {
         if (this.miControlador == null) {
             System.out.println("null inside");
         }
-        Text titulo = new Text(30, 30, "ÔøΩQue deseas hacer?");
+        Text titulo = new Text(30, 30, "ÒQue deseas hacer?");
         titulo.setStyle("-fx-font: 15 arial;");
 
         Button addArticulo = new Button();
-        addArticulo.setText("AÔøΩadir articulo");
+        addArticulo.setText("AÒadir articulo");
         addArticulo.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -93,8 +87,6 @@ public class FXArticulo extends FXMain {
 
             }
         });
-
- 
 
         Button volver = new Button();
         volver.setText("Volver");
@@ -123,7 +115,7 @@ public class FXArticulo extends FXMain {
     private void pantallaAddArticulo() {
         Stage addArticuloStage = new Stage();
         StackPane root = new StackPane();
-        Text titulo = new Text(30, 30, "AÔøΩadir articulo");
+        Text titulo = new Text(30, 30, "AÒadir articulo");
         titulo.setStyle("-fx-font: 15 arial;");
 
         TextField codigoArticulo = new TextField();
@@ -162,7 +154,7 @@ public class FXArticulo extends FXMain {
         boxGastosEnvio.setAlignment(Pos.BASELINE_LEFT);
 
         Button add = new Button();
-        add.setText("AÔøΩadir");
+        add.setText("AÒadir");
         add.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -198,7 +190,7 @@ public class FXArticulo extends FXMain {
 
         Scene scene = new Scene(root, 400, 300);
         addArticuloStage.setScene(scene);
-        addArticuloStage.setTitle("AÔøΩadir articulo");
+        addArticuloStage.setTitle("AÒadir articulo");
         addArticuloStage.show();
     }
 
@@ -217,22 +209,23 @@ public class FXArticulo extends FXMain {
         TableColumn<Articulo, String> gEnvioColumn = new TableColumn<>("GastosEnvio");
         // Agrega m√°s columnas seg√∫n los atributos de tu clase Articulo
 
-        tableView.getColumns().addAll(codigoColumn, descripcionColumn, pvpColumn, tiempoPrepColumn,gEnvioColumn);
+        tableView.getColumns().addAll(codigoColumn, descripcionColumn, pvpColumn, tiempoPrepColumn, gEnvioColumn);
 
         // Obt√©n la lista de art√≠culos desde la base de datos
-        var listaObjetos = this.miControlador.getListaArticulos();
-      //NOSE COMO HACER ESTO
+        try {
+            ListaArticulos listaObjetos = this.miControlador.getListaArticulos();
 
+            if (listaObjetos instanceof List) {
+                List<Articulo> listaArticulos = (List<Articulo>) listaObjetos;
+                ObservableList<Articulo> articulos = FXCollections.observableArrayList(listaArticulos);
+                tableView.setItems(articulos);
+            } else {
+                mostrarAlerta("error", "La lista de articulos no es compatible");
+            }
 
-        if (listaObjetos instanceof List) {
-            List<Articulo> listaArticulos = (List<Articulo>) listaObjetos;
-            ObservableList<Articulo> articulos = FXCollections.observableArrayList(listaArticulos);
-            tableView.setItems(articulos);
-        } else {
-            mostrarAlerta("error", "La lista de art√≠culos no es compatible");
+        } catch (Exception e) {
+            mostrarAlerta("error", e.getMessage());
         }
-
-
 
         Button volver = new Button();
         volver.setText("Volver");
@@ -254,9 +247,5 @@ public class FXArticulo extends FXMain {
         showArticuloStage.setTitle("Mostrar articulos");
         showArticuloStage.show();
     }
-
-
-        
-    	
 
 }
