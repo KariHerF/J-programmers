@@ -1,9 +1,11 @@
 package grupofp.vista;
 
 import grupofp.modelo.Articulo;
+import grupofp.modelo.Cliente;
 import grupofp.modelo.ListaArticulos;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import java.util.List;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -203,17 +206,27 @@ public class FXArticulo extends FXMain {
 
         TableView<Articulo> tableView = new TableView<>();
         TableColumn<Articulo, String> codigoColumn = new TableColumn<>("Codigo");
+        codigoColumn.setCellValueFactory(new PropertyValueFactory<>("codigo"));
+
         TableColumn<Articulo, String> descripcionColumn = new TableColumn<>("Descripcion");
+        descripcionColumn.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+
         TableColumn<Articulo, String> pvpColumn = new TableColumn<>("Pvp");
-        TableColumn<Articulo, String> tiempoPrepColumn = new TableColumn<>("TiempoPrep");
-        TableColumn<Articulo, String> gEnvioColumn = new TableColumn<>("GastosEnvio");
+        pvpColumn.setCellValueFactory(new PropertyValueFactory<>("pvp"));
+
+        TableColumn<Articulo, Long> tiempoPrepColumn = new TableColumn<>("TiempoPrep");
+        tiempoPrepColumn.setCellValueFactory(new PropertyValueFactory<>("tiempo_preparacion"));
+
+        TableColumn<Articulo, Float> gEnvioColumn = new TableColumn<>("GastosEnvio");
+        gEnvioColumn.setCellValueFactory(new PropertyValueFactory<>("gastosEnvio"));
         // Agrega más columnas según los atributos de tu clase Articulo
 
-        tableView.getColumns().addAll(codigoColumn, descripcionColumn, pvpColumn, tiempoPrepColumn, gEnvioColumn);
+        tableView.getColumns().addAll(codigoColumn, descripcionColumn, pvpColumn, gEnvioColumn, tiempoPrepColumn);
 
         // Obtén la lista de artículos desde la base de datos
         try {
             ListaArticulos listaObjetos = this.miControlador.getListaArticulos();
+
 
             if (listaObjetos instanceof List) {
                 List<Articulo> listaArticulos = (List<Articulo>) listaObjetos;
